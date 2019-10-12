@@ -1,0 +1,29 @@
+<!--pages/user/addmine/return/index.wxml-->
+<view class="page">
+
+    <view class="gou">
+        <image src="/images/loginTop.png"></image>
+    </view>
+
+    <view class="gonxi">恭喜您成为糯米芽 {{user.level_type}}</view>
+
+    <view class="huode">您获得一下特权</view>
+
+    <view class="btn-tequan">
+        <view wx:for="{{userPrivilege}}" wx:key="index">{{index+1}}. <text style="color:#f0af2c;">{{item.content}}</text></view>
+    </view>
+
+    <block wx:if="{{pro != ''}}">
+        <view class="btn-pro">您可以领取以下一个礼品套餐</view>
+
+        <view class="pro-box" wx:for="{{pro}}" wx:key="index">
+
+            <image src="{{item.photo}}"></image>
+            <view class="title">{{item.name}}</view>
+            <view class="price">原价：<text>¥{{item.price_before}}</text></view>
+            <view class="lingqu" bindtap="ongetTap" data-proid="{{item.pro_id}}">领取</view>
+
+        </view>
+    </block>
+
+</view>

@@ -1,0 +1,420 @@
+/* pages/article/detail/index.wxss */
+img{border:none;}
+.page{
+    width:100%;
+    background: #eeeeee;
+    /* padding-bottom: 60px; */
+    /* height:100%; */
+    box-sizing: border-box;
+    position: absolute;
+    padding-bottom: 28%;
+}
+
+.cover {
+    width:100%;
+    height:300rpx;
+}
+
+.btn-art {
+    width:100%;
+    background-color: #fff;
+    float:left;
+}
+
+.titles {
+    width:92%;
+    margin:20rpx auto;
+    font-size: 30rpx;
+    line-height: 44rpx;
+    letter-spacing: 4rpx;
+    text-align: center;
+}
+
+
+/* 内容 */
+.content {
+    width:92%;
+    margin-left:5%;
+    font-size:26rpx;
+    margin-top: 60rpx;
+}
+
+/* 点赞、收藏、分享 */
+.art-bottom {
+    width:100%;
+    /* height:120rpx; */
+    display: flex;
+    align-items: flex-end; /*底部对齐*/
+    justify-content: space-between; /*两端对齐*/
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    bottom: 9.5%;
+}
+.art-bottom .bottom-click {
+    width:33.33333%;
+    margin:0;
+    padding:0;
+    background-color: #fff;
+    border:none;
+    border-radius: 0;
+    opacity: 0.9;
+}
+.art-bottom .bottom-click image {
+    width:60rpx;
+    height:60rpx;
+    display:block;
+    margin:2% auto;
+}
+.art-bottom .bottom-click  view {
+    font-size: 30rpx;
+    color:#999999;
+    text-align: center;
+    line-height: 58rpx;
+}
+
+
+
+
+
+/* 推荐文章 */
+.btn-recommend {
+    width:100%;
+    height: 640rpx;
+    background: #fff;
+    float:left;
+    padding-bottom:55px;
+    /* margin-bottom: 55px; */
+}
+
+.btn-recommend .recommend-action {
+    width:100%;
+    height:60rpx;
+    border-bottom: 2rpx solid #eeeeee;
+    font-size: 30rpx;
+    line-height:64rpx;
+    letter-spacing: 4rpx;
+    text-indent: 4%;
+}
+
+.btn-recommend .action-box {
+    width:100%;
+    height:190rpx;
+    border-bottom: 2rpx solid #eeeeee;
+}
+
+.btn-recommend .action-box .action-cont {
+    width:92%;
+    height:86%;
+    float:left;
+    margin-top: 12rpx;
+    margin-left: 4%;
+    position: relative;
+}
+
+.btn-recommend .action-box .action-cont .cont-left {
+    width:64%;
+    float: left;
+}
+
+.btn-recommend .action-box .action-cont .cont-left .title {
+    width:100%;
+    font-size: 28rpx;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.btn-recommend .action-box .action-cont .cont-left .cont-left-bottom {
+    width:100%;
+    /* height:70rpx; */
+    position: absolute;
+    left:0%;
+    bottom:0%;
+}
+
+.btn-recommend .action-box .action-cont .cont-left .cont-left-bottom .cont-left-bottom-see {
+    font-size: 26rpx;
+    color:#9b9b9b;
+    margin-top: 14rpx;
+    float:left;
+}
+
+.btn-recommend .action-box .action-cont .cont-left .cont-left-bottom .cont-left-bottom-like {
+    font-size: 26rpx;
+    color:#9b9b9b;
+    margin-top: 14rpx;
+    margin-left: 20rpx;
+    float:left;
+}
+
+.btn-recommend .action-box .action-cont .cont-right {
+    width:32%;
+    height:100%;
+    border-radius: 7%;
+    float:right;
+}
+
+.btn-recommend .action-refresh {
+    width:100%;
+    height: 50rpx;
+    font-size: 26rpx;
+    color:#666;
+    text-align: center;
+    margin-top: 20rpx;
+}
+.btn-recommend .action-refresh image {
+    width:26rpx;
+    height:26rpx;
+}
+.btn-recommend .hover-bg {
+    color: #f5a6bc;
+}
+
+
+
+
+
+/* 评论--start */
+.btn-bottom {
+    width:100%;
+    background-color: #fff;
+    float:left;
+    margin-bottom: 5%;
+}
+.episode {
+    width:100%;
+    height: 60rpx;
+    margin-top: 21rpx;
+}
+.episode .count {
+    width:20%;
+    height: 30rpx;
+    float:left;
+    font-size: 28rpx;
+    color:#666666;
+    margin-left: 30rpx;
+}
+.episode .select {
+    float:right;
+    font-size: 28rpx;
+    color:#666666;
+    margin-right: 30rpx;
+}
+.episode .select image {
+    width:28rpx;
+    height:28rpx;
+    margin-top: -5rpx;
+}
+
+.btn-comment {
+    width:90%;
+    height:310rpx;
+    margin:0rpx auto;
+}
+.btn-comment image {
+    width:80rpx;
+    height:80rpx;
+    border-radius:100%;
+    float:left;
+}
+.btn-comment .comment-box {
+    width:85%;
+    height:100%;
+    float:right;
+}
+.btn-comment .comment-box .comment-name {
+    font-size: 28rpx;
+    color:#333333;
+}
+.btn-comment .comment-box .comment-content {
+    font-size: 26rpx;
+    color:#333333;
+    line-height: 44rpx;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.btn-comment .comment-box .comment-bg {
+    width:100%;
+    height:auto;
+    background-color: #eeeeee;
+    margin-top: 20rpx;
+}
+.btn-comment .comment-box .comment-bg .comment-bg-say {
+    color:#44b5f6;
+    font-size: 26rpx;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    line-height: 60rpx;
+}
+.btn-comment .comment-box .comment-bg .comment-bg-say text {
+    font-size: 26rpx;
+    color:#727272;
+}
+.btn-comment .comment-box .comment-bottom {
+    width:100%;
+    height:50rpx;
+    margin-top: 20rpx;
+    border-bottom:2rpx solid #c2c2c2;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-like {
+    width:33.3333%;
+    height:auto;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-like image {
+    width:40rpx;
+    height:40rpx;
+    float:left;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-like text {
+    font-size: 30rpx;
+    color:#666;
+    float:left;
+    margin-left: 10rpx;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-comment {
+    width:22%;
+    height:40rpx;
+    float:left;
+    margin-left: 30rpx;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-comment image {
+    width:40rpx;
+    height:40rpx;
+    float:left;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-comment text {
+    font-size: 30rpx;
+    color:#666;
+    float:left;
+    margin-left: 10rpx;
+}
+.btn-comment .comment-box .comment-bottom .comment-bottom-time {
+    float:right;
+    font-size: 28rpx;
+    color:#666;
+}
+/* 评论--end */
+
+
+
+/* 发表评论--start */
+.release{
+    /* height:100rpx; */
+    display: flex;
+    align-items: flex-end; /*底部对齐*/
+    justify-content: space-between; /*两端对齐*/
+    box-sizing: border-box;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #F7F8F7;
+    font-size: 28rpx;
+    z-index: 999;
+    padding: 2% 0%;
+}
+.release .text{
+    width: 534rpx;
+    /* min-height: 34rpx; */
+    max-height: 102rpx; /*最多显示三行*/
+    border-width: 10rpx 20rpx; /*使用padding与预期留白不一致，故使用border*/
+    border-style: solid;
+    border-color: #ffffff;
+    font-size: 28rpx;
+    background-color: #ffffff;
+    border-radius: 4rpx;
+    margin-left: 20rpx;
+    margin-bottom: 2%;
+}
+.release .submit{
+    width: 116rpx;
+    height: 64rpx;
+    /* line-height: 64rpx; */
+    text-align: center;
+    color: #66CC00;
+    font-size: 28rpx;
+    margin-right: 3%;
+    margin-bottom: 2%;
+}
+.release .hover-bg {
+    background-color: #eeeeee;
+    color:#618e70;
+    font-size: 30rpx;
+}
+/* 发表评论--end */
+
+
+
+/* 套餐点击--start */
+.btn-combo {
+    display: flex;
+    align-items: flex-end; /*底部对齐*/
+    justify-content: space-between; /*两端对齐*/
+    box-sizing: border-box;
+    position: fixed;
+    right: 0;
+    top: 31%;
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 100%;
+}
+.btn-combo .combo-view {
+    width:100%;
+    height:100%;
+    font-size: 24rpx;
+}
+.btn-combo .combo-view image {
+    width:100%;
+    height:100%;
+    opacity: 0.9;
+    
+}
+.combo-box {
+    width:100%;
+    background-color: #d17c9f;
+    position: fixed;
+    right: 0%;
+    bottom: 18%;
+    border-radius:14rpx;
+}
+.combo-box .combo-nameOne {
+    width: 50%;
+    height:200rpx;
+    margin:0% auto;
+    border-radius:14rpx;
+}
+.combo-box .combo-nameTwo {
+    float:left;
+    width: 48%;
+    height:200rpx;
+    margin:2% 1%;
+    border-radius:14rpx;
+}
+.combo-box .combo-nameThr {
+    float:left;
+    width: 31%;
+    height:200rpx;
+    margin:2% 1%;
+    border-radius:14rpx;
+}
+.combo-box .combo-nameFor {
+    float:left;
+    width: 48%;
+    height:200rpx;
+    margin:2% 1%;
+    border-radius:14rpx;
+}
+/* 套餐点击--end */

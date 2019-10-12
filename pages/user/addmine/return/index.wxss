@@ -1,0 +1,95 @@
+/* pages/user/addmine/return/index.wxss */
+.page{
+  width:100%;
+}
+
+.gou {
+    width:141rpx;
+    height:141rpx;
+    margin: 6% auto 4%;
+    text-align: center;
+}
+.gou image {
+    width:100%;
+    height:100%;
+}
+
+.gonxi {
+    font-size: 22px;
+    color: #f5a6bc;
+    text-align: center;
+}
+
+.huode {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.btn-tequan {
+    width:90%;
+    margin: 10rpx 5%;
+    padding: 2% 0;
+    background-color:fff;
+    border-radius: 15rpx;
+    box-shadow:2px 2px 5px #000;
+}
+
+.btn-tequan view {
+    font-size: 30rpx;
+    margin-left: 2%;
+}
+
+.btn-pro {
+    font-size: 20px;
+    color:aquamarine;
+    text-align: center;
+    margin-top: 3%;
+}
+
+.pro-box {
+    width:90%;
+    height:230rpx;
+    margin: 4% auto;
+    border-radius: 15rpx;
+    box-shadow:2px 2px 5px #000;
+    position: relative;
+}
+
+.pro-box image {
+    width:44%;
+    height:98%;
+    float:left;
+    border-radius: 14rpx;
+    margin-top: 0.2%;
+}
+
+.title {
+    width:52%;
+    font-size: 28rpx;
+    margin-left: 2%;
+    float:left;
+}
+
+.price {
+    font-size: 28rpx;
+    position: absolute;
+    top:56%;
+    right: 30%;
+}
+
+.price text {
+    font-size: 30rpx;
+    color:#f5a6bc;
+}
+
+.lingqu {
+    font-size: 32rpx;
+    color: #fff;
+    background-color: #f5a6bc;
+    padding:1% 5%;
+    position: absolute;
+    bottom:8%;
+    right:4%;
+    border-radius: 10rpx;
+}

@@ -1,0 +1,138 @@
+/* pages/article/comment/index.wxss */
+.page{
+  width:100%;
+  background: #000;
+  padding-bottom: 60px;
+  /* height:100%;
+  box-sizing: border-box; */
+  position: absolute;
+}
+.commodity-more{
+  width:  100%;
+  height: 70rpx;
+  position: relative;
+  border-bottom: 2rpx solid #fff;
+}
+.commodity-more .more-count {
+  color:#fff;
+  font-size: 30rpx;
+  text-align: center;
+  margin-top: 2%;
+}
+.commodity-more .more-cha{
+  width:50rpx;
+  height:50rpx;
+  position:absolute;
+  top:0rpx;
+  right:22rpx;
+  color:#fff;
+}
+
+/* 评论内容--start */
+.box {
+    width:92%;
+    height:300rpx;
+    margin:30rpx 4%;
+}
+.box .box-img {
+    width:12%;
+    height:60rpx;
+    float:left;
+    text-align: center;
+}
+.box .box-img image {
+    width:60rpx;
+    height: 60rpx;
+    border-radius: 100%;
+    margin: 0 auto；
+}
+.box .box-conn {
+    width:75%;
+    float:left;
+}
+.box .box-conn .conn-name {
+    width:100%;
+    font-size: 26rpx;
+    color:#fff;
+}
+.box .box-conn .conn-content {
+    width:100%;
+    font-size: 28rpx;
+    color:#fff;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.box .box-conn .conn-time {
+    width:100%;
+    font-size: 26rpx;
+    color:#fff;
+}
+.box .box-like {
+    width:13%;
+    float:left;
+    text-align: center;
+}
+.box .box-like image {
+    width:40rpx;
+    height:40rpx;
+    margin:0 auto;
+    border-radius: 100%;
+}
+.box .box-like view {
+    font-size:28rpx;
+    color:#fff;
+    text-align: center;
+    line-height: 50rpx;
+}
+/* 评论内容--end */
+
+
+
+/* 发表评论--start */
+.release{
+display: flex;
+align-items: flex-end; /*底部对齐*/
+justify-content: space-between; /*两端对齐*/
+box-sizing: border-box;
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+padding: 18rpx 0 18rpx 30rpx;
+background-color: #F7F8F7;
+font-size: 28rpx;
+z-index: 999;
+}
+.release .text{
+width: 534rpx;
+min-height: 34rpx;
+max-height: 102rpx; /*最多显示三行*/
+border-width: 15rpx 20rpx; /*使用padding与预期留白不一致，故使用border*/
+border-style: solid;
+border-color: #ffffff;
+line-height: 34rpx;
+font-size: 28rpx;
+background-color: #ffffff;
+border-radius: 4rpx;
+}
+.release .submit{
+width: 116rpx;
+height: 64rpx;
+line-height: 64rpx;
+text-align: center;
+color: #66CC00;
+font-size: 28rpx;
+margin-right: 3%;
+margin-top: 1%;
+}
+.release .hover-bg {
+    background-color: #eeeeee;
+    color:#618e70;
+    font-size: 30rpx;
+}
+/* 发表评论--end */

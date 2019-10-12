@@ -1,0 +1,282 @@
+/* pages/product/pay/notify/index.wxss */
+.page{
+    width:100%;
+    background: #eeeeee;
+    padding-bottom: 60px;
+    /* height:100%;
+    box-sizing: border-box; */
+    position: absolute;
+}
+
+.btn-top {
+    width:100%;
+    height:175rpx;
+    background-color: #fff;
+    border-bottom: 1px solid #eeeeee;
+}
+.btn-top .top-box {
+    display: inline-block;
+    width:90%;
+    height:90rpx;
+    margin:40rpx 5%;
+}
+.btn-top .top-box image {
+    width:90rpx;
+    height:90rpx;
+    float:left;
+    border-radius: 100%;
+}
+.btn-top .top-box .top-box-one {
+    width:80%;
+    float:left;
+    font-size: 28rpx;
+    font-weight: bold;
+    margin-left: 30rpx;
+}
+.btn-top .top-box .top-box-two {
+    width:80%;
+    float:left;
+    font-size: 24rpx;
+    color:#424242;
+    margin-left: 30rpx;
+    line-height: 66rpx;
+}
+
+
+.btn-top2 {
+    width:100%;
+    height:205rpx;
+    padding-bottom: 30rpx;
+    background-color: #fff;
+}
+.btn-top2 .top-box {
+    display: inline-block;
+    width:90%;
+    margin:40rpx 5%;
+}
+.btn-top2 .top-box image {
+    width:90rpx;
+    height:90rpx;
+    float:left;
+    border-radius: 100%;
+    margin-top: 22rpx;
+}
+.btn-top2 .top-box .top-box-one {
+    width:80%;
+    float:left;
+    font-size: 28rpx;
+    font-weight: bold;
+    margin-left: 30rpx;
+}
+.btn-top2 .top-box .top-box-two {
+    width:80%;
+    float:left;
+    font-size: 24rpx;
+    color:#424242;
+    margin-left: 30rpx;
+    line-height: 46rpx;
+}
+.btn-top2 .top-box .top-box-thr {
+    width:80%;
+    float:left;
+    font-size: 24rpx;
+    color:#424242;
+    margin-left: 30rpx;
+    line-height: 46rpx;
+}
+
+
+
+/* --------------商品--start---------------- */
+.btn-box {
+    width:100%;
+    height:370rpx;
+    background-color: #fff;
+    margin:20rpx auto;
+    position: relative;
+}
+
+.btn-box .box-mid {
+    width:92%;
+    height:130rpx;
+    margin-left: 4%;
+    padding:44rpx 0;
+}
+.btn-box .box-mid image {
+    width:130rpx;
+    height:130rpx;
+    float:left;
+    border-radius: 15rpx;
+}
+.btn-box .box-mid .box-mid-right {
+    width:64%;
+    height:100%;
+    float:left;
+    margin-left: 4%;
+    position: relative;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-top {
+    width:120%;
+    float:left;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-top .top-left {
+    width:70%;
+    font-size: 24rpx;
+    float:left;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-top .box-mid-right-top-right {
+    width:25%;
+    float:right;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-top .box-mid-right-top-right .one {
+    width:100%;
+    font-size: 24rpx;
+    float:right;
+    text-align: right;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-top .box-mid-right-top-right .two {
+    font-size: 22rpx;
+    line-height: 50rpx;
+    color:#747474;
+    float: right;
+}
+
+.btn-box .box-mid .box-mid-right .box-mid-right-bottom {
+    width:100%;
+    position: absolute;
+    top: 50rpx;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-bottom image {
+    width:24rpx;
+    height:24rpx;
+    float:left;
+    border-radius: 100%;
+    margin-top: 4rpx;
+}
+.btn-box .box-mid .box-mid-right .box-mid-right-bottom view {
+    font-size: 22rpx;
+    color:#747474;
+    float: float;
+    text-indent: 5rpx;
+}
+
+
+
+.btn-box .box-bom {
+    font-size: 26rpx;
+    border: 1rpx solid #747474;
+    color:#747474;
+    float:right;
+    padding: 9rpx 19rpx;
+    border-radius: 30rpx;
+    margin-right: 4%;
+}
+
+.btn-box .hover-bg {
+    color:#fff;
+    background-color: #f5a6bc;
+    border: 0;
+}
+
+.btn-box .box-bottom {
+    width:92%;
+    margin-top: 90rpx;
+    margin-left: 4%;
+}
+.btn-box .box-bottom .box-bottom-left {
+    float:left;
+    font-size: 24rpx;
+}
+.btn-box .box-bottom .box-bottom-right {
+    float:right;
+    font-size: 24rpx;
+}
+.btn-box .box-bottom .box-bottom-right text {
+    color:#f5a6bc
+}
+/* --------------商品--end---------------- */
+
+
+
+/* --------------订单信息--start---------------- */
+.btn-order {
+    width:100%;
+    background-color: #fff;
+    padding: 30rpx 4%;
+}
+.btn-order .order-title {
+    width:90%;
+    font-size: 28rpx;
+    font-weight: bold;
+
+}
+.btn-order .order-together {
+    width:90%;
+    font-size: 24rpx;
+    color:#666666;
+    margin-top: 10rpx;
+}
+.btn-order .order-sn text {
+    margin-left: 20rpx;
+}
+/* --------------订单信息--end---------------- */
+
+
+.btn-fix {
+    width:100%;
+    height:100rpx;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,0,0);
+    transform: translate3d(-50%,0,0);
+    overflow: hidden;
+    border-top: #eceded;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+}
+.btn-fix .fix-one {
+    float:right;
+    font-size:28rpx;
+    border:1rpx solid #f5a6bc;
+    border-radius: 35rpx;
+    background-color: #fff;
+    color:#f5a6bc;
+    padding: 15rpx 30rpx;
+    margin-right:4%;
+    margin-top:16rpx;
+}
+.btn-fix .fix-two {
+    float:right;
+    font-size:28rpx;
+    border:1rpx solid #a4acb2;
+    border-radius: 35rpx;
+    background-color: #fff;
+    color:#a4acb2;
+    padding: 15rpx 30rpx;
+    margin-right:4%;
+    margin-top:16rpx;
+}
+.btn-fix .fix-the {
+    float:right;
+    font-size:28rpx;
+    border:1rpx solid #a4acb2;
+    border-radius: 35rpx;
+    background-color: #fff;
+    color:#a4acb2;
+    padding: 15rpx 30rpx;
+    margin-right:4%;
+    margin-top:16rpx;
+}
+.btn-fix hover-btn {
+    background-color:#f5a6bc;
+    border:0;
+    color:#fff;
+}

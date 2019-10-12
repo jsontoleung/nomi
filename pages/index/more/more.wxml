@@ -1,0 +1,33 @@
+<!--pages/index/more/more.wxml-->
+<view class="page">
+
+    <view class="btn-box" wx:for="{{lists}}" wx:key="index">
+
+          <view class="type">{{item.name}}</view>
+
+          <navigator class="box-con" wx:for="{{item.voice}}" wx:for-item="val" wx:key="keys" url="/pages/article/detail/index?id={{val.voice_id}}">
+          
+            <view>
+
+              <image src="{{val.cover}}"/>
+
+              <view class="title">{{val.title}}</view>
+
+              <view class="con-bottom">
+              
+                <image src="{{val.anchor_headimg}}"/>
+
+                <text class="name">{{val.anchor_name}}{{val.anchor_job}}</text>
+                <text class="school">{{val.anchor_school}}</text>
+
+                <view class="num">{{val.play_num}}人浏览</view>
+              
+              </view>
+
+            </view>
+          
+        </navigator>
+        
+    </view>
+
+</view>

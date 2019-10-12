@@ -1,0 +1,60 @@
+<view class="footer">
+  <view class="ul">
+    <view class="li">
+      <navigator class="nav-controller a" url="/pages/index/index"  redirect  hover-class="a-hover">
+        <view class="fb-home">
+          <block wx:if="{{homeActive == 1}}">
+            <image src="/images/home/home_after.png"></image>
+            <view class="fb-names">首页</view>
+          </block>
+          <block wx:else>
+            <image src="/images/home/home_before.png"></image>
+            <view class="fb-name">首页</view>
+          </block>
+        </view>
+      </navigator>
+    </view>
+    <!-- <view class="li">
+      <navigator class="nav-controller a" url="/pages/category/home/index"  redirect hover-class="a-hover">
+        <view class="fb-group">
+          <block wx:if="{{homeActive == 2}}">
+            <image src="/images/home/cate_after.png"></image>
+            <view class="fb-names">频道</view>
+          </block>
+          <block wx:else>
+            <image src="/images/home/cate_before.png"></image>
+            <view class="fb-name">频道</view>
+          </block>
+        </view>
+      </navigator>
+    </view> -->
+    <view class="li">
+      <navigator class="nav-controller a" url="/pages/product/index/index"  redirect hover-class="a-hover">
+        <view class="fb-group">
+          <block wx:if="{{homeActive == 3}}">
+            <image src="/images/home/haowu_after.png"></image>
+            <view class="fb-names">糯米臻选</view>
+          </block>
+          <block wx:else>
+            <image src="/images/home/haowu_before.png"></image>
+            <view class="fb-name">糯米臻选</view>
+          </block>
+        </view>
+      </navigator>
+    </view>
+    <view class="li">
+      <navigator class="nav-controller a" url="/pages/user/user/index" redirect hover-class="a-hover">
+        <view class="fb-user">
+          <block wx:if="{{homeActive == 4}}">
+            <image src="/images/home/my_after.png"></image>
+            <view class="fb-names">我的</view>
+          </block>
+          <block wx:else>
+            <image src="/images/home/my_before.png"></image>
+            <view class="fb-name">我的</view>
+          </block>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,212 @@
+<!--pages/user/user.wxml-->
+<view class="pages">
+  
+    <view class="btn-header">
+        
+        <image class="bgcolor" src="/images/users/bg.png"></image>
+
+        <view class="header-box">
+
+            <image src="{{user.headimg}}"></image>
+
+            <view class="header-info">
+
+                <view class="header-info-btn">
+                    <text class="header-info-name">{{user.nickname}}</text>
+                </view>
+                
+                <view class="header-info-btn margintop">
+                    <text class="header-info-level">{{user.level_type}}</text>
+                </view>
+
+            </view>
+
+        </view>
+        <view wx:if="{{uid}}" class="header-add" bindtap="popupShow">加入我们</view>
+        <navigator wx:else class="header-add" url="/pages/login/login">点击授权登陆</navigator>
+
+    </view>
+
+  
+    <view class="btn-middle">
+        <!-- 订单--start -->
+        <view class="middle-order-name">我的订单</view>
+        <view class="middle-order-box">
+        <navigator class="middle-order-box-img" url="/pages/order/master/index?type=1">
+            <image src="/images/users/wite_pay.png"></image>
+            <view>待付款</view>
+        </navigator>
+        <navigator class="middle-order-box-img" url="/pages/order/master/index?type=2">
+            <image src="/images/users/wite_sand.png"></image>
+            <view>待发货</view>
+        </navigator>
+        <navigator class="middle-order-box-img" url="/pages/order/master/index?type=3">
+            <image src="/images/users/wite_take.png"></image>
+            <view>待收货</view>
+        </navigator>
+        <navigator class="middle-order-box-img" url="/pages/order/master/index?type=4">
+            <image src="/images/users/refund.png"></image>
+            <view>退款</view>
+        </navigator>
+        </view>
+        <!-- 订单--end -->
+
+        <!-- 课程--start -->
+        <view class="middle-course-name">我的课程</view>
+        <view class="middle-course-box">
+            <navigator class="middle-course-box-img" url="/pages/user/study/index?keys=0">
+            <image src="/images/users/study.png"></image>
+            <view>最近学习</view>
+            </navigator>
+            <navigator class="middle-course-box-img" url="/pages/user/study/index?keys=1">
+            <image src="/images/users/buy.png"></image>
+            <view>我的购买</view>
+            </navigator>
+            <navigator class="middle-course-box-img" url="/pages/user/study/index?keys=2">
+            <image src="/images/users/collect.png"></image>
+            <view>我的收藏</view>
+            </navigator>
+            <navigator class="middle-course-box-img" url="/pages/user/study/index?keys=3">
+            <image src="/images/users/care.png"></image>
+            <view>我的关注</view>
+            </navigator>
+        </view>
+        <!-- 课程--end -->
+    </view>
+
+    <view class="btn-bottom">
+    
+        <navigator class="bottom-box" url="/pages/order/car/index">
+        <image src="/images/users/shopcar.png"></image>
+        <view class="bottom-boxcolumn" >
+            <view class="bottom-boxcolumn-name">购 物 车</view>
+            <image src="/images/users/jiantou.png"></image>
+        </view>
+        </navigator>
+    
+    </view>
+
+    <view class="btn-bottom">
+
+        <view class="bottom-box" bindtap="onMyteam">
+            <image src="/images/users/team.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">我的芽粉</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </view>
+
+        <view class="bottom-box" bindtap="onMyuser">
+            <image src="/images/users/user.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">芽粉俱乐部</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </view>
+
+        <navigator class="bottom-box" url="/pages/user/income/index">
+            <image src="/images/users/income.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">我的种草奖励金</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </navigator>
+
+        <navigator class="bottom-box" url="/pages/product/area/index">
+            <image src="/images/users/daka.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">收货地址</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </navigator>
+
+        <!-- <view class="bottom-box" bindtap="onPunch">
+            <image src="/images/users/daka.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">每日打卡</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </view> -->
+
+        <view class="bottom-box" bindtap="showQrcode">
+            <image src="/images/comment/xin_after.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">分享个人名片</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </view>
+        
+    </view>
+
+    <view class="btn-bottom">
+    
+        <navigator class="bottom-box" url="/pages/user/comment/index">
+            <image src="/images/users/comment.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">我的评论</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </navigator>
+
+        <view class="bottom-box" bindtap="onService">
+            <image src="/images/users/server.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">客服服务</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </view>
+    
+    </view>
+
+  
+
+</view>
+<include src="../../public/foot.wxml"/>
+
+<!-- 弹窗 -->
+<block wx:if="{{user.level <= 4}}">
+    <view class="btn-popup" wx:if="{{showModal}}">
+        <view bindtap="popupHide"><image class="deletes" src="/images/delete.png"></image></view>
+        <view class="popup-box" hover-class="hover-box" wx:for="{{level}}" wx:key="index" bindtap="buyUser" data-type="{{item.level_id}}">
+            <view class="user-name">{{item.level_type}}</view>
+            <view class="user-money">¥{{item.money}}</view>
+            <view class="user-title">平台商品{{item.pick_price}}</view>
+        </view>
+    </view>
+</block>
+<block wx:else>
+    <view class="btn-popup" wx:if="{{showModal}}">
+        <view bindtap="popupHide"><image class="deletes" src="/images/delete.png"></image></view>
+        <view class="user-call">升级会员请联系客服</view>
+    </view>
+</block>
+
+
+<!-- 客服弹窗 -->
+<view class="modalDlg" catchtouchmove='preventTouchMove' wx:if='{{showService}}'>
+    <view class='windowRow'>
+        <text class='userTitle'>请给出你建议
+    </text>
+        <view class='back' bindtap='back'>
+        返回
+        </view>
+    </view>
+    <view class='wishName'>
+        <input bindinput='wish_put' placeholder='请输入内容' class='wish_put'></input>
+    </view>
+    <view class='wishbnt'>
+        <button class='wishbnt_bt' bindtap='ok'>确定</button>
+    </view>
+</view>
+
+
+<!-- 个人名片弹窗 -->
+<view class="btn-popup" wx:if="{{showQrcode}}">
+    <view bindtap="popupHide"><image class="deletes" src="/images/delete.png"></image></view>
+    <view class="popup-code-one" hover-class="hover-box" bindtap="getQrcode">
+        <view class="code-name">名片分享</view>
+    </view>
+    <view class="popup-code-two" hover-class="hover-box">
+        <button open-type="share" class="code-name">分享好友</button>
+    </view>
+</view>

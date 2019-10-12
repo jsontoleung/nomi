@@ -1,0 +1,92 @@
+.page{
+  width:100%;
+  background-color: #f2f2f2;
+  padding-bottom: 60px;
+  height:100%;
+  box-sizing: border-box;
+  position: absolute;
+}
+.search {
+  width:100%;
+  display: inline-block;
+  background: #fff;
+}
+.btn-column {
+  width:25%;
+  height:48rpx;
+  float:left;
+}
+.btn-column view {
+  width:100%;
+  height:48rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
+.btn-column .column-hover {
+  border-bottom: 4rpx solid #f5a6bc;
+  color:#f5a6bc;
+}
+
+
+
+
+.btn-box {
+    width:92%;
+    height:150rpx;
+    margin:30rpx auto;
+    padding:30rpx 0;
+    border-radius: 10rpx;
+    background-color: #fff;
+    position: relative;
+}
+.btn-box .cover {
+    width:200rpx;
+    height:150rpx;
+    margin-left: 20rpx;
+    border-radius:4%;
+    float:left;
+}
+.btn-box .box-title {
+    width:61%;
+    font-size: 24rpx;
+    float:right;
+    margin-right: 4%;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.btn-box .num {
+    width:61%;
+    position: absolute;
+    right:4%;
+    bottom:32%;
+    font-size: 24rpx;
+    color:#020101;
+}
+
+.btn-box .box-bottom {
+    width:61%;
+    position: absolute;
+    right:4%;
+    bottom:12%;
+}
+.btn-box .box-bottom .time {
+    float:left;
+    font-size: 24rpx;
+    color:#9b9b9b;
+}
+.btn-box .box-bottom .look {
+    float:right;
+    font-size: 24rpx;
+    color:#9b9b9b;
+    margin-right: 20rpx;
+}
+.btn-box .box-bottom .like {
+    float:right;
+    font-size: 24rpx;
+    color:#9b9b9b;
+}

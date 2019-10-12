@@ -1,0 +1,71 @@
+<!--pages/user/member/index.wxml-->
+<view class="pages">
+
+    <view class="btn-bg">
+    
+        <view class="btn-box">
+        
+            <view class="box-top">
+                <image src="{{user.headimg}}"></image>
+                <view class="name">{{user.nickname}}</view>
+                <view class="level">
+                    <text class="level-one">芽粉等级：</text>
+                    <text class="level-two">{{user.level_type}}</text>
+                </view>
+            </view>
+
+            <view class="box-bom">
+                <!-- <block wx:if="{{user.level == 6}}">
+                    <text class="bom-left">您已是最高芽粉</text>
+                </block>
+                <block wx:else> -->
+                    <text class="bom-left">开通{{nextUser}}，将享受更多优惠特权！</text>
+                    <block wx:if="{{user.level == 5}}">                    
+                        <view class="bom-right">暂未开放</view>
+                    </block>
+                    <block wx:else>
+                        <view class="bom-right" bindtap="buyUser">立即开通</view>
+                    </block>
+                <!-- </block> -->
+            </view>
+        
+        </view>
+
+    </view>
+
+    <view style="width:100%;height:70rpx;bakcground-color:#f2f2f2;"></view>
+    <!-- 本身特权 -->
+    <view class="btn-my" wx:if="{{user.level > 1}}">
+    
+        <view style="font-size:32rpx;margin-left:5%;">您已享有的特权</view>
+
+        <view class="my-box">
+
+            <view class="my-con" wx:for="{{userPrivilege}}" wx:key="index">
+                <view class="my-yuan">{{index+1}}</view>
+                <text class="my-title">{{item.content}}</text>
+            </view>
+            
+        </view>
+    
+    </view>
+
+
+    <!-- 下级特权 -->
+    <view class="btn-my" wx:if="{{user.level <= 6}}">
+
+        <view style="font-size:32rpx;margin-left:5%;">开通{{nextUser}}将享有的特权</view>
+
+        <view class="my-box">
+
+            <view class="my-con-two" wx:for="{{nextPrivilege}}" wx:key="index">
+                <view class="my-yuan-two">{{index+1}}</view>
+                <text class="my-title-two">{{item.content}}</text>
+            </view>
+            
+        </view>
+    
+    </view>
+
+
+</view>

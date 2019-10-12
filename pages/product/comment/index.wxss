@@ -1,0 +1,85 @@
+/* pages/product/comment/index,.wxss */
+.page{
+  width:100%;
+  background: #fff;
+  padding-bottom: 60px;
+  /* height:100%;
+  box-sizing: border-box; */
+  position: absolute;
+}
+
+.btn-top {
+    width:100%;
+    height:46rpx;
+}
+.btn-top view {
+    font-size: 28rpx;
+    background-color: #fad2dd;
+    color:#303030;
+    float:left;
+    margin-left: 30rpx;
+    margin-top: 30rpx;
+    text-align: center;
+}
+.btn-top view:nth-child(1) {
+    width:70rpx;
+}
+.btn-top view:nth-child(2) {
+    width:160rpx;
+}
+.btn-top view:nth-child(3) {
+    width:160rpx;
+}
+.btn-top view:nth-child(4) {
+    width:160rpx;
+}
+
+.btn-top .hover-btn {
+    background-color: #f5a6bc;
+    color:#fff;
+}
+
+
+.btn-com {
+    width:92%;
+    border-bottom: 1px solid #eeeeee;
+    float:left;
+    margin-top: 40rpx;
+    margin-left: 4%;
+}
+.btn-com .com-name {
+  width:100%;
+  height:50rpx;
+  margin: 30rpx auto;
+}
+.btn-com .com-name image {
+      width:50rpx;
+      height:50rpx;
+      border-radius: 100%;
+      float:left;
+}
+.btn-com .com-name text {
+      font-size: 26rpx;
+      color:#888;
+      float:left;
+      margin-left: 10rpx;
+      margin-top: 6rpx;
+}
+.btn-com .com-title {
+      line-height: 36rpx;
+      font-size: 24rpx;
+      /* display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      white-space: normal !important;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical; */
+}
+.btn-com .com-time {
+    width:100%;
+    margin: 0rpx auto 0;
+    font-size: 24rpx;
+    color:#888;
+    line-height: 60rpx;
+}

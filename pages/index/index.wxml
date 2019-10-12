@@ -1,0 +1,45 @@
+<view class="page">
+  <view class="search">
+    <navigator class="name" url="/pages/search/index">99元限时特惠礼包</navigator>
+    <image src="/images/home/search.png"></image>
+  </view>
+
+    <swiper indicator-dots="true" autoplay="true" interval="5000">
+
+        <swiper-item wx:for="{{lists}}" wx:key="index">
+
+          <view class="type">{{item.name}}</view>
+
+          <navigator class="box-con" wx:for="{{item.voice}}" wx:for-item="val" wx:key="keys" url="/pages/article/detail/index?id={{val.voice_id}}">
+          
+            <view>
+
+              <image src="{{val.cover}}"/>
+
+              <view class="title">{{val.title}}</view>
+
+              <view class="con-bottom">
+
+                <text class="name">{{val.info}}</text>
+
+                <view class="num">{{val.play_num}}人浏览</view>
+              
+              </view>
+
+            </view>
+          
+          </navigator>
+
+          <navigator class="more" url="/pages/index/more/more?cid={{item.id}}">查看更多></navigator>
+        
+        </swiper-item>
+
+    </swiper>
+
+</view>
+<include src="../public/foot.wxml"/>
+
+<view class="btn-popup" wx:if="{{pop}}">
+    <view bindtap="popupHide"><image class="deletes" src="/images/deletes.png"></image></view>
+    <view bindtap="onPop"><image class="cover" src="{{adver}}"></image></view>
+</view>

@@ -1,0 +1,72 @@
+<!--pages/product/pay/notify/index.wxml-->
+<view class="page">
+
+    <view class="btn-top">
+        <view class="top-box">
+            <image src="/images/order/che.png" />
+            <view class="top-box-one">等待卖家发货</view>
+            <view class="top-box-two">还剩7天1小时自动确认</view>
+        </view>
+    </view>
+
+     <view class="btn-top2">
+        <view class="top-box">
+            <image src="/images/order/dingwei.png" />
+            <view class="top-box-one">收货人：{{order[0].shipping_user}}</view>
+            <view class="top-box-two">电话： {{order[0].shipping_phone}}</view>
+            <view class="top-box-thr">收货地址：{{order[0].province}}{{order.city}}{{order.area}}{{order.address}}</view>
+        </view>
+    </view>
+
+    <!-- 商品--start -->
+    <view class="btn-box" wx:for="{{order}}" wx:key="index">
+
+        <view class="box-mid">
+
+            <image src="{{item.photo}}"/>
+
+            <view class="box-mid-right">
+                <view class="box-mid-right-top">
+                    <text class="top-left">{{item.pro_name}}</text>
+                    <view class="box-mid-right-top-right">
+                        <text class="one">¥{{item.price_after}}</text>
+                        <text class="two">×{{item.product_cnt}}</text>
+                    </view>
+                </view>
+                <view class="box-mid-right-bottom">
+                    <block wx:for="{{item.pledge_type}}" wx:key="index" wx:for-item="val">
+                        <image class="gougou" src="/images/product/gou.png" />
+                        <view>{{val}}</view>
+                    </block>
+                </view>
+            </view>
+
+        </view>
+        
+        <view class="box-bom" hover-class="hover-bg">退款</view>
+
+        <view class="box-bottom">
+            <text class="box-bottom-left">实付款 (含运费)</text>
+            <view class="box-bottom-right">总计：<text>¥ {{item.payment_money}}</text></view>
+        </view>
+    
+    </view>
+    <!-- 商品--end -->
+
+    <!-- 订单信息--start -->
+    <view class="btn-order">
+        <view class="order-title">订单信息</view>
+        <view class="order-together">订单编号： <text>{{order[0].order_sn}}</text> </view>
+        <view class="order-together">创建时间： <text>{{order[0].create_time}}</text> </view>
+        <view class="order-together">付款时间： <text>{{order[0].pay_time}}</text> </view>
+    </view>
+    <!-- 订单信息--end -->
+
+
+    <view class="btn-fix">
+        <view hover-class="hover-btn" class="fix-one">确认收货</view>
+        <view hover-class="hover-btn" class="fix-two">查看物流</view>
+        <view hover-class="hover-btn" class="fix-the">延长收货</view>
+    </view>
+
+</view>

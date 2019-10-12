@@ -1,0 +1,22 @@
+<!--pages/product/comment/index,.wxml-->
+<view class="page">
+
+    <view class="btn-top">
+        <block wx:for="{{top}}" wx:key="index">
+            <view hover-class="{{types == index ? 'hover-btn' : ''}}" data-id="{{index}}" bindtap='toTop'>{{item.type}}</view>
+        </block>
+    </view>
+
+    <view class="btn-com" wx:for="{{lists}}" wx:key="index">
+
+        <view class="com-name">
+            <image src="{{item.avatar}}"/>
+            <text>{{item.nickname}}</text>
+        </view>
+        <view class="com-title">{{item.content}}</view>
+        <view class="com-time">{{item.update_time}}</view>
+    
+    </view>
+    
+
+</view>

@@ -1,0 +1,31 @@
+<view class="page">
+
+    <view class="btn-box">
+
+        <view class="top">
+            <view class="title">到账零钱(2小时内到账)</view>
+        </view>
+
+        <view class="name">提现金额</view>
+        <form bindsubmit="onExtract">
+        <view class="btn-money">
+            <view class="fuhao">¥</view>
+            <input class="inputs" type="number" name="num" focus="true" confirm-hold="true" cursor="1" value="{{num}}"></input>
+        </view>
+
+        <view class="btn-sum">
+            <view class="sum-name">零钱余额¥{{total}}</view>
+            <view class="sum-tixian" bindtap="alExtract" data-num="{{total}}">全部提现</view>
+        </view>
+
+        <view class="btn-botton">
+            <!-- <view class="botton-one" hover-class="hover-btn">提现</view> -->
+            <button class="botton-one" hover-class="hover-btn" form-type="submit">提现</button>
+        </view>
+        </form>
+         <!-- <view style="width:90%;font-size:22rpx;color:red;text-align:center;margin-left:5%;">温馨提示：金额提现必须是整数</view> -->
+
+
+    </view>
+
+</view>

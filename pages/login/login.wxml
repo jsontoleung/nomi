@@ -1,0 +1,11 @@
+<block wx:if="{{userInfo != ''}}">
+    <view class="box" wx:if="{{canIUse}}">
+        <image class="top" src="/images/loginTop.png"></image>
+        <button class='bottom' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+            允许授权
+        </button>
+        <!-- <image class="bom" src="/images/loginBom.png"></image> -->
+    </view>
+    
+    <view class="box" wx:else>请升级微信版本</view>
+</block>

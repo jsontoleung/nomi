@@ -1,0 +1,40 @@
+/* pages/authorize/authorize.wxss */
+page{
+  height:100%;
+  width:100%;
+  background: url(https://www.nomiyy.com/uploads/category/20190813/video/5d526de9edfc6.png) no-repeat 0 0;
+  background-size:100% 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+}
+.box{
+  height:100%;
+  width:100%;
+  box-sizing: border-box;
+  margin-top: 40%;
+}
+.bottom {
+    width:86%;
+    box-sizing: border-box;
+    border-radius: 8rpx;
+    margin-left: 7%;
+    margin-top: 5%;
+    font-size: 36rpx;
+    height:90rpx;
+    font-family: PingFangHK-Regular;
+    background:#ffffff;
+    color:#000000;
+}
+.top {
+    width:40%;
+    height:21%;
+    margin:5% auto;
+    display: block;
+}
+
+.bom {
+    width:50%;
+    height:4%;
+    margin:5% auto;
+    display: block;
+}

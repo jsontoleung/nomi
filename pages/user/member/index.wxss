@@ -1,0 +1,152 @@
+/* pages/user/member/index.wxss */
+.pages{
+  width:100%;
+  background: #f2f2f2;
+  padding-bottom: 75rpx;
+  /* height:100%;
+  box-sizing: border-box; */
+  position: absolute;
+}
+
+.btn-bg {
+    width:100%;
+    height:220rpx;
+    background-color: #d1b885;
+    position:relative;
+}
+.btn-box {
+    width: 90%;
+    height:236rpx;
+    background-color:#fff;
+    position: absolute;
+    top:20%;
+    left:5%;
+    border-radius: 15rpx;
+}
+.box-top {
+    width:90%;
+    height:44%;
+    margin:6% auto 0% auto;
+}
+.box-top image {
+    width:18%;
+    height:100%;
+    float:left;
+    border-radius: 100%;
+}
+.box-top .name {
+    width:60%;
+    float:left;
+    font-size: 28rpx;
+    font-weight: bold;
+    margin-left: 3%;
+    margin-top: 1%;
+}
+.box-top .level {
+    width:60%;
+    float:left;
+    margin-left: 3%;
+}
+.box-top .level .level-one {
+    font-size: 24rpx;
+    color:#424242;
+    float:left;
+}
+.box-top .level .level-two {
+    font-size: 24rpx;
+    color:#e8396a;
+    float:left;
+}
+.box-bom {
+    width:90%;
+    margin:3% auto;
+    padding:3% 0;
+    border-top: 1px solid #eeeeee;
+    position: relative;
+}
+.box-bom .bom-left {
+    font-size: 22rpx;
+    float:left;
+}
+.box-bom .bom-right {
+    float:right;
+    font-size: 24rpx;
+    background-color: #d2b986;
+    padding: 1% 2%;
+    border-radius: 40rpx;
+    position: absolute;
+    top:25%;
+    right: 0%;
+    color:#635136;
+}
+
+
+
+
+.btn-my {
+    width:100%;
+    padding: 5% 0;
+    background-color: #fff;
+    margin-top: 3%;
+    display: inline-block;
+}
+.my-box {
+    width:90%;
+    margin:0% 4%;
+}
+.my-con {
+    width:47%;
+    height: 100rpx;
+    background: #d1b885;
+    border-radius: 14rpx;
+    margin-left: 3%;
+    margin-top: 3%;
+    float:left;
+}
+.my-con-two {
+    width:47%;
+    height: 100rpx;
+    background: #626262;
+    border-radius: 14rpx;
+    margin-left: 3%;
+    margin-top: 3%;
+    float:left;
+}
+.my-yuan {
+    width:61rpx;
+    height: 61rpx;
+    border-radius: 100%;
+    background-color: #fff;
+    text-align: center;
+    color:#d1b885;
+    margin-left: 5%;
+    margin-top: 6%;
+    float:left;
+}
+.my-yuan-two {
+    width:61rpx;
+    height: 61rpx;
+    border-radius: 100%;
+    background-color: #fff;
+    text-align: center;
+    color:#626262;
+    margin-left: 5%;
+    margin-top: 6%;
+    float:left;
+}
+.my-title {
+    width:70%;
+    font-size: 22rpx;
+    float:left;
+    margin-top: 6%;
+    margin-left: 3%;
+    color:#423f39;
+}
+.my-title-two {
+    width:70%;
+    font-size: 22rpx;
+    float:left;
+    margin-top: 6%;
+    margin-left: 3%;
+    color:#fff;
+}

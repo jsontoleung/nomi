@@ -1,0 +1,128 @@
+.page{
+  width:100%;
+  background: #f2f2f2;
+  position: absolute;
+  height:100%;
+}
+
+.btn-box {
+    width:92%;
+    margin:30rpx 4%;
+    background-color: #fff;
+    padding:60rpx 0;
+    border-radius: 10rpx;
+}
+.count-title {
+    width:100%;
+    font-size: 24rpx;
+    text-align: center;
+}
+.count-num {
+    width:100%;
+    font-size: 22px;
+    text-align: center;
+}
+.mid {
+    width:100%;
+    height:90rpx;
+}
+.mid-left {
+    width:100%;
+    height:100%;
+    float: left;
+}
+/* .mid-right {
+    width:50%;
+    height:100%;
+    float: right;
+} */
+.left-one {
+    width:100%;
+    font-size: 22rpx;
+    color:#666666;
+    text-align: center;
+}
+.left-two {
+    width:100%;
+    font-size: 18px;
+    text-align: center;
+}
+.right-one {
+    width:100%;
+    font-size: 24rpx;
+    color:#666666;
+    text-align: center;
+}
+.right-two {
+    width:100%;
+    font-size: 18px;
+    text-align: center;
+}
+.btn-botton {
+    width:100%;
+    height:100rpx;
+    margin-top: 20rpx;
+}
+.botton-one {
+    width:90%;
+    height:92rpx;
+    float:left;
+    font-size: 20px;
+    color:#fff;
+    background-color: #f5a6bc;
+    border-radius: 5rpx;
+    text-align: center;
+    line-height: 92rpx;
+    margin-left: 5%;
+}
+.hover-btn {
+    background-color: #CD5555;
+    font-size: 22px;
+}
+
+
+
+.box-income {
+    width:92%;
+    padding:30rpx 0;
+    border-radius: 10rpx;
+    margin-left: 4%;
+    background-color: #fff;
+}
+.income-name {
+    width:100%;
+    font-size: 18px;
+    text-align:center;
+    margin-top: 40rpx;
+    display: inline-block;
+}
+.income-com {
+    width:90%;
+    height:100rpx;
+    border-bottom: 1rpx solid #ccc;
+    margin-top: 30rpx;
+    margin-left:5%;
+}
+.com-cover {
+    width:80rpx;
+    height:80rpx;
+    border-radius:100%;
+    float:left;
+}
+.com-title {
+    float:left;
+    font-size: 28rpx;
+    margin-left: 20rpx;
+}
+.com-money {
+    float:right;
+    font-size: 32rpx;
+    color:#FFD700;
+}
+.com-time {
+    width:70%;
+    float:left;
+    font-size: 26rpx;
+    color:#666666;
+    margin-left: 20rpx;
+}

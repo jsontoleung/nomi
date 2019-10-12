@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/index/more/more",
+    "pages/article/detail/index",
+    "pages/article/comment/index",
+    "pages/product/index/index",
+    "pages/product/detail/index",
+    "pages/product/area/index",
+    "pages/product/comment/index",
+    "pages/product/pay/index",
+    "pages/product/notify/index",
+    "pages/order/master/index",
+    "pages/order/logistic/index",
+    "pages/order/car/index",
+    "pages/order/appointment/index",
+    "pages/user/user/index",
+    "pages/user/addmine/index",
+    "pages/user/addmine/return/index",
+    "pages/user/team/index",
+    "pages/user/member/index",
+    "pages/user/study/index",
+    "pages/user/comment/index",
+    "pages/user/income/index",
+    "pages/user/extract/index",
+    "pages/user/qrcode/index",
+    "pages/search/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "糯米芽",
+    "backgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+    },
+  "sitemapLocation": "sitemap.json"
+}

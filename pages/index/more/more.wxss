@@ -1,0 +1,87 @@
+/* pages/index/more/more.wxss */
+.page{
+  width:100%;
+  background: #eeeeee;
+  padding-bottom: 60px;
+  height:100%;
+  box-sizing: border-box;
+  position: absolute;
+}
+
+.btn-box {
+  background: #fff;
+  /* border-radius: 20rpx; */
+  padding: 30rpx 0rpx 60rpx;
+}
+.btn-box .type {
+  width:100%;
+  font-size: 30rpx;
+  text-align: center;
+}
+.btn-box .box-con {
+  width:92%;
+  height: 250rpx;
+  background-color: #f2f2f2;
+  border-radius: 20rpx;
+  margin: 20rpx auto;
+}
+.btn-box .box-con image {
+  width:150rpx;
+  height:210rpx;
+  margin:20rpx 20rpx 0rpx;
+  float:left;
+}
+.btn-box .box-con .title {
+  width:66%;
+  font-size: 26rpx;
+  float:left;
+  margin-top: 20rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.btn-box .box-con .con-bottom {
+  width:66%;
+  height:70rpx;
+  float:left;
+  margin-top: 62rpx;
+  position:relative;
+}
+.btn-box .box-con .con-bottom image {
+  width:70rpx;
+  height:70rpx;
+  border-radius: 100%;
+  float:left;
+  margin:0rpx;
+  padding: 0rpx;
+}
+.btn-box .box-con .con-bottom .name {
+  width:70%;
+  font-size: 24rpx;
+  color:#727272;
+  float:left;
+  margin-left: 10rpx;
+}
+.btn-box .box-con .con-bottom .school {
+  font-size: 22rpx;
+  color:#727272;
+  float:left;
+  margin-left: 10rpx;
+  line-height: 50rpx;
+}
+.btn-box .box-con .con-bottom .num {
+  float:right;
+  font-size: 24rpx;
+  color:#727272;
+  line-height: 50rpx;
+}
+.btn-box .more {
+  width:100%;
+  font-size: 28rpx;
+  color: #f5a6bc;
+  text-align: center;
+}

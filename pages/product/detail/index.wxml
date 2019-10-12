@@ -1,0 +1,189 @@
+<!--pages/product/detail/index.wxml-->
+<view class="page">
+
+    <swiper indicator-dots="true" autoplay="true" interval="5000">
+
+        <swiper-item wx:for="{{lunbo}}" wx:key="index">
+            <image src="{{item}}" />
+        </swiper-item>
+
+    </swiper>
+
+    <!-- 产品标题--start -->
+    <view class="btn-title">
+
+      <view class="title-left">{{pro.name}}</view>
+
+      <view class="title-right">¥ {{pro.price_after}}</view>
+
+      <view class="title-num">总销量：356</view>
+
+    </view>
+    <!-- 产品标题--end -->
+
+    <!-- 会员优惠--start -->
+    <view class="btn-vip" wx:if="{{pro.combo == 0}}" bindtap="popupShow">
+    
+        <view class="vip-name">{{pro.level_type}}</view>
+
+        <view class="vip-buy">立即开通</view>
+
+        <view class="vip-money">¥{{pro.vip_price}}</view>
+    
+    </view>
+    <!-- 会员优惠--end -->
+
+
+    <!-- 选择数量--start -->
+    <view class="btn-num" wx:if="{{pro.type == 0}}">
+
+      <view class="num-left">已选择数量</view>
+
+      <view class="num-right">
+      
+        <view class="stepper">
+          <!-- 减号 -->
+          <text bindtap="bindMinus">-</text>
+          <!-- 数值 -->
+          <input type="number" bindchange="pay_num" value="{{buy_num}}" />
+          <!-- 加号 -->
+          <text bindtap="bindPlus">+</text>
+        </view>
+      
+      </view>
+
+    </view>
+    <!-- 选择数量--end -->
+
+
+    <!-- 送货--start -->
+    <view class="btn-song">
+
+      <view class="sont-bottom">
+
+        <view class="bottom-con" wx:for="{{pro.pledge_type}}" wx:key="index">
+          <image src="/images/product/gou.png" />
+          <text>{{item}}</text>
+        </view>
+      
+      </view>
+    
+    </view>
+    <!-- 送货--end -->
+
+    <!-- 选择门店--start -->
+    <view class="radio-group" wx:if="{{pro.type == 1}}">
+        <view class="radio" wx:for="{{pro.shop}}" wx:key="index">{{item.shop_name}}<text style="color:#000;"> ({{item.area}})</text></view>
+    </view>
+    <!-- 选择门店--end -->
+
+    <!-- 服务次数--start -->
+    <view class="number-btn" wx:if="{{pro.type == 1}}">
+        <view class="serve-name">服务次数</view>
+        <view class="serve-num">{{pro.serve_num}} 次</view>
+    </view>
+    <!-- 服务次数--end -->
+
+
+    <!-- 评论--start -->
+    <!-- <navigator class="btn-com" url="/pages/product/comment/index?pro_id={{pro.pro_id}}" wx:if="{{comment != null}}">
+    
+      <view class="com-top">
+        <text>评论</text>
+        <image src="/images/product/jian.png"/>
+      </view>
+
+      <view class="com-name">
+        <image src="{{comment.avatar}}"/>
+        <text>{{comment.nickname}}</text>
+      </view>
+      <view class="com-title">{{comment.content}}</view>
+      <view class="com-time">{{comment.update_time}}</view>
+    
+    </navigator> -->
+    <!-- 评论--end -->
+
+
+    <!-- <view style="width:100%;height:20rpx;background-color:#eeeeee;margin-top:1rpx;"></view> -->
+    <!-- 产品描述 -->
+    <view class="desc-btn">
+        <view class="desc-pro">产品描述</view>
+    </view>
+    <view class="desc-con">
+        <import src="../../../wxParse/wxParse.wxml"/> 
+        <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+    </view>
+
+
+
+    <!-- 其他 -->
+    <view class="btn-else" wx:if="{{other != ''}}">
+    
+        <view class="else-top">其他产品</view>
+
+        <block wx:for="{{other}}" wx:key="index">
+            <navigator class="pic" style="background:url('{{item.photo}}') no-repeat 0 0 / 100% 100%;" url="/pages/product/detail/index?pro_id={{item.pro_id}}">
+                <view class="pic-bottom">
+                <view class="pic-bottom-title">{{item.name}}</view>
+                <view class="pic-bottom-buy">购买</view>
+                </view>
+            </navigator>
+        </block>
+
+    </view>
+
+</view>
+<!-- 底部 -->
+<view class="btn-bottom">
+
+    <view class="btn-xing" catchtap='onCollectionTap' data-postid="{{pro.pro_id}}" data-type="{{collected}}">
+        <image wx:if="{{collected}}" src="/images/product/xing_after.png"/>
+        <image wx:else src="/images/product/xing.png"/>
+        <view wx:if="{{collected}}">已收藏</view>
+        <view wx:else>收 藏</view>
+    </view>
+
+    <view class="btn-che" bindtap="addCar">
+        <image src="/images/product/che.png"/>
+        <view>购物车</view>
+    </view>
+
+    <button class="bottom-click" open-type="share" data-id="{{pro.pro_id}}" data-title="{{pro.name}}" plain="true">
+        <image src="/images/voice/share_after.png"/>
+        <view>分享</view>
+    </button>
+
+    <view class="btn-right">
+        <view class="right-add" hover-class="hover-btn" bindtap="onAddcar">加入购物车</view>
+        <view class="right-buy" hover-class="hover-btn" bindtap="onPayTap">立即购买</view>
+    </view>
+
+</view>
+
+
+<!-- 弹窗 -->
+<block wx:if="{{pro.level_id <= 4}}">
+    <view class="btn-popup" wx:if="{{showModal}}">
+        <view bindtap="popupHide"><image class="deletes" src="/images/delete.png"></image></view>
+        <view class="popup-box" bindtap="buyUser" data-type="{{pro.level_id}}" hover-class="hover-bg">
+            <view class="user-name">{{pro.level_type}}</view>
+            <view class="user-money">¥{{pro.money}}</view>
+            <view class="user-title">商品折扣{{pro.pick_price}}</view>
+        </view>
+    </view>
+</block>
+<block wx:else>
+    <view class="btn-popup" wx:if="{{showModal}}">
+        <view bindtap="popupHide"><image class="deletes" src="/images/delete.png"></image></view>
+        <view class="user-call">升级会员请联系客服</view>
+    </view>
+</block>
+
+
+<view class="btn-combo" wx:if="{{prouid}}">
+    
+    <navigator class="combo-view" url="pages/index/index">
+        <image src="/images/home/home_after.png"></image>
+    </navigator>
+
+</view>

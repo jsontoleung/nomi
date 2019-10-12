@@ -1,0 +1,10 @@
+<!--pages/order/appointment/index.wxml-->
+<view class="page">
+
+    <!-- 预约时间--start -->
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <input name="time" value='{{time}}' placeholder='选择预约时间'/>
+    </picker>
+    <!-- 预约时间--end -->
+
+</view>

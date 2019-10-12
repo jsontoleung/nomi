@@ -1,0 +1,6 @@
+<view class="page">
+
+    <image src="{{user.qrcode}}" bindtouchstart='timestart' bindtouchend='timeend' bindtap='saveImg'></image>
+
+</view>
+

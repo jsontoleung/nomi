@@ -1,0 +1,157 @@
+<!--pages/product/pay/index.wxml-->
+<view class="page">
+
+    <!-- 产品--start -->
+    <block wx:if="{{proInfo.type == 0}}">
+        <navigator class="song-top" url="/pages/product/area/index?pro_id={{proInfo.pro_id}}">
+        
+            <text class="top-one">送至</text>
+
+            <text class="top-two"><block wx:if="{{region == null}}">请 选 择 收 货 地 址</block><block wx:else>{{region.province}} {{region.city}} {{region.area}}</block></text>
+
+            <image class="top-three" src="/images/product/jian.png" />
+        
+        </navigator>
+
+        <view class="btn-shou">
+        
+            <view class="shou-name">收货人：{{addr.name}}</view>
+            <view class="shou-phone">电话：{{addr.phone}}</view>
+            <view class="shou-area">收货地址：</view>
+            <text class="area-child">{{addr.province}}{{addr.city}}{{addr.area}}{{addr.address}}</text>
+        
+        </view>
+
+        <view class="btn-box">
+
+            <!-- 商品--start -->
+            <view class="box-product">
+            
+                <image src="{{proInfo.photo}}" />
+                
+                <view class="pro-name">{{proInfo.name}}</view>
+
+                <view class="pro-num">
+                    <view class="pro-num-one">¥{{proInfo.price_after}}</view>
+                    <view class="pro-num-two">×{{buy_num}}</view>
+                </view>
+
+                <view class="pro-bottom-box">
+                    <view class="pro-bottom" wx:for="{{proInfo.pledge_type}}" wx:key="index">
+                        <image src="/images/product/gou.png" />
+                        <text>{{item}}</text>
+                    </view>
+                </view>
+
+            </view>
+            <!-- 商品--end -->
+
+            <view class="btn-param">
+            
+                <view class="param-num">
+
+                    <view class="param-num-name">购买数量</view>
+                    <view class="param-num-right">
+        
+                        <view class="stepper">
+                        <!-- 减号 -->
+                        <text bindtap="bindMinus" data-count="{{count}}">-</text>
+                        <!-- 数值 -->
+                        <input type="number" bindchange="pay_num" value="{{buy_num}}" />
+                        <!-- 加号 -->
+                        <text bindtap="bindPlus" data-count="{{count}}">+</text>
+                        </view>
+                    
+                    </view>
+
+                </view>
+
+                <view class="param-two">
+                    <text class="param-two-one">配送方式</text>
+                    <text class="param-two-two">全国包邮</text>
+                </view>
+
+                <view class="param-three">
+                    <text class="param-three-one">订单备注</text>
+                    <input class="param-three-two" placeholder="选填，请先和商家协商一致"></input>
+                </view>
+
+                <view class="param-four">
+                    <text class="param-four-one">共{{buy_num}}件</text>
+                    <text class="param-four-two">小计：</text>
+                    <text class="param-four-three">¥{{count}}</text>
+                </view>
+            
+            </view>
+
+        </view>
+    </block>
+    <!-- 产品--end -->
+
+    <!-- 服务--start -->
+    <block wx:else>
+        <view class="btn-box">
+
+            <!-- 商品--start -->
+            <view class="box-product">
+            
+                <image src="{{proInfo.photo}}" />
+                
+                <view class="pro-name">{{proInfo.name}}</view>
+
+                <view class="pro-num">
+                    <view class="pro-num-one">¥{{proInfo.price_after}}</view>
+                </view>
+
+                <view class="pro-bottom-box">
+                    <view class="pro-bottom" wx:for="{{proInfo.pledge_type}}" wx:key="index">
+                        <image src="/images/product/gou.png" />
+                        <text>{{item}}</text>
+                    </view>
+                </view>
+
+            </view>
+            <!-- 商品--end -->
+
+            <view class="btn-param">
+
+                <view class="param-num">
+
+                    <view class="param-num-name">服务次数</view>
+                    <view class="param-num-right">
+                        {{proInfo.serve_num}} 次
+                    </view>
+
+                </view>
+            
+                <view class="param-three">
+                    <text class="param-three-one">订单备注</text>
+                    <input class="param-three-two" placeholder="选填，请先和商家协商一致"></input>
+                </view>
+
+                <view class="param-four">
+                    <text class="param-four-one">共{{buy_num}}次</text>
+                    <text class="param-four-two">小计：</text>
+                    <text class="param-four-three">¥{{count}}</text>
+                </view>
+            
+            </view>
+
+        </view>
+    </block>
+    <!-- 服务--end -->
+
+    <view class="btn-bottom">
+
+        <view wx:if="{{proInfo.type == 0}}" class="bottom-buy" hover-class="hover-btn" catchtap="onBuyTap" data-count="{{count}}" data-buynum="{{buy_num}}"><view>确认购买</view></view>
+
+        <view wx:else class="bottom-buy" hover-class="hover-btn" catchtap="onServeTap" data-count="{{count}}" data-buynum="{{buy_num}}"><view>确认购买</view></view>
+
+        <view class="bottom-count">
+            <text class="bottom-count-one">总计：</text>
+            <text class="bottom-count-two">{{count}}</text>
+        </view>
+
+    </view>
+
+</view>

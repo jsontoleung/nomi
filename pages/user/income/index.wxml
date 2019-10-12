@@ -1,0 +1,48 @@
+<view class="page">
+
+    <view class="btn-box">
+    
+        <view class="count-title">奖励金余额(元)</view>
+
+        <view class="count-num">{{total.balance}}</view>
+
+        <view class="mid">
+            <view class="mid-left">
+                <view class="left-one">累计收益(元)</view>
+                <view class="left-two">{{total.grand}}</view>
+            </view>
+            <!-- <view class="mid-right">
+                <view class="right-one">昨日收益(元)</view>
+                <view class="right-two">0.00</view>
+            </view> -->
+        </view>
+
+        <view class="btn-botton" bindtap="onExtract">
+            <view class="botton-one" hover-class="hover-btn">提现</view>
+        </view>
+
+        <!-- <view style="width:100%;font-size:22rpx;color:red;text-align:center;margin-top:30rpx;">温馨提示：金额超过100元方可提现</view> -->
+    
+    </view>
+
+    <view class="box-income">
+    
+        <view class="income-name">收入明细</view>
+
+        <block wx:if="{{record != ''}}">
+            <view class="income-com" wx:for="{{record}}" wx:key="index">
+                <image class="com-cover" src="{{item.headimg}}"></image>
+                <view class="com-title">{{item.nickname}}</view>
+                <view class="com-money">{{item.payment_money}}</view>
+                <view class="com-time">{{item.pay_time}}</view>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="income-name">暂无流水</view>
+        </block>
+    
+    </view>
+
+</view>
+
+

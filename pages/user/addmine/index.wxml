@@ -1,0 +1,31 @@
+<view class="page">
+
+    <view class="btn-bg">
+        
+        <view class="bg-title1">嗨，尊敬的{{member.nickname}}，已有<text>{{member.total}}</text>人申请{{member.order}}</view>
+
+        <view class="bg-title2">开通{{member.order}}，获得更多VIP特权</view>
+        
+        <view wx:if="{{member.type}}" class="bg-dredge" hover-class="hover-btn" catchtap="onBuyTap" data-money="{{member.money}}">立即开通 ¥<text>{{member.money}}</text></view>
+
+        <view wx:else class="bg-dredge" hover-class="hover-btn">恭喜成为最高特权</view>
+
+    </view>
+
+    <view class="btn-privilege">
+        <text class="pri-left">芽粉特权</text>
+    </view>
+    <view class="top">
+
+        <view class="top-box" wx:for="{{list}}" wx:key="index">
+            <view class="top-box-img">{{index+1}}</view>
+            <view class="top-box-name">{{item.name}}</view>
+            <view class="top-box-desc">{{item.content}}</view>
+        </view>
+
+    </view>
+
+
+    <view wx:if="{{member.type}}" class="footer" catchtap="onBuyTap" data-money="{{member.money}}">立即开通 ¥<text>{{member.money}}</text></view>
+
+</view>

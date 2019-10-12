@@ -1,0 +1,178 @@
+<!--pages/article/detail/index.wxml-->
+<view class="page">
+
+  <image class="cover" src="{{art.cover_detail}}"/>
+
+  <!-- 文章内容--start -->
+  <view class="btn-art">
+  
+    <view class="titles">{{art.title}}</view>
+
+    
+
+    <!-- 文章内容--start -->
+    <view class="content">
+      <import src="../../../wxParse/wxParse.wxml"/> 
+      <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+    </view>
+    <!-- 文章内容--end -->
+
+    <view class="art-bottom">
+
+      <view class="bottom-click" catchtap="onLikeTap" data-type="{{is_like}}">
+        <image wx:if="{{is_like}}" src="/images/voice/like_after.png"/>
+        <image wx:else src="/images/voice/like_before.png"/>
+        <view>{{art.is_like}}</view>
+      </view>
+
+      <view class="bottom-click" catchtap="onCollectionTap" data-type="{{collected}}">
+        <image wx:if="{{collected}}" src="/images/voice/xing_after.png"/>
+        <image wx:else src="/images/voice/xing_before.png"/>
+        <view>{{art.is_collect}}</view>
+      </view>
+
+        <button class="bottom-click" open-type="share" data-id="{{art.voice_id}}" data-title="{{art.title}}" plain="true">
+            <image src="/images/voice/share_after.png"/>
+            <view>{{art.share_num}}</view>
+        </button>
+
+    </view>
+
+    <view style="width:100%;height:30rpx;background-color:#f2f2f2"></view>
+  
+  </view>
+  <!-- 文章内容--end -->
+
+
+  <!-- 推荐文章--start -->
+  <view class="btn-recommend">
+
+    <view class="recommend-action">推荐文章</view>
+
+    
+    <view wx:for="{{lists}}" wx:key="index" class="action-box">
+
+      <navigator class="action-cont" url="/pages/article/detail/index?id={{item.voice_id}}">
+
+        <view class="cont-left">
+          <view class="title">{{item.title}}</view>
+          <view class="cont-left-bottom">
+            <view class="cont-left-bottom-see">{{item.play_num}} 人看过</view>
+            <view class="cont-left-bottom-like">{{item.like_num}} 赞</view>
+          </view>
+        </view>
+
+        <image class="cont-right" src="{{item.cover_detail}}"/>
+
+      </navigator>
+    
+    </view>
+
+    <view class="action-refresh" bindtap='_refresh' hover-class="hover-bg">
+      <image src="/images/users/refresh.png" />
+      换一批
+    </view>    
+    <view style="width:100%;height:30rpx;background-color:#f2f2f2"></view>
+
+  </view>
+  <!-- 推荐文章--end -->
+
+
+  <!-- 评论--start -->
+  <view class="btn-bottom" wx:if="{{comment != ''}}">
+    <view class="episode">
+      <view class="count">热门评论</view>
+      <view class="select"><image src="/images/comment/redu.png"></image> 按热度</view>
+    </view>
+
+    <view wx:for="{{comment}}" wx:key="index" class="btn-comment">
+
+      <image src="{{item.headimg}}"></image>
+      
+      <view class="comment-box">
+
+        <view class="comment-name">{{item.nickname}}</view>
+
+        <view class="comment-content">{{item.content}}</view>
+
+        <view class="comment-bg">
+            <view wx:for="{{item.junior}}" wx:for-item="val" wx:key="key" class="comment-bg-say">
+              {{val.nickname}}: 
+              <text>{{val.content}}</text>
+            </view>
+        </view>
+
+        <view class="comment-bottom">
+
+          <view class="comment-bottom-like" catchtap="onCommentLikeTap"  data-id="{{item.comment_id}}" data-type="{{item.is_comlike}}">
+            <image wx:if="{{item.is_comlike}}" src="/images/comment/zang_after.png"></image>
+            <image wx:else src="/images/comment/zang_before.png"></image>
+            <text>{{item.like}}</text>
+          </view>
+
+          <navigator class="comment-bottom-comment" url="/pages/article/comment/index?comid={{item.comment_id}}">
+            <image src="/images/comment/comment_before.png"></image>
+            <text>{{item.commentCount}}</text>
+          </navigator>
+
+          <view class="comment-bottom-time">{{item.create_time}}</view>
+
+        </view>
+
+      </view>
+
+    </view>
+    
+  </view>
+  <!-- 评论--end -->
+
+</view>
+
+<view class="btn-combo" wx:if="{{click != ''}}">
+    
+    <view class="combo-view" bindtap="onLinkshow" wx:if="{{hovers == false}}">
+        <image src="/images/comment/che_after.png"></image>
+    </view>
+    <view class="combo-view" bindtap="onLinkhide" wx:else>
+        <image src="/images/comment/che_before.png"></image>
+    </view>
+
+</view>
+
+<view class="combo-box" wx:if="{{showBtn}}">
+
+    <block wx:if="{{click.length == 1}}">
+        <navigator wx:for="{{click}}" wx:key="index" url="/pages/product/detail/index?pro_id={{item.pro_id}}"><image src="{{item.photo}}" class="combo-nameOne"></image></navigator>
+    </block>
+
+    <block wx:if="{{click.length == 2}}">
+        <navigator wx:for="{{click}}" wx:key="index" url="/pages/product/detail/index?pro_id={{item.pro_id}}"><image src="{{item.photo}}" class="combo-nameTwo"></image></navigator>
+    </block>
+
+    <block wx:if="{{click.length == 3}}">
+        <navigator wx:for="{{click}}" wx:key="index" url="/pages/product/detail/index?pro_id={{item.pro_id}}"><image src="{{item.photo}}" class="combo-nameThr"></image></navigator>
+    </block>
+
+    <block wx:if="{{click.length == 4}}">
+        <navigator wx:for="{{click}}" wx:key="index" url="/pages/product/detail/index?pro_id={{item.pro_id}}"><image src="{{item.photo}}" class="combo-nameFor"></image></navigator>
+    </block>
+
+
+</view>
+
+
+
+<form bindsubmit="formSubmit">
+    <view class="release">
+        <textarea class="text"
+        placeholder-class="input_null"
+        fixed="true"
+        maxlength="-1"
+        show-confirm-bar="false"
+        cursor-spacing="15"
+        auto-height="true"
+        placeholder="请发表您的评论..."
+        name="content"></textarea>
+        <button form-type="submit" class="submit" hover-class="hover-bg">发送</button>
+    </view>
+</form>
