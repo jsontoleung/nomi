@@ -1,0 +1,139 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>更改角色&nbsp;&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="btn btn-xs btn-outline btn-warning">返 回</a></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名：</label>
+                                <div class="col-sm-8">
+                                    <input type="hidden" name="id" value="{$lists.id}">
+                                    <input id="name" name="name" class="form-control" type="text" value="{$lists.name}">
+                                     <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 用户名用于登陆，仅限英文字符 + 数字</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">昵称：</label>
+                                <div class="col-sm-8">
+                                    <input id="nickname" name="nickname" class="form-control" type="text" value="{$lists.nickname}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">密码：</label>
+                                <div class="col-sm-8">
+                                    <input id="passwd" name="passwd" class="form-control" type="password" value="{$lists.passwd}">
+                                     <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 密码长度不能小于 6 位字符长度，留空为不修改</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">角色分配：</label>
+                                <div class="col-sm-8">
+                                    {$rolelists|raw}
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:none;" id="_level">
+                                <label class="col-sm-3 control-label"><span class="must-red">*</span> 审核师等级</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="level" value="0" class="form-control width300" value="{$lists.level}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span class="must-red">*</span> 状态</label>
+                                 <div class="col-sm-8">
+                                    <label class="checkbox-inline">
+                                        {eq name="lists.status" value="1"}
+                                            <input type="radio" value="1" name="status" checked> 启用
+                                            <input type="radio" value="0" name="status"> 禁用
+                                        {else/}
+                                            <input type="radio" value="0" name="status" checked> 禁用
+                                            <input type="radio" value="1" name="status"> 启用
+                                        {/eq}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    if ($("input[name='role_id']:checked").val() == 2) {
+    $("#_level").show(200);
+    }
+    $(":radio").click(function(){
+        if ($("input[name='role_id']:checked").val() == 2) {
+            $("#_level").show(200);
+        } else {
+            $("#_level").hide(200);
+        }
+    });
+
+    $("#signupForm").submit(function(){
+        var formData = $('form[id="signupForm"]').serialize();
+        $.ajax({
+            url: "{:url('admin/save')}",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            success:function (res) {
+                if (res.status == 1) {
+                    layer.msg(res.msg, {icon:1, time:1500}, function(){
+                        window.location.href = document.referrer;
+                    });
+                    layer.close(pop_index); // 关闭弹窗
+                } else {
+                    layer.msg(res.msg, {icon:5, time:1500});
+                }
+            }
+        });
+        return false;
+    });
+    var icon = "<i class='fa fa-times-circle'></i> ";
+    $("#signupForm").validate({
+        rules: {
+            name: "required",
+            nickname: "required",
+            passwd: "required"
+        },
+        messages: {
+            name: icon + "请输入用户名",
+            nickname: icon + "请输入昵称",
+            passwd: {
+                required: icon + "请输入您的密码",
+                minlength: icon + "密码必须5个字符以上"
+            },
+        }
+    });
+</script>

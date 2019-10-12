@@ -1,0 +1,102 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加角色&nbsp;&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="btn btn-xs btn-outline btn-warning">返 回</a></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">角色名称：</label>
+                                <div class="col-sm-8">
+                                    <input type="hidden" name="id" value="">
+                                    <input id="name" name="name" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">备注：</label>
+                                <div class="col-sm-8">
+                                    <input id="remark" name="remark" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <label>
+                                        <input type="radio" name="status" value="1" checked> 启用
+                                        <input type="radio" name="status" value="0"> 禁用
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $("#signupForm").submit(function(){
+        var formData = $('form[id="signupForm"]').serialize();
+        $.ajax({
+            url: "{:url('rbac/save')}",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            success:function (res) {
+                if (res.status == 1) {
+                    layer.msg(res.msg, {icon:1, time:1500}, function(){
+                        window.location.href = document.referrer;
+                    });
+                    layer.close(pop_index); // 关闭弹窗
+                } else {
+                    layer.msg(res.msg, {icon:5, time:1500});
+                }
+            }
+        });
+        return false;
+    });
+var icon = "<i class='fa fa-times-circle'></i> ";
+$("#signupForm").validate({
+    rules: {
+        name: "required",
+        remark: "required",
+        status: "required"
+    },
+    messages: {
+        name: icon + "请输入角色名称",
+        remark: icon + "请备注一下",
+        status: {
+            required: icon + "必须选择状态",
+            element: '#agree-error'
+        }
+    }
+});
+</script>

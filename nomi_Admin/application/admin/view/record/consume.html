@@ -1,0 +1,117 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-desktop"></i> 消费信息 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+                            <table class="table table-striped table-bordered table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td>消费次数</td>
+                                        <td>
+                                            <input name="hobby" class="form-control" type="text" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>消费总金额</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>消费品类</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>平均金额</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>单笔最高金额</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>最早购买时间</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>最近购买时间</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>主要消费用途</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>售后信息</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>忠诚度</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>客户等级</td>
+                                        <td><input name="hobby" class="form-control" type="text" value=""></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <!-- <button class="btn btn-primary" id="uploadSubmit" type="submit">保存</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <script src="/static/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- Page-Level Scripts -->
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+</html>
+<script type="text/javascript">
+// ajax提交
+$("#uploadSubmit").click(function(){
+
+    var data = new FormData($("#signupForm")[0]);
+
+    $.ajax({
+        url: "{:url('record/consumesave')}",
+        type: "POST",
+        data: data,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1) {
+                layer.msg(data.msg, {icon:1, time:1500}, function(){
+                    window.location.reload();
+                });
+            } else {
+                layer.msg(data.msg, {icon:5, time:1500});
+            }
+        }
+    });
+    return false;
+});
+</script>

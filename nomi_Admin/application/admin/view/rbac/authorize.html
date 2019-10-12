@@ -1,0 +1,105 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>权限设置&nbsp;&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="btn btn-xs btn-outline btn-warning">返 回</a></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+                            <input type="hidden" name="id" value="{$role_id}">
+                            <table class="table table-bordered">
+                                {$rbacmenu|raw}
+                            </table>
+                            <div class="form-group" style="margin-top: 30px; text-align: center;">
+                                <a class="btn btn-danger btn-checkall">全选</a>
+                                <a class="btn btn-warning left20 btn-checknot">反选</a>
+                                <button class="btn btn-primary" type="submit">提交</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+$(function() {
+    // 顶级菜单 全选 / 全不选
+    $('body').on('click', '.rbac-top', function(){
+        var val = $(this).val();
+        var pid = $(this).attr('data-pid');
+        var status = $(this).prop('checked');
+        if(status){
+            $('input.rbac-top-' + pid).prop('checked', true);
+        }else{
+            $('input.rbac-top-' + pid).prop('checked', false);
+        }
+    });
+    
+    // 一级菜单 全选 / 全不选
+    $('body').on('click', '.rolecheck', function(){
+        var val = $(this).val();
+        var myid = $(this).attr('data-myid');
+        var status = $(this).prop('checked');
+        if(status){
+            $('input.firtop-' + myid).prop('checked', true);
+        }else{
+            $('input.firtop-' + myid).prop('checked', false);
+        }
+    });
+    
+    // 权限的总体 全选
+    $('body').on('click', 'a.btn-checkall', function(){
+        $('input.rolecheck').prop('checked', true);
+    });
+    
+    // 权限的总体 反选
+    $('body').on('click', 'a.btn-checknot', function(){
+        $('input.rolecheck').prop('checked', false);
+    });
+});
+
+$("#signupForm").submit(function(){
+    var formData = $('form[id="signupForm"]').serialize();
+    $.ajax({
+        url: "{:url('rbac/authorizesave')}",
+        type: "post",
+        data: formData,
+        dataType: "json",
+        success:function (res) {
+            if (res.status == 1) {
+                layer.msg(res.msg, {icon:1, time:1500}, function(){
+                    window.location.href = document.referrer;
+                });
+                layer.close(pop_index); // 关闭弹窗
+            } else {
+                layer.msg(res.msg, {icon:5, time:1500});
+            }
+        }
+    });
+    return false;
+});
+</script>

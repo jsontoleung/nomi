@@ -1,0 +1,41 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content" >
+        <div class="row">
+            <div class="col-sm-4" style="width:100%;">
+
+               
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>网站信息</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        {volist name="sysinfo" id="val"}
+                        <p>
+                            <i class="fa fa-send-o"></i> {$key}：
+                            <a href="javascript:void(0);" target="_blank">{$val}</a>
+                        </p>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js"></script>
+
+    <!-- 欢迎信息 -->
+    <script src="/static/admin/js/welcome.js"></script>
+</body>
+
+</html>

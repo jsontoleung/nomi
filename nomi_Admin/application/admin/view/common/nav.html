@@ -1,0 +1,74 @@
+<!--左侧导航开始-->
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="nav-close"><i class="fa fa-times-circle"></i>
+    </div>
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span><img alt="image" class="img-circle" src="{if condition='$headimg eq null'}/static/admin/img/profile_small.jpg{else/}{$headimg}{/if}" /></span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">
+                        <span class="clear">
+                       <span class="block m-t-xs"><strong class="font-bold">{$name}</strong></span>
+                        <span class="text-muted text-xs block">{$nickname}<b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a class="J_menuItem" href="{:url('form/form_avatar')}">修改头像</a>
+                        </li>
+                        <li><a class="J_menuItem" href="{:url('page/profile')}">个人资料</a>
+                        </li>
+                        <li><a class="J_menuItem" href="{:url('page/contacts')}">联系我们</a>
+                        </li>
+                        <li><a class="J_menuItem" href="{:url('mail/mailbox')}">信箱</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0)" class="J_tabExit">安全退出</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="logo-element">诺米YY
+                </div>
+            </li>
+            {$sidebar|raw}
+        </ul>
+    </div>
+</nav>
+<!--左侧导航结束-->
+<script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript">
+$(function(){
+    //清除缓存
+    $("#_cache").click(function(){
+        layer.confirm('你确定要清除缓存吗？', {icon: 3, title:'提示'}, function(index){
+            $.post("{:url('admin/system/clearCache')}",function(res){
+                if(res.status == 1){
+                    layer.msg(res.msg,{icon:1,time:1500,shade: 0.1}, function(){
+                        window.location.reload();
+                    });
+                }else{
+                    layer.msg(res.msg,{icon:0,time:1500,shade: 0.1});
+                }
+            });
+            layer.close(index);
+        })
+    });
+
+    // 退出登陆
+    $(".J_tabExit").click(function(){
+        layer.confirm('小鬼！要离开吗？', {icon: 3, title:'提示'}, function(index){
+            $.post("{:url('login/logout')}",function(res){
+                if(res.status == 1){
+                    layer.msg(res.msg,{icon:1,time:1500,shade: 0.1}, function(){
+                        window.location.href = "{:url('login/index')}";
+                    });
+                }else{
+                    layer.msg(res.msg,{icon:0,time:1500,shade: 0.1});
+                }
+            });
+            layer.close(index);
+        })
+    });
+
+});
+</script>

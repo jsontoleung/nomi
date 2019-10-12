@@ -1,0 +1,121 @@
+{include file="common/header"}
+<link href="/static/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<!-- Sweet Alert -->
+<link href="/static/admin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5><i class="fa fa-desktop"></i> 数据库备份&nbsp;&nbsp;&nbsp;<a href="{:url('system/baksql',['type'=>'system'])}" class="btn btn-info btn-xs">添加备份</a></h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr class="table-header" style="background-color: #EFEFEF;">
+                                    <th>序号</th>
+                                    <th>备份名称</th>
+                                    <th>备份时间</th>
+                                    <th>备份大小</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="lists" id="vo"}
+                                <tr>
+                                    <td>{$key+1}</td>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.time}</td>
+                                    <td>{$vo.size}</td>
+                                    <td width="25%">
+                                        <a href="{:url('system/baksql',['type'=>'dowonload','name'=>$vo.name])}" class="btn btn-success btn-xs">下载</a>
+
+                                        <a href="{:url('system/baksql',['type'=>'restore','name'=>$vo.name])}" onclick="return confirm('备份还原后仅会显示当前备份的数据库的信息，您确定还原备份吗 ?')" class="btn btn-warning btn-xs">还原</a>
+
+                                        <a href="{:url('system/baksql',['type'=>'del','name'=>$vo.name])}" onclick="return confirm('数据库备份一旦删除不可找回，您确定操作吗?')" class="btn btn-danger btn-xs">删除</a>
+                                     </td>
+                                </tr>
+                            {/volist}
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-header" style="background-color: #EFEFEF;">
+                                    <th>序号</th>
+                                    <th>备份名称</th>
+                                    <th>备份时间</th>
+                                    <th>备份大小</th>
+                                    <th>操作</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/static/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/static/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- Sweet alert -->
+    <script src="/static/admin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Page-Level Scripts -->
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+    <script>
+        
+
+        $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable('../example_ajax.php', {
+                "callback": function (sValue, y) {
+                    var aPos = oTable.fnGetPosition(this);
+                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition(this)[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            });
+
+
+        });
+
+        function fnClickAddRow() {
+            $('#editable').dataTable().fnAddData([
+                "Custom row",
+                "New row",
+                "New row",
+                "New row",
+                "New row"]);
+
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+{include file="common/header"}
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改积分等级设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+
+                            <div class="form-group">
+                                <span class="must-red" style="margin:0 300px;">温馨提示：（提货价按百分比计算、其余1:1计算）</span>
+                            </div>
+                            
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">等级</label>
+                                <div class="col-sm-8">
+                                    <input type="hidden" name="level_id" value="{$list.level_id}">
+                                    <input name="level_type" class="form-control" type="text" value="{$list.level_type}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">会费</label>
+                                <div class="col-sm-8">
+                                    <input name="money" class="form-control" type="text" value="{$list.money}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">提货价</label>
+                                <div class="col-sm-8">
+                                    <input name="pick_price" class="form-control" type="text" value="{$list.pick_price}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">一级：</label>
+                                <div class="col-sm-8">
+                                    <input name="one_level" class="form-control" type="text" value="{$list.one_level}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">二级：</label>
+                                <div class="col-sm-8">
+                                    <input name="second_level" class="form-control" type="text" value="{$list.second_level}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">C池</label>
+                                <div class="col-sm-8">
+                                    <input name="c_pond" class="form-control" type="text" value="{$list.c_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">B池</label>
+                                <div class="col-sm-8">
+                                    <input name="b_pond" class="form-control" type="text" value="{$list.b_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">A池：</label>
+                                <div class="col-sm-8">
+                                    <input name="a_pond" class="form-control" type="text" value="{$list.a_pond}">
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="col-sm-3 control-label">P池：</label>
+                                <div class="col-sm-8">
+                                    <input name="p_pond" class="form-control" type="text" value="{$list.p_pond}">
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="col-sm-3 control-label">H池：</label>
+                                <div class="col-sm-8">
+                                    <input name="h_pond" class="form-control" type="text" value="{$list.h_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">T池：</label>
+                                <div class="col-sm-8">
+                                    <input name="t_pond" class="form-control" type="text" value="{$list.t_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">K池：</label>
+                                <div class="col-sm-8">
+                                    <input name="k_pond" class="form-control" type="text" value="{$list.k_pond}">
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="col-sm-3 control-label">S池：</label>
+                                <div class="col-sm-8">
+                                    <input name="s_pond" class="form-control" type="text" value="{$list.s_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Z池：</label>
+                                <div class="col-sm-8">
+                                    <input name="z_pond" class="form-control" type="text" value="{$list.z_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">G池：</label>
+                                <div class="col-sm-8">
+                                    <input name="g_pond" class="form-control" type="text" value="{$list.g_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">R池：</label>
+                                <div class="col-sm-8">
+                                    <input name="r_pond" class="form-control" type="text" value="{$list.r_pond}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">N池：</label>
+                                <div class="col-sm-8">
+                                    <input name="n_pond" class="form-control" type="text" value="{$list.n_pond}">
+                                </div>
+                            </div>
+
+                            
+                            
+                            
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="uploadSubmit" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+// ajax提交
+$("#uploadSubmit").click(function(){
+    var data = new FormData($("#signupForm")[0]);
+    console.log(data);
+    $.ajax({
+        url: "{:url('userlevel/save')}",
+        type: "POST",
+        data: data,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1) {
+                layer.msg(data.msg, {icon:1, time:1500}, function(){
+                    window.location.href = "{:url('userlevel/index')}";
+                });
+            } else {
+                layer.msg(data.msg, {icon:5, time:1500});
+            }
+        }
+    });
+    return false;
+});
+</script>

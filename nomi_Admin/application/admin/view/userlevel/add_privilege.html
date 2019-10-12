@@ -1,0 +1,91 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>会员特权设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+
+                            <input type="hidden" name="level_id" value="{$level_id}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">会员特权名称/内容：</label>
+                                <div class="col-sm-8" id="_param_name">
+                                    <input type="text" name="name[]"  class="form-control" maxlength="50"><br>
+                                    <input type="text" name="content[]" class="form-control" maxlength="50"><br>
+                                </div>
+                            </div>
+
+                             
+                            
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="uploadSubmit" type="submit">提交</button>
+                                    <a href="javascript:void(0);" class="btn btn-success" id="_add">添加会员特权</a>
+                                    <a href="javascript:void(0);" class="btn btn-danger" id="_chanel">删除会员特权</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    // 添加会员特权
+    $("#_add").click(function(){
+        var html = '<input type="text" name="name[]" class="form-control" maxlength="50"><br><input type="text" name="content[]" class="form-control" maxlength="50"><br>';
+        $("#_param_name").append(html);
+    });
+    // 取消会员特权
+    $("#_chanel").click(function(){
+        $("#_param_name input").eq(-1).remove();
+    });
+
+    // ajax提交
+    $("#uploadSubmit").click(function(){
+
+        var data = new FormData($("#signupForm")[0]);
+
+        $.ajax({
+            url: "{:url('userlevel/addPrivilege')}",
+            type: "POST",
+            data: data,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon:1, time:1500}, function(){
+                        location.reload();
+                    });
+                } else {
+                    layer.msg(data.msg, {icon:5, time:1500});
+                }
+            }
+        });
+        return false;
+    });
+
+</script>

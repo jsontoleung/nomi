@@ -1,0 +1,126 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加菜单</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+                            <div class="form-group">
+                                <input type="hidden" name="id" value="">
+                                <label class="col-sm-3 control-label">上级菜单：</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control m-b" name="pid">
+                                        <option value="0">作为顶级菜单</option>
+                                        {volist name="menulists" id="vo"}
+                                            <option value="{$vo.id}">{:get_tree_icons($vo['path'])}{$vo.name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">菜单名称：</label>
+                                <div class="col-sm-8">
+                                    <input id="name" name="name" class="form-control" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">模块名称：</label>
+                                <div class="col-sm-8">
+                                    <input id="module" name="module" class="form-control" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">控制器名称：</label>
+                                <div class="col-sm-8">
+                                    <input id="control" name="control" class="form-control" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">方法名称：</label>
+                                <div class="col-sm-8">
+                                    <input id="actions" name="actions" class="form-control" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">状态：</label>
+                                 <div class="col-sm-8">
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="status" value="1"> 显示
+                                        <input type="radio" name="status" value="0"checked> 隐藏
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $("#signupForm").submit(function(){
+        var formData = $('form[id="signupForm"]').serialize();
+        $.ajax({
+            url: "{:url('menu/save')}",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            success:function (res) {
+                if (res.status == 1) {
+                    layer.msg(res.msg, {icon:1, time:1500}, function(){
+                        window.location.href = "{:url('menu/index')}";
+                    });
+                    layer.close(pop_index); // 关闭弹窗
+                } else {
+                    layer.msg(res.msg, {icon:5, time:1500});
+                }
+            }
+        });
+        return false;
+    });
+    var icon = "<i class='fa fa-times-circle'></i> ";
+    $("#signupForm").validate({
+        rules: {
+            name: "required",
+            nickname: "required",
+            passwd: "required"
+        },
+        messages: {
+            name: icon + "请输入用户名",
+            nickname: icon + "请输入昵称",
+            passwd: {
+                required: icon + "请输入您的密码",
+                minlength: icon + "密码必须5个字符以上"
+            },
+        }
+    });
+</script>

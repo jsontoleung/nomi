@@ -1,0 +1,40 @@
+{include file="common/header"}
+<link href="/static/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<!-- Sweet Alert -->
+<link rel="stylesheet" href="http://www.kdniao.com/OutDemo/KDNWidget/KDNWidget.css" />
+<body class="gray-bg">
+    <a href="javascript:history.back(-1)" class="btn btn-xs btn-success">返回</a>
+    <div class="wrapper wrapper-content animated fadeInRight" id="demoID"></div>
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/static/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/static/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <script src="http://www.kdniao.com/OutDemo/KDNWidget/KDNWidget.js"></script>
+
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+</html>
+<script>
+      window.onload = function () {
+          KDNWidget.run({
+              serviceType: "B",
+              expCode:"{$list.logistic_name}",
+              expNo:"{$list.logistic_sn}",
+              showType:"pop",
+              container: "demoID"
+          })
+      }
+</script>

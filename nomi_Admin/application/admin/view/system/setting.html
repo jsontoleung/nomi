@@ -1,0 +1,154 @@
+{include file="common/header"}
+<link href="/static/admin/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+<!-- 单图片上传--start -->
+<link href="/static/admin/uploadOne/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/admin/uploadOne/css/bootstrap-fileinput.css" rel="stylesheet">
+<!-- 单图片上传--end -->
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>系统设置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm" enctype="multipart/form-data">
+
+                            {volist name="lists" id="vo"}
+
+                                {if condition="$vo.type eq 1"}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">{$vo.describe}：</label>
+                                        <div class="col-sm-8">
+                                            <input name="{$vo.name}" class="form-control" type="text" value="{$vo.values}">
+                                        </div>
+                                    </div>
+                                {elseif condition="$vo.type eq 2"}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">{$vo.describe}：</label>
+                                        <div class="col-sm-8">
+                                            
+                                            <div class="fileinput fileinput-new" data-provides="fileinput"  id="exampleInputUpload">
+                                                <div class="fileinput-new thumbnail" style="width: 200px;height: auto;max-height:150px;">
+                                                    {if condition="$vo.values neq ''"}
+                                                        <img id='picImg' style="width: 100%;height: auto;max-height: 140px;" src="{$vo.values}" alt="" />
+                                                    {else/}
+                                                        <img id='picImg' style="width: 100%;height: auto;max-height: 140px;" src="/static/admin/uploadOne/images/noimage.png" alt="" />
+                                                    {/if}
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                                <div>
+                                                    <span class="btn btn-primary btn-file">
+                                                        <span class="fileinput-new">选择文件</span>
+                                                        <span class="fileinput-exists">换一张</span>
+                                                        <input type="file" id="pic{$vo.id}" accept="image/gif,image/jpeg,image/x-png">
+                                                    </span>
+                                                    <a href="javascript:;" class="btn btn-warning fileinput-exists" data-dismiss="fileinput">移除</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                {elseif condition="$vo.type eq 3"}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">{$vo.describe}：</label>
+                                        <div class="col-sm-8">
+                                        <?php foreach ($vo['extert'] as $kk => $val): ?>
+                                            <label class="checkbox-inline">
+                                                <input type="radio" value="{$kk}" name="{$vo.name}" {if condition="$vo.values eq $kk"}checked{/if}> {$val}
+                                            </label>
+                                        <?php endforeach ?>
+                                        </div>
+                                    </div>
+                                {elseif condition="$vo.type eq 4"}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">{$vo.describe}：</label>
+                                        <div class="col-sm-8">
+                                            <?php foreach ($vo['extert'] as $kk => $val): ?>
+                                                <label class="checkbox-inline i-checks">
+                                                    <input type="checkbox" name="{$vo.name}" value="{$kk}">{$val}
+                                                </label>
+                                            <?php endforeach ?>
+                                        </div>
+                                    </div>
+                                {elseif condition="$vo.type eq 5"}
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">{$vo.describe}：</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control m-b" name="{$vo.name}">
+                                                <?php foreach ($vo['extert'] as $kk => $val): ?>
+                                                    <option value="{$kk}">{$val}</option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/volist}                           
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="uploadSubmit" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+    <!-- 单图片上传--start -->
+    <script src="/static/admin/uploadOne/js/bootstrap-fileinput.js"></script>
+    <!-- 单图片上传--end -->
+
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+// ajax提交
+$("#uploadSubmit").click(function(){
+    var data = new FormData($("#signupForm")[0]);
+    data.append("adminIcn", $("#pic1").get(0).files[0]);
+    data.append("adverImg", $("#pic29").get(0).files[0]);
+    data.append("loginImg", $("#pic30").get(0).files[0]);
+
+    $.ajax({
+        url: "{:url('system/setting')}",
+        type: "POST",
+        data: data,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1) {
+                layer.msg(data.msg, {icon:1, time:1500}, function(){
+                    window.location.reload();
+                });
+                // layer.close(pop_index); // 关闭弹窗
+            } else {
+                layer.msg(data.msg, {icon:5, time:1500});
+            }
+        }
+    });
+    return false;
+});
+</script>

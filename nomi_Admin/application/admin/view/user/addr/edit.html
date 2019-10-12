@@ -1,0 +1,166 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>编辑收货地址&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="btn btn-xs btn-success">返回</a></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">邮政编码：</label>
+                                <div class="col-sm-8">
+                                    <input name="zip" class="form-control" type="text" value="{$list.zip}">
+                                    <input type="hidden" name="addr_id" value="{$id}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">所属省份：</label>
+                                <div class="col-sm-8">
+                                    {$place.province|raw}
+                                </div>
+                            </div>
+
+                            <div class="form-group citys">
+                                <label class="col-sm-3 control-label">所属城市：</label>
+                                <div class="col-sm-8 _city">
+                                    {$place.city|raw}
+                                </div>
+                            </div>
+
+                            <div class="form-group areas">
+                                <label class="col-sm-3 control-label">所属区域：</label>
+                                <div class="col-sm-8 _area">
+                                    {$place.area|raw}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">详细地址：</label>
+                                <div class="col-sm-8">
+                                    <input name="address" class="form-control" type="text" value="{$list.address}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">是否默认：</label>
+                                 <div class="col-sm-8">
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="is_default" value="0" {eq name="list.is_default" value="0"}checked{/eq}> 不是
+                                    </label>
+                                     <label class="checkbox-inline">
+                                        <input type="radio" name="is_default" value="1" {eq name="list.is_default" value="1"}checked{/eq}> 是
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" id="uploadSubmit" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+     <!-- 单图片上传--start -->
+    <script src="/static/admin/uploadOne/js/bootstrap-fileinput.js"></script>
+    <!-- 单图片上传--end -->
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+// ajax提交
+$("#uploadSubmit").click(function(){
+
+    var data = new FormData($("#signupForm")[0]);
+    $.ajax({
+        url: "{:url('user/saveAddr')}",
+        type: "POST",
+        data: data,
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1) {
+                layer.msg(data.msg, {icon:1, time:1500}, function(){
+                    window.location.href = "{:url('user/addrIndex', ['id' => $list.uid])}";
+                });
+            } else {
+                layer.msg(data.msg, {icon:5, time:1500});
+            }
+        }
+    });
+    return false;
+});
+</script>
+<script type="text/javascript">
+// 选择省份自动生成市和区
+$("select[name='provinceid']").change(function(){
+    var province = $("select[name='provinceid']").val();
+    var price = 1;
+    $("._city").html('<select name="cityid" class="form-control" style="width:100%;"><option value="0">--选择地区--</option></select>');
+    $.ajax({
+        url: "{:url('user/addrEdit')}",
+        type: "post",
+        data: {
+            pid: province,
+            price: price,
+        },
+        dataType: "json",
+        success:function(res){
+            if (res.status == 1) {
+                $("._city").html(res.msg['city']);
+                $("select[name='cityid']").change(function(){
+                    var city = $("select[name='cityid']").val();
+                    var price = 2;
+                    $.ajax({
+                        url: "{:url('user/addrEdit')}",
+                        type: "post",
+                        data: {
+                            pid: city,
+                            price: price,
+                        },
+                        dataType: "json",
+                        success:function(res){
+                            if (res.status == 1) {
+                                $("._area").html(res.msg['area']);
+                            } else {
+                                console.log(res.msg);
+                            }
+                        }
+                    });
+                }); 
+            } else {
+                console.log(res.msg);
+            }
+        }
+    });
+});
+</script>

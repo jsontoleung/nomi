@@ -1,0 +1,68 @@
+{include file="common/header"}
+<!-- 多图上传--start -->
+<link rel="stylesheet" type="text/css" href="/static/admin/uploadMore/css/upload.css">
+<!-- 多图上传--end -->
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>产品轮播图&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="btn btn-xs btn-success">返回</a></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" name="signupForm" method="post" enctype="multipart/form-data" action="{:url('product/lunbo')}">
+                            
+                            <input type="hidden" name="pro_id" value="{$pro_id}">
+                            <tr>
+                                <th><span class="must-red">*</span>产品图片</th>
+                                <td colspan="3">
+                                    <div class="addbtn_wrap">
+                                        <input type="button" class="btn btn-primary addbtn" value="点击添加图片">
+                                        <input type="file" name="image[]" id="file1" style="z-index: 1" onchange="getPhoto(this)">
+                                    </div>
+                                    <div class="img_wrap">
+                                        {volist name="lists" id="value"}
+                                            <div class="pic_wrap" id="showPic{$key}" onmouseover="overDelete(this)" onmouseleave="leaveDelete(this)">
+                                                <input type="hidden" name="photo_group[]" value="{$value}">
+                                                <img  src="{$value}" class="img img-rounded imglen">
+                                                <div class="delete _del"><img src="/static/admin/uploadMore/img/delete.svg" onclick="_deletes(this)"></div>
+                                            </div>
+                                        {/volist}
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary btn-save" id="uploadSubmit" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 多图上传--start -->
+    <script src="/static/admin/uploadMore/js/uploads.js"></script>
+    <!-- 多图上传--end -->
+    <script src="/static/admin/function/function.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+</html>
+<script type="text/javascript">
+    function _deletes(obj) {
+
+        $(obj).parent().parent().remove();
+
+    }
+</script>

@@ -1,0 +1,70 @@
+{include file="common/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6" style="width:100%;">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>左侧菜单排序</h5>
+                    </div>
+                   <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm" enctype="multipart/form-data">
+                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                                {volist name="menu" id="vo"}
+                                    <tr>
+                                        <td>{$vo.name}---排序(越小越前)</td>
+                                        <td>
+                                            <input type="text" name="sort[]" value="{$vo.sort}" class="form-control">
+                                            <input type="hidden" name="id[]" value="{$vo.id}">
+                                        </td>
+                                    </tr>
+                                {/volist}
+                            </table>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                   </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $("#signupForm").submit(function(){
+        var formData = $('form[id="signupForm"]').serialize();
+        $.ajax({
+            url: "{:url('system/sortmenu')}",
+            type: "post",
+            data: formData,
+            dataType: "json",
+            success:function (res) {
+                if (res.status == 1) {
+                    layer.msg(res.msg, {icon:1, time:1500}, function(){
+                        window.location.reload();
+                    });
+                    layer.close(pop_index); // 关闭弹窗
+                } else {
+                    layer.msg(res.msg, {icon:5, time:1500});
+                }
+            }
+        });
+        return false;
+    });
+</script>

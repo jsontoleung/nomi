@@ -1,0 +1,111 @@
+{include file="common/header"}
+<!-- 图片放大 -->
+<link href="/static/admin/bigimg/zoomify.min.css" rel="stylesheet">
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>产品详细信息&nbsp;&nbsp;<a href="javascript:history.back(-1)" class="btn btn-xs btn-success">返回</a></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <tbody>
+                                <tr>
+                                    <td style="width:150px;">产品ID</td>
+                                    <td>{$list.pro_id}</td>
+                                </tr>
+                                <tr>
+                                    <td>产品编号</td>
+                                    <td>{$list.pro_number}</td>
+                                </tr>
+                                <tr>
+                                    <td>产品封面</td>
+                                     <td>
+                                        <div class="example col-xs-3 col-md-3" style="margin-left:38%;">
+                                           <p><img src="{$list.photo}"style="wixth:70px;height:70px;"></p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td>所属店铺</td>
+                                    <td>{$list.sname}</td>
+                                </tr>
+                                <tr>
+                                    <td>所属品牌</td>
+                                    <td>{$list.bname}</td>
+                                </tr>
+                                <tr>
+                                    <td>产品名称</td>
+                                    <td>{$list.name}</td>
+                                </tr>
+                                <tr>
+                                    <td>原来价格</td>
+                                    <td>{$list.price_before}</td>
+                                </tr>
+                                <tr>
+                                    <td>实际价格</td>
+                                    <td>{$list.price_after}</td>
+                                </tr>
+                                <tr>
+                                    <td>已经购买的数量</td>
+                                    <td>{$list.num}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>是否抢购</td>
+                                    <td>{:settingType($list.pro_type, 'IS_ROB')}</td>
+                                </tr>
+                                {eq name="list.pro_type" value="1"}
+                                    <tr>
+                                        <td>抢购开始时间</td>
+                                        <td>{$list.start_time}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>抢购结束时间</td>
+                                        <td>{$list.end_time}</td>
+                                    </tr>
+                                {/eq}
+                                <tr>
+                                    <td>使用建议</td>
+                                    <td>{$list.intro}</td>
+                                </tr>
+                                <tr>
+                                    <td>品质保证类型</td>
+                                    <td>{$list.pledge_type}</td>
+                                </tr>
+                                <tr>
+                                    <td>添加时间</td>
+                                    <td>{$list.create_time|date='Y-m-d H:i:s'}</td>
+                                </tr>
+                                <tr>
+                                    <td>商品详情</td>
+                                    <td>{$list.content|raw}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- 图片放大--start -->
+    <script src="/static/admin/bigimg/zoomify.min.js"></script>
+    <!-- 图片放大--end -->
+    <!-- Page-Level Scripts -->
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+
+</body>
+<script type="text/javascript">$('.example img').zoomify();</script>
+</html>

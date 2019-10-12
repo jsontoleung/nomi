@@ -1,0 +1,147 @@
+{include file="common/header"}
+<link href="/static/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+<!-- Sweet Alert -->
+<link href="/static/admin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<!-- 图片放大 -->
+<link href="/static/admin/bigimg/zoomify.min.css" rel="stylesheet">
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+
+                    <form class="form-horizontal m-t" id="signupForm" method="post" action="{:url('record/memberOut')}">
+
+                    <div class="ibox-title">
+                        <h5>
+                            <i class="fa fa-desktop"></i> 记录管理 ---<small>会员订单列表</small>
+                            <button style="margin-left:30px;" class="btn btn-info btn-xs btn-outline" type="submit">导出EXCEL表</button>
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>C池</th>
+                                    <th>B池</th>
+                                    <th>A池</th>
+                                    <th>P池</th>
+                                    <th>H池</th>
+                                    <th>T池</th>
+                                    <th>K池</th>
+                                    <th>S池</th>
+                                    <th>Z池</th>
+                                    <th>G池</th>
+                                    <th>R池</th>
+                                    <th>N池</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td>{$list.c_pond}</td>
+                                        <td>{$list.b_pond}</td>
+                                        <td>{$list.a_pond}</td>
+                                        <td>{$list.p_pond}</td>
+                                        <td>{$list.h_pond}</td>
+                                        <td>{$list.t_pond}</td>
+                                        <td>{$list.k_pond}</td>
+                                        <td>{$list.s_pond}</td>
+                                        <td>{$list.z_pond}</td>
+                                        <td>{$list.g_pond}</td>
+                                        <td>{$list.r_pond}</td>
+                                        <td>{$list.n_pond}</td>
+                                    </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>C池</th>
+                                    <th>B池</th>
+                                    <th>A池</th>
+                                    <th>P池</th>
+                                    <th>H池</th>
+                                    <th>T池</th>
+                                    <th>K池</th>
+                                    <th>S池</th>
+                                    <th>Z池</th>
+                                    <th>G池</th>
+                                    <th>R池</th>
+                                    <th>N池</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/static/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/static/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- Sweet alert -->
+    <script src="/static/admin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- 图片放大--start -->
+    <script src="/static/admin/bigimg/zoomify.min.js"></script>
+    <!-- 图片放大--end -->
+    <!-- Page-Level Scripts -->
+    <script src="/static/admin/function/menu.js"></script>
+    <script src="/static/admin/js/plugins/layer/layer.min.js"></script>
+    <script>
+        $('.example img').zoomify();
+        
+
+        $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable('../example_ajax.php', {
+                "callback": function (sValue, y) {
+                    var aPos = oTable.fnGetPosition(this);
+                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition(this)[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            });
+
+        });
+
+        function fnClickAddRow() {
+            $('#editable').dataTable().fnAddData([
+                "Custom row",
+                "New row",
+                "New row",
+                "New row",
+                "New row"]);
+
+        }
+    </script>
+</body>
+</html>
