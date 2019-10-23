@@ -41,6 +41,8 @@ class User extends Adminbase {
 	 */
 	public function deletes () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::post('id');
 		$del = self::$_user->deletes($id);
 		if ($del['status'] == 1) {
@@ -56,14 +58,16 @@ class User extends Adminbase {
 	 */
 	public function edit () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 
 		$list = self::$_user->where('user_id=:id', ['id'=>$id])->find();
 
-		$topLevel = self::$_user->field('openid, nickname')->where('user_id=:id', ['id' => $list['pid']])->find();
+		$topLevel = self::$_user->field('accont, nickname')->where('user_id=:id', ['id' => $list['pid']])->find();
 
 		if (empty($topLevel)) {
-			$topLevel['openid'] = '';
+			$topLevel['accont'] = '';
 		}
 		
 		// 来源渠道
@@ -85,6 +89,8 @@ class User extends Adminbase {
 	 */
 	public function add () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		// 来源渠道
 		$list['channel'] = Categorys::categoryChannel();
 		// 会员等级
@@ -101,6 +107,8 @@ class User extends Adminbase {
 	 * 保存添加/修改
 	 */
 	public function save () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 			
@@ -122,6 +130,8 @@ class User extends Adminbase {
 	 * 收货地址
 	 */
 	public function addrIndex() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$uid = Request::param('id');
 
@@ -146,6 +156,8 @@ class User extends Adminbase {
 	 */
 	public function addrDel() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Request::isPost()) {
 			$id = Request::post('id');
 			if (self::$_addr->where('addr_id=:id', ['id' => $id])->delete()) {
@@ -161,6 +173,8 @@ class User extends Adminbase {
 	 * 添加收货地址
 	 */
 	public function addrAdd(){
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$uid = Request::param('uid');
 
@@ -191,6 +205,8 @@ class User extends Adminbase {
 	 * 修改收货地址
 	 */
 	public function addrEdit() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 
@@ -227,6 +243,8 @@ class User extends Adminbase {
 	 */
 	public function saveAddr() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Request::isPost()) {
 			
 			$data = Request::post();
@@ -262,6 +280,8 @@ class User extends Adminbase {
 	 * 个人信息
 	 */
 	public function personalIndex($id) {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$list = self::$_info->where('uid=:id', ['id' => $id])->find();
 		if (!empty($list)) {
@@ -311,6 +331,8 @@ class User extends Adminbase {
 	 * 保存个人信息
 	 */
 	public function personalSave() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 

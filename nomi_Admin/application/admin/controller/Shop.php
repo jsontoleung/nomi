@@ -33,6 +33,8 @@ class Shop extends Adminbase {
 	// 删除店铺
 	public function deletes() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$shopid = Request::post('id');
 		if (!empty($shopid)) {
 			$del = self::$_shop->where('shop_id=:id', ['id' => $id])->delete();
@@ -48,6 +50,8 @@ class Shop extends Adminbase {
 
 	// 添加店铺
 	public function add() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		// 店铺后台
 		$admins = Categorys::categoryAdmins();
@@ -77,6 +81,8 @@ class Shop extends Adminbase {
 
 	// 修改店铺
 	public function edit() {
+
+		if (!$this->isAccess()) return view('common/common');
 		
 		$id = Request::param('id');
 		$list = self::$_shop->where('shop_id=:id', ['id' => $id])->find();
@@ -111,6 +117,8 @@ class Shop extends Adminbase {
 	// 添加、修改保存
 	public function save() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$data = Request::param();
 
 		$data['province'] = $data['provinceid'];
@@ -130,6 +138,8 @@ class Shop extends Adminbase {
 
 	// 旗下服务
 	public function brands() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$shopid = Request::param('id');
 
@@ -160,6 +170,8 @@ class Shop extends Adminbase {
 
 	// 保存旗下服务
 	public function authorizesave() {
+
+		if (!$this->isAccess()) return view('common/common');
 		
 		$inputs = Request::post();
 		

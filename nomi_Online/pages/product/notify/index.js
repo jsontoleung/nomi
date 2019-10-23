@@ -6,7 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-
+       type:0,//0普通商品，1服务
+       qrcode:'',
     },
 
     /**
@@ -27,9 +28,12 @@ Page({
             success: function (res) {
 
                 var order = res.data.order;
-
+                var type = res.data.type;
+                var qrcode = res.data.qrcode;
                 that.setData({
                     order: order,
+                    type: type,
+                    qrcode: qrcode,
                 });
 
             },

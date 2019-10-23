@@ -1,0 +1,103 @@
+<!--pages/product/pay/index.wxml-->
+<view class="page">
+    <!-- 服务--start -->
+        <view class="btn-box pro-box">
+
+            <!-- 商品--start -->
+            <view class="box-product">
+            
+                <image src="{{proInfo.photo}}" />
+                <view class="pro-position">
+                    <view class="pro-name">{{proInfo.pname}}</view>
+
+                    <view class="pro-num">
+                        <view class="pro-num-one">¥{{proInfo.price_after}}</view>
+                    </view>
+                </view>
+            </view>
+            <!-- 商品--end -->
+            <view class="btn-param">
+                <view class="param-num">
+                    <view class="param-num-name phone">剩余次数</view>
+                    <view class="param-num-right serves">
+                         <text>{{proInfo.s_num}}</text> 次
+                    </view>
+                </view>
+                <view class="param-num">
+                    <view class="param-num-name phone">联系名称</view>
+                    <view class="param-num-right">
+                        <input value="{{name}}" placeholder="请填写" bindinput='nameInput'></input>
+                    </view>
+                </view>
+                <view class="param-num">
+                    <view class="param-num-name phone">联系电话</view>
+                    <view class="param-num-right">
+                        <input value="{{phone}}" placeholder="请填写" bindinput='phoneInput' ></input>
+                    </view>
+                </view>
+                 <view class="param-num dian-shop">
+                    <view class="param-num-name phone">线下门店</view>
+                    <view class="param-num-name phone picker stroe_box">{{array[index]?array[index]:proInfo.store}}</view>
+                    <view class="param-num-right">
+                        <image src="/images/order/left_icon.png" class="left-icon"></image>
+                        <picker bindchange="bindPickerChange" class="picker-time" value="{{index}}" range="{{array}}">
+                          <view class="picker">
+                             选择门店
+                          </view>
+                        </picker>
+                    </view>
+                </view>
+                <view class="param-num dian-shop">
+                    <view class="param-num-name phone">到店时间</view>
+                    <view class="param-num-name phone picker">{{date?date:proInfo.make_date}}</view>
+                    <view class="param-num-right">
+                        <image src="/images/order/left_icon.png" class="left-icon"></image>
+                        <picker mode="date" value="{{date}}" class="picker-time" start="2019-10-10" end="2023-09-01" bindchange="bindDateChange">
+                            <view class="picker">
+                                选择时间
+                            </view>
+                          </picker>
+                    </view>
+                </view>
+                <view class="param-num dian-shop">
+                    <view class="param-num-name phone">到店时间</view>
+                    <view class="param-num-name phone picker">{{apptime?apptime:proInfo.make_time}}</view>
+                    <view class="param-num-right" bindtap="showCostDetailFun" data-date="{{date}}">
+                        <image src="/images/order/left_icon.png" class="left-icon"></image>
+                        <view class="picker-time">
+                            <view class="picker">
+                                选择时间
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    <!-- 服务--end -->
+    <view class="bnt-appoint-box">
+        <block wx:if="{{type == 1}}">
+        <button  class="bnt-appoint" bindtap="onUpdateApp" data-dian="{{array[index]?array[index]:proInfo.store}}" data-date="{{date?date:proInfo.make_date}}" data-time="{{apptime?apptime:proInfo.make_time}}" data-name="{{name}}" data-phone="{{phone}}" data-order-sn="{{proInfo.order_sn}}" data-proid="{{proInfo.proid}}" data-type="1"> 确定修改 </button>
+        </block>
+        <block wx:else>
+        <button  class="bnt-appoint" bindtap="onYesApp" data-dian="{{array[index]?array[index]:proInfo.store}}" data-date="{{date?date:proInfo.make_date}}" data-time="{{apptime?apptime:proInfo.make_time}}" data-name="{{name}}" data-phone="{{phone}}" data-order-sn="{{proInfo.order_sn}}" data-proid="{{proInfo.proid}}"  data-type="2"> 确定预约 </button>
+        </block>
+    </view>
+</view>
+
+<view hidden="{{timeDetail}}" catchtouchmove='{{false}}' class="mCostDetail">
+    <view bindtap="closeFun" class='mCostDetail__bg'></view>
+    <view class="mCostDetail__box" animation="{{animationData}}">
+        <scroll-view scroll-y="{{true}}" style='height: 100%;'>
+            <view style="width:100%;color:#76aef8;font-size:32rpx;margin-top:2%;margin-left:36%;">请选择预约时间</view>
+            <view class='time'>
+                <view wx:for="{{ timeArr }}" wx:for-item="timeItem" wx:for-index="timeIndex" data-Tindex="{{ timeIndex }}" data-time="{{ timeItem.time}}" bindtap='selectTime' class='listItem {{ currentTime==timeIndex? "current":"" }}' wx:key=''>
+                    <text>{{ timeItem.time }}</text>
+                </view>
+            </view>
+            <view class='operate'>
+                <button class='del' bindtap="hideCostDetailFun">取消</button>
+                <button class='save' bindtap="onPreservation" data-value="{{valueTime}}">保存</button>
+            </view>
+        </scroll-view>
+    </view>
+</view>

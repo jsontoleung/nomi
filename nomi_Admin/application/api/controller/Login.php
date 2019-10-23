@@ -86,14 +86,14 @@ class Login {
 				
 				if (empty($res['user_id'])) { //不存在就添加
 
+					// 添加用户注册信息
+					$data = array();
 					// 分享者uid
 					$topuid = Request::param('topuid');
 					if (!empty($topuid)) {
 						$data['pid'] = $topuid;
 					}
 
-					// 添加用户注册信息
-					$data = array();
 					$data['openid'] = $openid;
 					$data['accont'] = 'nomiya'.date('His').random_string(4);
 					$data['nickname'] = emoji_encode($errCode['nickName']);
@@ -110,13 +110,16 @@ class Login {
 					$val = model('user')->data($data)->save();
 					if ($val) {
 
+						$user_info=model('user')->where('openid',$openid)->find();
+
 						$value = array();
-						$value['user_id'] = intval($val);
+						// $value['user_id'] = intval($val);
+						$value['user_id'] = intval($user_info['user_id']);
 						$value['nickname'] = $data['nickname'];
 						$value['headimg'] = $data['headimg'];
 						$value['type'] = 0;
 						session('user',$value);
-						echo json_encode(array('status' => 1,'user' => $value));
+						echo json_encode(array('status' => 1,'user' => $value,'topuid'=>$topuid));
 						exit();
 
 					}else{
@@ -136,15 +139,15 @@ class Login {
 					}
 
 					// 分享者uid
-					$topuid = Request::param('topuid');
-					if (!empty($topuid)) {
+					// $topuid = Request::param('topuid');
+					// if (!empty($topuid)) {
 						
-						if ($value['pid'] == 0) {
-							$data['pid'] = $topuid;
-							model('user')->save($data, ['user_id' => $value['user_id']]);
-						}
+					// 	if ($value['pid'] == 0) {
+					// 		$data['pid'] = $topuid;
+					// 		model('user')->save($data, ['user_id' => $value['user_id']]);
+					// 	}
 						
-					}
+					// }
 
 					// 添加登陆日志
 					$dataLog['uid'] = intval($value['user_id']);

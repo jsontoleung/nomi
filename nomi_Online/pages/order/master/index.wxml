@@ -37,7 +37,7 @@
         <view class="box-bom">
 
             <block wx:if="{{item.order_status == 0}}">
-                <view class="bom-one" hover-class="hover-order" bindtap="onBuyTap" data-proid="{{item.pro_id}}">付款</view>
+                <view class="bom-one" hover-class="hover-order" bindtap="onBuyTap" data-proid="{{item.pro_id}}" data-num="{{item.product_cnt}}">付款</view>
                 <view class="bom-two" hover-class="hover-order" bindtap="onCancel" data-id="{{item.order_id}}" data-type="{{type}}">取消订单</view>
             </block>
 

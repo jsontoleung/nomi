@@ -47,14 +47,6 @@ Class Adminbase extends Controller {
 
 		}
 
-		$lastime = session('last_time');
-		if (!empty($lastime)) {
-			if (($lastime - time()) <= 0) {
-			    session(null);
-			    $this->error('登录超时，请重新登录!', 'admin/login/index');
-			}
-		}
-
 		// 检查管理员用户的合法性
 		$managerLawful = check_manager_lawful(self::$_uid);
 		
@@ -87,23 +79,23 @@ Class Adminbase extends Controller {
 		$adminName = model('setting')->field('values')->where(['name'=>'ADMIN_NAME'])->find();
 		
 		$showDatas = array(
-				// 输出左侧菜单
-				'sidebar' 		=> $this->sidebar(),
-				// 输出当前菜单 / 当前位置
-				'nowmenuname' 	=> $this->getNowMenuName('name'),
-				// 昵称
-				'nickname' 		=> session('nickname'),
-				// 后台图标ICON
-				'icon' 			=> $icon['values'],
-				// 用户名
-				'name' 			=> session('username'), 
-				// 头像
-				'headimg' 		=> session('headimg'),
-				// 后台名称
-				'adminName' 	=> $adminName['values'],
-				// 输出系统时间
-				'systime' 		=> time(),
-			);
+			// 输出左侧菜单
+			'sidebar' 		=> $this->sidebar(),
+			// 输出当前菜单 / 当前位置
+			'nowmenuname' 	=> $this->getNowMenuName('name'),
+			// 昵称
+			'nickname' 		=> session('nickname'),
+			// 后台图标ICON
+			'icon' 			=> $icon['values'],
+			// 用户名
+			'name' 			=> session('username'), 
+			// 头像
+			'headimg' 		=> session('headimg'),
+			// 后台名称
+			'adminName' 	=> $adminName['values'],
+			// 输出系统时间
+			'systime' 		=> time(),
+		);
 		
 		$this -> assign($showDatas);
 	}
@@ -205,6 +197,30 @@ Class Adminbase extends Controller {
 INFO;
             exit($info);
         }
+    }
+
+
+
+
+    // 检测方法是否有权限
+    public function isAccess () {
+
+    	$uid = check_manager_lawful(session('uid'));
+    	
+    	if ($uid['role_id'] > 1) {
+
+	    	$mune = model('Authaccess')->field('rule_name')->where('role_id=:id', ['id' => $uid['role_id']])->select()->toArray();
+
+	    	$name = strtolower(Request::module() . '/' . Request::controller() . '/' . Request::action());
+
+			if (!in_array($name, $mune)) {
+				return false;
+			}
+				return true;
+
+		}
+		return true;
+
     }
 
 

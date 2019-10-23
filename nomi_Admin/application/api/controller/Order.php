@@ -2,6 +2,7 @@
 namespace app\api\controller;
 use app\common\controller\Apibase;
 use think\facade\Request;
+use think\Db;
 
 class Order extends Apibase
 {	
@@ -172,6 +173,7 @@ class Order extends Apibase
     			->field('p.pro_id, p.name, p.price_after, p.photo, p.intro, p.combo, om.order_id, om.product_cnt, om.order_status')
     			->leftJoin('product p', ['om.proid = p.pro_id'])
     			->where('om.uid=:id', ['id' => $this->uid])
+                ->where('om.type',0)
     			->order('om.create_time desc')
     			->select();
     		foreach ($list as $k => $v) {
@@ -208,7 +210,8 @@ class Order extends Apibase
     			->leftJoin('product p', ['om.proid = p.pro_id'])
     			->where('om.uid=:id', ['id' => $this->uid])
     			->where(['om.order_status'=>0])
-    			->order('om.pay_time desc')
+                ->where('om.type',0)
+    			->order('om.create_time desc')
     			->select();
     		foreach ($list as $k => $v) {
 
@@ -235,6 +238,7 @@ class Order extends Apibase
     			->leftJoin('product p', ['om.proid = p.pro_id'])
     			->where('om.uid=:id', ['id' => $this->uid])
     			->where(['om.order_status'=>1])
+                ->where('om.type',0)
     			->order('om.pay_time desc')
     			->select();
     		foreach ($list as $k => $v) {
@@ -262,6 +266,7 @@ class Order extends Apibase
     			->leftJoin('product p', ['om.proid = p.pro_id'])
     			->where('om.uid=:id', ['id' => $this->uid])
     			->where(['om.order_status'=>2])
+                ->where('om.type',0)
     			->order('om.pay_time desc')
     			->select();
     		foreach ($list as $k => $v) {
@@ -289,6 +294,7 @@ class Order extends Apibase
     			->leftJoin('product p', ['om.proid = p.pro_id'])
     			->where('om.uid=:id', ['id' => $this->uid])
     			->where(['om.order_status'=>3])
+                ->where('om.type',0)
     			->order('om.pay_time desc')
     			->select();
     		foreach ($list as $k => $v) {
@@ -321,8 +327,190 @@ class Order extends Apibase
     }
 
 
+    /**
+     * 我的预约
+     */
+    public function appint() {
 
+        $appint_all = model('OrderMaster')
+                ->alias('om')
+                ->field('p.pro_id, p.name as pname,p.photo,om.order_sn,om.product_cnt,om.order_id,s.*')
+                ->leftJoin('product p', ['om.proid = p.pro_id'])
+                ->leftJoin('serve_goods s', ['om.order_id =s.order_id'])
+                ->where('om.uid=:id', ['id' => $this->uid])
+                ->where(['om.order_status'=>1])
+                ->where('om.type',1)
+                ->order('s.serve_goods_id desc')
+                // ->group('s.order_id')
+                ->select();
+        $appint_ids=array();     
+        $appint=array();
+        foreach ($appint_all as $key => $value) {
+            if(!in_array($value['order_sn'], $appint_ids)){
+                $appint_ids[]=$value['order_sn'];
+                $appint[]=$value;
+            }
+        }
 
+        foreach ($appint as $key => $value) {
+            if (substr($value['photo'], 0, 4) !== 'http') $appint[$key]['photo'] = URL_PATH . $value['photo'];
+
+            $appint[$key]['make_time']=date('Y-m-d H:i',$value['make_time']);
+            // 已使用
+            $make_list=Db::name('ServeGoods')
+                    ->where(['order_id'=>$value['order_id'],'is_sign_in'=>1])
+                    ->select();
+            foreach ($make_list as $k => $v) {
+                $make_list[$k]['make_time']=date('Y-m-d H:i',$v['make_time']);
+            }
+            // 已使用次数
+            $make_num=Db::name('ServeGoods')
+                    ->where(['order_id'=>$value['order_id'],'is_sign_in'=>1])
+                    ->count();
+            $appint[$key]['make_num']=$make_num;
+            $appint[$key]['name']=$value['pname'];
+            // 剩余次数
+            $appint[$key]['s_num']=$value['product_cnt']-$make_num;
+            $appint[$key]['sub']=$make_list;
+        }
+        
+
+        $showDatas = array(
+            'appint'        => $appint
+
+        );
+        return json($showDatas);
+    }
+    /**
+     * 获取二维码
+     */
+    public function getqrcode() {
+        $order_date=$_POST;
+        if($order_date){
+            $qrcode= URL_PATH . '/uploads/appointment/appointment_'.$order_date['order_sn'].'.jpg';
+
+            $showDatas = array(
+                'code'        =>0,
+                'qrcode'      =>$qrcode
+            );
+        }else{
+            $showDatas = array(
+                'code'        =>1,
+            );
+        }
+        
+        return json($showDatas);
+    }
+    /**
+     * 修改预约
+     */
+    public function updateappint() {
+
+        $order_date=$_POST;
+
+        $appint = model('OrderMaster')
+                ->alias('om')
+                ->field('p.pro_id, p.name as pname,p.price_after,p.photo,om.order_sn,om.product_cnt,om.order_id,s.*')
+                ->leftJoin('product p', ['om.proid = p.pro_id'])
+                ->leftJoin('serve_goods s', ['om.order_id =s.order_id'])
+                ->where('om.uid=:id', ['id' => $this->uid])
+                ->where(['om.order_status'=>1])
+                ->where('om.type',1)
+                ->where('om.order_sn',$order_date['order_sn'])
+                ->group('s.order_id')
+                ->order('s.serve_goods_id desc')
+                ->find();
+
+        if (substr($appint['photo'], 0, 4) !== 'http') $appint['photo'] = URL_PATH . $appint['photo'];
+            
+        $appint['make_date']=date('Y-m-d',$appint['make_time']);
+        $appint['make_time']=date('H:i', $appint['make_time']);
+        // 已使用次数
+        $make_num=Db::name('ServeGoods')
+                ->where(['order_id'=>$appint['order_id'],'is_sign_in'=>1])
+                ->count();
+        $appint['make_num']=$make_num;
+        // 剩余次数
+        $appint['s_num']=$appint['product_cnt']-$make_num;
+        
+        // 当天时间到下一年时间
+        $thisday=date('Y-m-d',time());
+        $nextyear=date('Y-m-d',strtotime('+1 year',time()));
+        // 服务，选择店铺
+        $shop = model('Shop')->select();
+        $stroe=array();
+        $stroe= model('Shop')
+                ->alias('p')
+                ->field('p.shop_id, p.shop_name, a.area')
+                ->leftJoin('areas a', ['p.area = a.areaid'])
+                ->where('p.pro_id' ,'like', "%$appint[pro_id]%")
+                ->select();
+
+        $showDatas = array(
+            'appint'        => $appint,
+            'stroe'         => $stroe,
+            'thisday'       => $thisday,
+            'nextyear'      => $nextyear,
+
+        );
+        return json($showDatas);
+    }
+    /**
+     * 确定修改和确定预约
+     */
+    public function updateappdate() {
+
+        $order_date=$_POST;
+
+        $order_info = model('OrderMaster')
+                ->alias('om')
+                ->field('s.*')
+                ->leftJoin('serve_goods s', ['om.order_id =s.order_id'])
+                ->where('om.uid=:id', ['id' => $this->uid])
+                ->where(['om.order_status'=>1])
+                ->where('om.type',1)
+                ->where('om.order_sn',$order_date['order_sn'])
+                ->group('s.order_id')
+                ->order('s.serve_goods_id desc')
+                ->find();
+        if($order_date['type']==1){
+            // 确定修改
+            $server['shopid'] = $order_date['shopid'];
+            $server['name']=$order_date['name'];
+            $server['phone']=$order_date['phone'];
+            $server['store']=$order_date['stroe'];
+            $currentTime = $order_date['dates'] . ' ' . $order_date['apptime'];
+            $server['make_time']=strtotime($currentTime);
+            // 添加订单主表信息
+            $serve_add = Db::name('serve_goods')->where('serve_goods_id',$order_info['serve_goods_id'])->update($server);
+
+        }elseif($order_date['type']==2){
+            // 再次预约
+            $server['order_id']=$order_info['order_id'];
+            $server['shopid'] = $order_date['shopid'];
+            $server['proid']=$order_date['proid'];
+            $server['name']=$order_date['name'];
+            $server['phone']=$order_date['phone'];
+            $server['store']=$order_date['stroe'];
+            $currentTime = $order_date['dates'] . ' ' . $order_date['apptime'];
+            $server['make_time']=strtotime($currentTime);
+            // 添加订单主表信息
+            $serve_add = Db::name('serve_goods')->insert($server);
+        }
+        
+        if($serve_add){
+            $showDatas = array(
+                'code'        =>0,
+            );
+        }else{
+            $showDatas = array(
+                'code'        =>1,
+            );
+        }
+
+        
+        return json($showDatas);
+    }
 
     /**
      * 取消订单

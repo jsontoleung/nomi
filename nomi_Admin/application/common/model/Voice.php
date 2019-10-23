@@ -80,10 +80,10 @@ class Voice extends Model {
 			} else {
 				
 				// 处理上传封面
-				$cover = Upload::uploadOne($file, 'voice', '文章音频');
+				$cover = Upload::uploadOne($file, 'article');
 				$inputs['cover'] = $cover;
 				// 处理上传详情封面
-				$cover_two = Upload::uploadOne($cover_detail, 'voice', '文章音频'.'detail');
+				$cover_two = Upload::uploadOne($cover_detail, 'article');
 				$inputs['cover_detail'] = $cover_two;
 				$inputs['create_time'] = time();
 
@@ -123,7 +123,9 @@ class Voice extends Model {
 				}
 
 				// 处理上传图片
-				$cover = Upload::uploadOne($file, 'voice', '文章音频');
+				$cover = Upload::uploadOne($file, 'article');
+				$baseCover = imgToBase64($cover);
+				p($baseCover);die;
 				$inputs['cover'] = $cover;
 
 				$save = $this->isUpdate(true)->save($inputs, ['voice_id'=>$inputs['voice_id']]);
@@ -150,7 +152,7 @@ class Voice extends Model {
 
 				}
 				// 处理上传详情图片
-				$cover_two = Upload::uploadOne($cover_detail, 'voice', '文章音频'.'detail');
+				$cover_two = Upload::uploadOne($cover_detail, 'article');
 				$inputs['cover_detail'] = $cover_two;
 				
 				$save = $this->isUpdate(true)->save($inputs, ['voice_id'=>$inputs['voice_id']]);
@@ -192,10 +194,10 @@ class Voice extends Model {
 				}
 
 				// 处理上传图片
-				$cover = Upload::uploadOne($file, 'voice', '文章音频');
+				$cover = Upload::uploadOne($file, 'article');
 				$inputs['cover'] = $cover;
 				// 处理上传详情图片
-				$cover_two = Upload::uploadOne($cover_detail, 'voice', '文章音频'.'detail');
+				$cover_two = Upload::uploadOne($cover_detail, 'article');
 				$inputs['cover_detail'] = $cover_two;
 
 				$save = $this->isUpdate(true)->save($inputs, ['voice_id'=>$inputs['voice_id']]);

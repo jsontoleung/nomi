@@ -89,7 +89,7 @@
 .btn-box {
     width:92%;
     padding-top:3%;
-    padding-bottom: 32%;
+    padding-bottom: 50%;
     margin:30rpx 4%;
     background-color: #fff;
     border-radius: 15rpx;
@@ -127,9 +127,10 @@
     white-space: normal !important;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    word-break: break-all;
 }
 .btn-box .box-product .pro-num {
-    width:16%;
+    /* width:16%; */
     height:60rpx;
     float:right;
 }
@@ -175,12 +176,17 @@
     width:100%;
     /* margin-top: 2%; */
     float:left;
+    line-height: 1;
+    height: 50rpx;
+    margin-bottom: 10rpx;
+
 }
 .btn-box .btn-param .param-num .param-num-name {
-    width:30%;
+    /* width:30%; */
     float:left;
     font-size:26rpx;
     letter-spacing:3rpx;
+    margin-right: 60rpx;
 }
 .btn-box .btn-param .param-num .param-num-right {
     float: right;
@@ -314,4 +320,159 @@
 }
 .btn-bottom .hover-btn {
     background-color: #FF82AB;
+}
+.blackpage{
+    float: left !important;
+    margin-left: 40rpx;
+}
+/* 购买服务 */
+.pro-box .picker {
+  height: 50rpx;
+  text-align: right;
+  padding-right: 30rpx;
+  color: #888888;
+}
+.pro-box .box-product .pro-position{
+    position: relative;
+    height: 100%;
+}
+.pro-box .box-product .pro-position .pro-num{
+    position: absolute;
+    bottom: -27rpx;
+    color: #f5a6bc;
+    margin-left: 150rpx;
+}
+.pro-box .btn-param{
+   /* overflow: hidden; */
+}
+.pro-box .btn-param .serves,.picker-time{
+   margin-top: 13rpx;
+}
+.pro-box .btn-param .param-num .param-num-right{
+    float: left;
+    height:50rpx;
+    font-size: 26rpx;
+}
+.pro-box .btn-param .dian-shop .param-num-right{
+   float: right  !important;
+   position: relative;
+}
+.pro-box .btn-param .left-icon{
+    content: "";
+    width: 20rpx;
+    height: 40rpx;
+    position: absolute;
+    right: 0;
+    top: 9rpx;
+}
+.pro-box .btn-param .param-num .param-num-right text{
+    color: #f8bdcd;
+}
+.pro-box .btn-param .param-num .phone{
+    margin-right: 45rpx;
+    margin-top: 13rpx;
+    text-align: left;
+}
+.stroe_box{
+  height: auto !important;
+  overflow: hidden;
+  width: 255rpx;
+  white-space: normal !important;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  display: -webkit-box;
+}
+
+
+
+
+
+
+.mCostDetail{
+position: fixed;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+z-index: 9999;
+}
+.mCostDetail__bg{
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+}
+.mCostDetail__box{
+position: absolute;
+left: 0;
+bottom: 0;
+width: 100%;
+height: 100%;
+background: #000;
+z-index: 100;
+opacity: 0.8;
+}
+.time{
+ width: 95%;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: flex-start;
+ margin: 5% auto;
+}
+.time .listItem{
+ width: 25%;
+ height: 135rpx;
+ text-align: center;
+ box-sizing: border-box;
+ background-color: #000;
+ padding-top: 35rpx;
+ /* border: 1px solid #b9c1c8; */
+}
+.time .listItem text{
+ display: block;
+ font-size: 30rpx;
+ color:#fff;
+}
+.time .current{
+ border: 1px solid #76aef8;
+}
+.time .current text{
+ color: #76aef8;
+}
+.operate button{
+ width:300rpx;
+ height: 88rpx;
+ background-color: #fff;
+}
+.operate .del{
+ 
+  color: #e54449; 
+}
+.operate button::after{
+ border: 2px solid #e54449;
+}
+.operate{
+ display: flex;
+ flex-wrap: nowrap;
+ justify-content: space-around;
+}
+.operate button:nth-child(2):after{
+ border: 2px solid #e54449;
+}
+.operate .save{
+ color: #fff;
+ background-color: #e54449; 
+ 
+}
+.operate{
+ width: 100%;
+ padding: 30rpx 0;
+ background-color: #000;
+ position: fixed;
+ bottom: 0;
 }

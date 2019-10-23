@@ -21,6 +21,8 @@ class Order extends Adminbase {
 
 	public function product() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$lists = self::$_order->proInfo();
 
 		return view('product', ['lists' => $lists]);
@@ -34,6 +36,8 @@ class Order extends Adminbase {
 	 * 确认发货
 	 */
 	public function addDepart() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$orderid = Request::param('id');
 
@@ -101,8 +105,9 @@ class Order extends Adminbase {
 	 */
 	public function Logistic($id) {
 
-		$list = model('OrderMaster')->field('order_id, logistic_name, logistic_sn')->where('order_id=:id', ['id' => $id])->find();
+		if (!$this->isAccess()) return view('common/common');
 
+		$list = model('OrderMaster')->field('order_id, logistic_name, logistic_sn')->where('order_id=:id', ['id' => $id])->find();
 
 		return view('logistic', ['list' => $list]);
 
@@ -111,7 +116,66 @@ class Order extends Adminbase {
 
 
 	
+	/**
+	 * 服务订单
+	 */
+	public function serveInfo() {
 
+		if (!$this->isAccess()) return view('common/common');
+
+		$lists = self::$_order->serveInfo();
+		return view('server', ['lists' => $lists]);
+
+	}
+
+
+
+	/**
+	 * 预约列表
+	 */
+	public function appointInfo() {
+
+		$list = self::$_order->appointInfo();
+
+		return view('appontlist', ['list' => $list]);
+
+	}
+
+
+	/**
+	 * 确认预约
+	 */
+	public function sureOrder () {
+
+		$data['id'] = Request::post('id');
+		$data['orderSn'] = Request::post('orderSn');
+
+		if (empty($data['id'])) {
+			return json(['status' => 0, 'msg' => '获取参数失败']);
+		} elseif (empty($data['orderSn'])) {
+			return json(['status' => 0, 'msg' => '请输入预约订单号']);
+		}
+
+		$serve = Db('serve_goods')
+			->alias('sg')
+			->field('om.order_sn')
+			->leftJoin('order_master om', ['om.order_id = sg.order_id'])
+			->where('serve_goods_id=:id', ['id' => $data['id']])
+			->find();
+
+		if ($data['orderSn'] == $serve['order_sn']) {
+
+			$datas['admin_sure'] = 1;
+			$save = Db('serve_goods')->where('serve_goods_id=:id', ['id' => $data['id']])->update($datas);
+			if ($save) {
+				return json(['status' => 1, 'msg' => '确认订单成功']);
+			}
+				return json(['status' => 0, 'msg' => '确认失败']);
+			
+		}
+		return json(['status' => 0, 'msg' => '预约订单号错误']);
+
+	}
 
 
 

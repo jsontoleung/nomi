@@ -19,7 +19,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>上级用户</th>
-                                    <th>微信(openid)</th>
+                                    <th>微信(账户)</th>
                                     <th>用户名(昵称)</th>
                                     <th>头像</th>
                                     <th>会员等级</th>
@@ -41,7 +41,7 @@
                                     <tr>
                                         <td>{$k}</td>
                                         <td>{$item.pid}</td>
-                                        <td>{:cutStr($item.openid, 6)}</td>
+                                        <td>{$item.accont}</td>
                                         <td>{$item.nickname}</td>
                                         <td>
                                             <div class="example col-xs-3 col-md-3">

@@ -26,6 +26,7 @@
                                         <td>{$vo.channel_name}</td>
                                         <td>{$vo.add_time|date="Y-m-d H:i:s"}</td>
                                         <td>
+                                            <a class="btn btn-xs btn-success _qrcode" attr-id="{$vo.channel_id}">生成二维码</a>
                                             <a href="{:url('user/index', ['channel_id'=>$vo.channel_id])}" class="btn btn-info btn-xs btn-outline">旗下用户</a>
                                             <a href="{:url('channel/retail', ['channel_id'=>$vo.channel_id])}" class="btn btn-zise btn-xs btn-outline">旗下分销商</a>
                                             <a href="{:url('channel/memberinfo', ['channel_id'=>$vo.channel_id])}" class="btn btn-success btn-xs btn-outline">会员记录</a>
@@ -68,6 +69,52 @@
 
 </body>
 <script type="text/javascript">
+// 生成二维码
+$('._qrcode').click(function() {
+
+    var channel_id = $(this).attr('attr-id');
+    swal({
+        title: "您确定要生成二维码吗？",
+        type: "success",
+        showCancelButton: true,
+        confirmButtonText: "是的，我要生成",
+        cancelButtonText: "让我再考虑一下…",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+
+        function (isConfirm) {
+
+            if (isConfirm) {
+
+                $.ajax({
+                    url: "{:url('channel/qrcode')}",
+                    type: "post",
+                    data: {channel_id: channel_id},
+                    dataType: "json",
+                    success:function (res) {
+                        if (res.status == 1) {
+                            swal(res.msg, '', "success");
+                            setTimeout(function(){
+                                location.reload()
+                            },1000)
+                        } else {
+                            swal(res.msg, '', "error");
+                        }
+                    }
+                });
+                
+            } else {
+                swal("已取消", '', "error");
+            }
+
+        }
+
+    )
+    
+
+});
+
 // 删除
 $('._delete').click(function () {
     var id = $(this).attr('attr-id');

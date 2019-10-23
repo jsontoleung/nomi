@@ -26,6 +26,8 @@ class Category extends Adminbase {
 	// 文章分类列表
 	public function articlelist () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Cache::get('artCategory')) {
 			$lists = Cache::get('artCategory');
 		} else {
@@ -43,6 +45,8 @@ class Category extends Adminbase {
 	// 添加文章列表
 	public function addarticlelist () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$lists = self::$_category->categoryLists();
 
 		return view('addarticlelist', [
@@ -54,6 +58,8 @@ class Category extends Adminbase {
 
 	// 修改文章列表
 	public function editarticlelist () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 
@@ -71,6 +77,8 @@ class Category extends Adminbase {
 
 	// 添加、修改文章接口
 	public function savearticlelist () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 
@@ -181,14 +189,24 @@ class Category extends Adminbase {
 	// 删除
 	public function deletes() {
 		
+		if (!$this->isAccess()) return view('common/common');
+		
 		if (Request::isPost()) {
 			
 			$id = Request::post('id');
 
 			// 删除原有的图片
 			$photo = self::$_category->field('cover')->where(['id'=>$id])->find();
-			$filePath = Env::get('root_path').'public'.$photo->cover;
-			unlink($filePath);
+			$len = substr($photo,0, 5);
+			if (($len != 'https') || ($len != 'http')) {
+				
+				if (!empty($photo)) {
+					$filePath = Env::get('root_path').$photo['cover'];
+					if (is_file($filePath)) {
+						unlink($filePath);
+					}
+				}
+			}
 
 			$result = self::$_category->deletes($id);
 			if($result['status'] == 1){

@@ -1,3 +1,8 @@
+page{
+   width: 100%;
+   min-height: 100%;
+   background: #f2f2f2;
+}
 .page{
   width:100%;
   background: #f2f2f2;
@@ -5,6 +10,9 @@
   padding-top: 11%;
   /* box-sizing: border-box; */
   position: absolute;
+  /* min-height: 100%; */
+  overflow: hidden;
+  margin-bottom:100rpx;
 }
 
 .search {
@@ -20,7 +28,8 @@
     top: 0;
 }
 .btn-column {
-  width:33.333%;
+  /* width:33.333%; */
+  flex: 1;
   height:61rpx;
   float:left;
 }
@@ -43,8 +52,10 @@
 /* 产品内容 */
 .btn-con {
     width:47%;
-    height:414rpx;
-    margin: 12rpx 1%;
+    /* height:414rpx; */
+    height: 380rpx;
+    /* margin: 12rpx 1%; */
+    margin: 10rpx 1%;
     background-color: #fff;
     border-radius: 10rpx;
     float:left;
@@ -181,4 +192,88 @@
     color:#666666;
     line-height: 40rpx;
     float:left;
+}
+/* 轮播 */
+.page-body image{
+    width: 100%;
+}
+/* 子菜单 */
+.sub_menu{
+     /* margin: 80rpx auto; */
+     padding: 30rpx 10rpx;
+     text-align: center;
+     overflow: hidden;
+     background: #fff;
+     margin: 0 auto 10rpx;
+    /* 两端对齐 */
+    /* -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    display: flex;
+    justify-content:space-around;
+    flex-wrap:wrap; */
+}
+.sub_menu .sub_menu_row{
+   width: 20%;
+   float: left;
+   margin-bottom: 10rpx;
+}
+.sub_menu image{
+   width: 90rpx;
+   height: 90rpx;
+   border-radius: 50%;
+}
+.sub_menu_row .sub_menu_txt{
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 24rpx;
+}
+.be_price_box{
+    position: relative;
+}
+.be_price{
+   position: absolute;
+   bottom: 10rpx;
+   right: 10rpx;
+   color: #000;
+   font-size: 20rpx;
+   background: #f7b8c9;
+   padding: 5rpx 10rpx;
+   text-decoration:line-through;
+}
+.nodata{
+   color: #ccc;
+   text-align: center;
+   background: #f2f2f2;
+   padding-top: 10rpx;
+   font-size: 32rpx;
+}
+.search_tops{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: fixed;
+    top: -3rpx;
+    background: #fff;
+    z-index: 999999;
+    height: 45rpx;
+    padding: 20rpx 0;
+}
+.search_tops image{
+    height: 45rpx;
+     /* width: 80%; */
+     margin: 0 auto;
+}
+.page-body{
+   margin-top: 65rpx;
+}
+.search {
+   top: 68rpx;
+   z-index: 999999;
 }

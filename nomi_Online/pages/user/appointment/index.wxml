@@ -1,0 +1,58 @@
+
+<view class="page">
+
+    <block wx:if="{{list != ''}}">
+    <view class="btn-box" wx:for="{{list}}" wx:key="index">
+        <view class="box-mid">
+             <navigator url="/pages/product/detail/index?pro_id={{item.pro_id}}">
+            <image src="{{item.photo}}"/>
+            </navigator>
+            <view class="box-mid-right">
+                <view class="box-mid-right-top">
+                    <text class="top-left">{{item.name}}</text>
+                </view>
+                <view class="pos_msg">
+                    <view class="box-mid-right-sec">预约门店：<text>{{item.store}}</text></view>
+                    <view class="box-mid-right-sec">到店时间：<text>{{item.make_time}}</text></view>
+                    <view class="box-mid-right-sec">预约单号：<text>{{item.order_sn}}</text></view>
+                </view>
+            </view>
+
+        </view>
+        
+        <view class="box-bom">
+            <view class="bom-left-num">服务次数<text>{{item.make_num}}</text>次<p>剩余次数<text>{{item.s_num}}</text>次</p></view>
+            <block wx:if="{{item.is_sign_in == 0 && item.s_num !=0 }}">
+            <view class="bom-two" catchtap="onAppSu" data-id="{{item.order_id}}" data-type="{{type}}" data-order-sn="{{item.order_sn}}">预约成功</view>
+            <view class="bom-one" catchtap="onUpDateP" data-proid="{{item.pro_id}}" data-order-sn="{{item.order_sn}}">修改预约</view>
+            </block>
+            <block wx:elif="{{item.is_sign_in == 1 && item.s_num !=0}}">
+               <view class="bom-two" catchtap="onApps" data-id="{{item.order_id}}" data-order-sn="{{item.order_sn}}" data-type="{{type}}">再次预约</view>
+            </block>
+            <block wx:else>
+               <view class="bom-two" catchtap="onBuy" data-id="{{item.order_id}}" data-pro="{{item.pro_id}}" data-type="{{type}}">再次购买</view>
+            </block>
+        </view>
+        <view class="bom-detail" catchtap="detailAppint" data-index="{{index}}">详情<image src="/images/users/d_detail.png"></image></view>
+        <view class="appint_sub_in" hidden="{{showArr[index]}}">
+            <view wx:for="{{item.sub}}" wx:key="index_sub" wx:for-item="item_sub">
+                <view>预约门店：<text>{{item_sub.store}}</text></view>
+                <view>到店时间：<text>{{item_sub.make_time}}</text></view>
+                <view>联系电话：<text>{{item_sub.phone}}</text></view>
+            </view>
+        </view>
+    </view>
+    </block>
+    <view class="parent_center" hidden="{{qrcodeType}}" catchtap="onHideQrcode">
+        <view class="parent_sub">
+            <image src="{{qrcode}}"></image>
+        </view>
+    </view>
+    <!-- <block wx:else>
+    <view style="width:100%;margin-top:30rpx;text-align:center;color:#fea6b6;">暂无信息</view>
+    </block> -->
+
+    
+
+
+</view>

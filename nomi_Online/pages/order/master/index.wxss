@@ -2,7 +2,7 @@
 .page{
     width:100%;
     background: #eeeeee;
-    padding-bottom: 370px;
+    /* padding-bottom: 370px; */
     /* height:100%;
     box-sizing: border-box; */
     position: absolute;

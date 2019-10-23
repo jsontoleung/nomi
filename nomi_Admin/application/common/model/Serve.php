@@ -11,9 +11,10 @@ class Serve extends Model {
 	public function serveInfo () {
 			
 		$list = model('Product')
-			->field('p.pro_id, p.name, p.pro_number, p.price_before, p.price_after, p.photo, p.give_one, p.give_two, p.combo, p.volume, p.buyNum, p.end_time, p.is_member, p.sort, p.is_down, l.level_type')
+			->field('p.pro_id, p.cid, p.name, p.pro_number, p.price_before, p.price_after, p.photo, p.give_one, p.give_two, p.combo, p.volume, p.buyNum, p.end_time, p.is_member, p.sort, p.is_down, l.level_type, c.name as cname')
 			->alias('p')
 			->leftJoin('user_level l', 'p.level = l.level_id')
+			->leftJoin('category c', 'p.cid = c.id')
 			->where('p.type=:id', ['id' => 1])
 			->order('p.sort desc, p.pro_id desc')
 			->select();

@@ -88,6 +88,14 @@
 
     <view class="btn-bottom">
 
+        <view class="bottom-box" bindtap="makeAppointment">
+            <image src="/images/users/daka.png"></image>
+            <view class="bottom-boxcolumn">
+                <view class="bottom-boxcolumn-name">我的预约</view>
+                <image src="/images/users/jiantou.png"></image>
+            </view>
+        </view>
+
         <view class="bottom-box" bindtap="onMyteam">
             <image src="/images/users/team.png"></image>
             <view class="bottom-boxcolumn">

@@ -292,7 +292,8 @@ Page({
     onBuyTap: function (e) {
 
         var proid = e.currentTarget.dataset.proid;
-        
+        var count = e.currentTarget.dataset.num;
+        wx.setStorageSync("now_buy_num", count);
         wx.navigateTo({
             url: "/pages/product/pay/index?proid=" + proid
         })

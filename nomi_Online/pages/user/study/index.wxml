@@ -19,11 +19,16 @@
 
     <block wx:elif="{{keys == 1}}">
 
-        <navigator class="btn-box" wx:for="{{lists}}" wx:key="index" url="/pages/product/detail/index?pro_id={{item.pro_id}}">
+        <navigator class="btn-box" wx:for="{{lists}}" wx:key="index" url="/pages/product/notify/index?order_sn={{item.order_sn}}">
 
             <image class="cover" src="{{item.photo}}"/>
             <view class="box-title">{{item.name}}</view>
+            <block wx:if="{{type == 0}}">
             <view class="num">购买数量：{{item.product_cnt}}</view>
+            </block>
+            <block wx:else>
+            <view class="num">服务次数：{{item.product_cnt}}</view>
+            </block>
             <view class="box-bottom">
                 <text class="time">{{item.pay_time}}</text>
                 <text class="like">支付 ¥{{item.payment_money}}</text>
@@ -35,19 +40,28 @@
     </block>
 
     <block wx:elif="{{keys == 2}}">
-
-        <navigator class="btn-box" wx:for="{{lists}}" wx:key="index" url="/pages/article/detail/index?id={{item.voice_id}}">
-        
-            <image class="cover" src="{{item.cover}}"/>
-            <view class="box-title">{{item.title}}</view>
-            <view class="box-bottom">
-                <text class="time">{{item.create_time}}</text>
-                <text class="like">{{item.like_num}}赞</text>
-                <text class="look">{{item.play_num}}人看过</text>
+            <view wx:for="{{lists}}" wx:key="index">
+                <block wx:if="{{item.type == 1}}">
+                    <navigator class="btn-box" url="/pages/article/detail/index?id={{item.voice_id}}">
+                        <image class="cover" src="{{item.cover}}"/>
+                        <view class="box-title">{{item.title}}</view>
+                        <view class="box-bottom">
+                            <text class="time">{{item.create_time}}</text>
+                            <text class="like">{{item.like_num}}赞</text>
+                            <text class="look">{{item.play_num}}人看过</text>
+                        </view>
+                    </navigator>
+                </block>
+                <block wx:elif="{{item.type == 0}}">
+                    <navigator class="btn-box" url="/pages/product/detail/index?pro_id={{item.pro_id}}">
+                        <image class="cover" src="{{item.cover}}"/>
+                        <view class="box-title">{{item.title}}</view>
+                        <view class="box-bottom">
+                            <text class="time">{{item.create_time}}</text>
+                        </view>
+                    </navigator>
+                </block>
             </view>
-        
-        </navigator>
-
     </block>
 
 </view>

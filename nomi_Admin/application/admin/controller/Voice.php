@@ -41,6 +41,8 @@ class Voice extends Adminbase {
 	// 删除
 	public function deletes () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 		if (self::$_voice->where('voice_id=:id', ['id' => $id])->delete()) {
 			if (Cache::get('voiceInfo')) {
@@ -53,6 +55,9 @@ class Voice extends Adminbase {
 
 	// 添加
 	public function add () {
+
+		if (!$this->isAccess()) return view('common/common');
+
 		$byPro = Categorys::proLists();
 		$cate = Categorys::categoryLists();
 		$type = Categorys::voiceType();
@@ -67,6 +72,8 @@ class Voice extends Adminbase {
 
 	// 修改
 	public function edit () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 		$lists = self::$_voice->where('voice_id=:id', ['id'=>$id])->find();
@@ -85,6 +92,8 @@ class Voice extends Adminbase {
 
 	// 保存添加、修改
 	public function save () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 			
@@ -109,6 +118,8 @@ class Voice extends Adminbase {
 	 */
 	public function content () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 
 		$list = self::$_voice->where('voice_id=:id', ['id' => $id])->value('content');
@@ -124,6 +135,8 @@ class Voice extends Adminbase {
 	 * 详情列表
 	 */
 	public function detail () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 		$type = Request::param('type');
@@ -142,6 +155,8 @@ class Voice extends Adminbase {
 	 */
 	public function detailDel () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 
 	}
@@ -151,6 +166,9 @@ class Voice extends Adminbase {
 	 * 添加详情
 	 */
 	public function detailAdd () {
+
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 		$type = Request::param('type');
 
@@ -165,6 +183,8 @@ class Voice extends Adminbase {
 	 * 修改详情
 	 */
 	public function detailEdit () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 		$type = Request::param('type');
@@ -183,6 +203,8 @@ class Voice extends Adminbase {
 	 * 保存添加、修改详情
 	 */
 	public function detailSave () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 			
@@ -206,6 +228,8 @@ class Voice extends Adminbase {
 	 * 文章详情内容详细
 	 */
 	public function detailcontent () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 		$type = Request::param('type');

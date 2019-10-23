@@ -1,16 +1,17 @@
 {
   "pages": [
+    "pages/product/index/index",
     "pages/index/index",
     "pages/login/login",
     "pages/index/more/more",
     "pages/article/detail/index",
     "pages/article/comment/index",
-    "pages/product/index/index",
     "pages/product/detail/index",
     "pages/product/area/index",
     "pages/product/comment/index",
     "pages/product/pay/index",
     "pages/product/notify/index",
+    "pages/product/sub/index",
     "pages/order/master/index",
     "pages/order/logistic/index",
     "pages/order/car/index",
@@ -25,7 +26,9 @@
     "pages/user/income/index",
     "pages/user/extract/index",
     "pages/user/qrcode/index",
-    "pages/search/index"
+    "pages/search/index",
+    "pages/user/appointment/index",
+    "pages/user/appointment_update/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

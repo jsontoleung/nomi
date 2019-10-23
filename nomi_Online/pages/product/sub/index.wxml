@@ -1,0 +1,88 @@
+<view class="page">
+    <view class="search">
+        <!-- 栏目--start -->
+        <block wx:for="{{category}}" wx:key="index">
+            <block wx:if="{{index <= 4}}">
+                <view class="btn-column">
+                    <view class="{{ids == item.id ? 'column-hover' : ''}}" data-id="{{index}}" data-ids="{{item.id}}" bindtap='toCategory'>
+                        {{item.name}}
+                    </view>
+                </view>
+            </block>
+        </block>
+         <block wx:if="{{category_len > 5}}">
+            <view class="btn-column">
+                <view data-id="{{index}}" data-ids="{{item.id}}" bindtap='toCategoryMore'>
+                    更多
+                </view>
+            </view>
+        </block>
+        <!-- 栏目--end -->
+    </view>
+    <!-- 更多 -->
+    <view class="sub_positon" hidden="{{subM}}">
+        <view class="sub_positon_top">
+            <view>分类</view>
+            <image src="/images/top.png" catchtap="subBgC"></image>
+        </view>
+        <view>
+          <block wx:for="{{category}}" wx:key="index">
+              <view class="more_ps {{ids == item.id ? 'sub_positon_color' : ''}}" data-id="{{index}}" data-ids="{{item.id}}" bindtap='toCategory'>
+                  {{item.name}}
+              </view>
+          </block>
+        </view>
+    </view>
+    <view class="sub_positon_bg" hidden="{{subM}}" catchtap="subBgC"></view>
+    <!-- end 更多 -->
+
+    <block wx:if="{{list == ''}}">
+        <view class="nodata">暂无数据</view>
+    </block>
+    <view class="btn-con" wx:for="{{list}}" wx:key="index" bindtap="onClick" data-id="{{item.pro_id}}" data-type="{{item.type}}">
+        <view class="be_price_box">
+            <image class="con-cover" src="{{item.photo}}"></image>
+            <view class="be_price">原价：￥{{item.price_before}}</view>
+        </view>
+        <view class="con-title">{{item.name}}</view>
+
+        <block wx:if="{{item.combo > 0}}">
+            <view class="con-total">月销量 {{item.buyNum}}</view>
+
+            <!-- <view class="con-total">总销量 {{item.volume}}</view> -->
+
+            <view class="bom-six">{{item.end_time}} </view>
+            
+            <view class="con-bom">
+                <!-- <text class="bom-one">原价：</text> -->
+                <!-- <text class="bom-two">¥{{item.price_before}}</text> -->
+                <!-- <text class="bom-thr">总销量 {{item.volume}}</text> -->
+                <text class="bom-fiv">{{item.price_after}}</text>
+                <text class="bom-for">¥</text>
+            </view>
+        </block>
+
+        <block wx:else>
+            <view class="vip-total">月销量 {{item.buyNum}}</view>
+
+            <!-- <view class="vip-total">总销量 {{item.volume}}</view> -->
+
+            <view class="con-bom">
+                <!-- <text class="vip-one">原价 {{item.price_before}}</text> -->
+                <text class="vip-one" style="text-decoration:none">{{item.vip_name}}：</text>
+                <text class="vip-one" style="text-decoration:none">¥{{item.vip_price}}</text>
+
+                <!-- <view class="vip-fiv">
+                    <text class="fiv-two">{{item.vip_name}}：</text>
+                    <text class="fiv-one">¥{{item.vip_price}}</text>
+                </view> -->
+                <text class="vip-two">{{item.price_after}}</text>
+                <text class="vip-thr">¥</text>
+                <!-- <text class="vip-for">{{item.after_name}}：</text> -->
+                
+            </view>
+        </block>
+
+    </view>
+</view>
+<include src="../../public/foot.wxml"/>

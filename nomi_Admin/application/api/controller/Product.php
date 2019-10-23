@@ -16,27 +16,27 @@ class Product extends Apibase {
 	}
 
 
-	public function home() {
+	// 商品分类首页
+	public function index() {
 
-		if (Request::isPost()) {
+		// if (Request::isPost()) {
 
-			$keys = Request::param('keys');
+			$id = Request::param('id');
 
-			// 一级分类
-            $category = array(
-                '0' => '优惠活动',
-                '1' => '臻选优品',
-                // '2' => '科技美容',
-                '2' => '全部商品'
-            );
+			// 顶级分类
+			$topNav = model('Category')->field('id, name')->where('type=:tp', ['tp' => 2])->where(['status'=>1])->select();
 
-	    	// 当前用户会员优惠价
-			$pick_price = model('user')
-				->alias('u')
-				->field('l.level_id, l.pick_price, l.level_type')
-				->leftJoin('user_level l', ['u.level = l.level_id'])
-				->where('u.user_id=:id', ['id' => $this->uid])
-				->find();
+			if (empty($this->uid)) {
+				$pick_price = model('Userlevel')->where('level_id=:id', ['id' => 1])->find();
+			} else {
+				// 当前用户会员优惠价
+				$pick_price = model('user')
+					->alias('u')
+					->field('l.level_id, l.pick_price, l.level_type')
+					->leftJoin('user_level l', ['u.level = l.level_id'])
+					->where('u.user_id=:id', ['id' => $this->uid])
+					->find();
+			}
 
 			// 下一等级会员优惠价
 			$levelId = $pick_price['level_id']+1;
@@ -44,61 +44,155 @@ class Product extends Apibase {
 				->field('level_id, level_type, pick_price, money')
 				->where('level_id=:id', ['id' => $levelId])
 				->find();
-			
-			if (empty($keys) || $keys == 0) {
+
+			if (!empty($id)) {
+
+				//banner图
+				$banner = model('Banner')->where(['cid' => $id])->select();
+				foreach ($banner as $k => $v) {
+					if(substr($v['banner_img'], 0, 4) !== 'http') $v['banner_img'] = URL_PATH . $v['banner_img'];
+				}
+
+				// 子分类
+				$childNav = model('Category')->field('id, name, cover')->where('pid=:id', ['id' => $id])->select();
+
+				// 所属商品、服务
+				foreach ($childNav as $k => $v) {
+					$cid[] = $v['id'];
+					$cids = implode(',', $cid);
+					if($v['cover']){
+						if(substr($v['cover'], 0, 4) !== 'http') $childNav[$k]['cover'] = URL_PATH . $v['cover'];
+					}
+					
+				}
+
+				$list = $this->product
+						->field('pro_id, cid, type, combo, end_time, name, price_before, price_after, photo, volume, buyNum')
+			        	->where(['is_down' => 1])
+			        	->where('cid', 'in', $cids)
+			        	->order('sort desc, update_time desc')
+			        	->select();
 				
-				$list = model('product')
-		        	->field('pro_id, type, photo, name, price_before, price_after, combo, end_time, volume ,buyNum')
-		        	->where('combo', 'gt', 0)
-		        	->where(['is_down' => 1])
-		        	->order('sort desc, update_time desc')
-		        	->select();
+			} else {
 
-			} elseif ($keys == 1) {
+				//banner图
+				$banner = model('Banner')->where(['cid' => 22])->select();
+				foreach ($banner as $k => $v) {
+					if(substr($v['banner_img'], 0, 4) !== 'http') $v['banner_img'] = URL_PATH . $v['banner_img'];
+				}
 
-		        $list = model('product')
-		        	->field('pro_id, type, photo, name, price_before, price_after, combo, end_time, volume ,buyNum')
-		        	->where('combo', 'eq', 0)
-		        	->where(['is_down' => 1])
-		        	->order('sort desc, volume desc')
-		        	->select();
+				// 子分类
+				$childNav = model('Category')->field('id, name, cover')->where('pid=:id', ['id' => 22])->select();
 
-			} elseif ($keys == 2) {
-				
-				$list = model('product')
-		        	->field('pro_id, type, photo, name, price_before, price_after, combo, end_time, volume ,buyNum')
-		        	->where('combo', 'eq', 0)
-		        	->where(['is_down' => 1])
-		        	->order('sort desc, update_time desc')
-		        	->select();
+				// 所属商品、服务
+				foreach ($childNav as $k => $v) {
+					$cid[] = $v['id'];
+					$cids = implode(',', $cid);
+					if($v['cover']){
+						if(substr($v['cover'], 0, 4) !== 'http') $childNav[$k]['cover'] = URL_PATH . $v['cover'];
+					}
+				}
+
+				$list = $this->product
+						->field('pro_id, cid, type, combo, end_time, name, price_before, price_after, photo, volume, buyNum')
+			        	->where(['is_down' => 1])
+			        	->where('cid', 'in', $cids)
+			        	->order('sort desc, update_time desc')
+			        	->select();
 
 			}
-	        foreach ($list as $k => $v) {
+
+			foreach ($list as $k => $v) {
 
 	        	if ($v['combo']>0) {
 						
-					$list[$k]['price_after'] = $v['price_after'];
-					$list[$k]['end_time'] = '活动结束时间：' . date('m-d H:i', $v['end_time']);
+					$v['price_after'] = $v['price_after'];
+					$v['end_time'] = '活动结束时间：' . date('m-d H:i', $v['end_time']);
 
 				} else {
 
-					$list[$k]['vip_price'] = sprintf("%.2f", ($v['price_after'] * $level['pick_price']));
-					$list[$k]['vip_name'] = $level['level_type'].'价';
+					$v['vip_price'] = sprintf("%.2f", ($v['price_after'] * $level['pick_price']));
+					$v['vip_name'] = $level['level_type'].'价';
 
-					$list[$k]['price_after'] = sprintf("%.2f", ($v['price_after'] * $pick_price['pick_price']));
-					$list[$k]['after_name'] = $pick_price['level_type'].'价';
+					$v['price_after'] = sprintf("%.2f", ($v['price_after'] * $pick_price['pick_price']));
 
 				}
 
-	        	$list[$k]['photo'] = URL_PATH.$v['photo'];
+	        	$v['photo'] = URL_PATH . $v['photo'];
 
 	        }
 
-	    }
+	    // }
+		
+		$showDatas = array(
+			'status' => 1,
+			'topNav' => $topNav,
+			'banner' => $banner,
+			'childNav' => $childNav,
+			'list' => $list,
+		);
+		return json($showDatas);
+
+	}
+
+
+	// 子分类页面
+	public function home() {
+
+		$id = Request::param('id');
+		$this->uid = 1;
+    	// 当前用户会员优惠价
+		$pick_price = model('user')
+			->alias('u')
+			->field('l.level_id, l.pick_price, l.level_type')
+			->leftJoin('user_level l', ['u.level = l.level_id'])
+			->where('u.user_id=:id', ['id' => $this->uid])
+			->find();
+
+		// 下一等级会员优惠价
+		$levelId = $pick_price['level_id']+1;
+		$level = model('Userlevel')
+			->field('level_id, level_type, pick_price, money')
+			->where('level_id=:id', ['id' => $levelId])
+			->find();
+
+		$pid = model('Category')->where('id=:id', ['id' => $id])->value('pid');
+
+		// 子分类
+		$childNav = model('Category')->field('id, name, cover')->where('pid=:id', ['id' => $pid])->select();
+
+		$list = $this->product
+				->field('pro_id, cid, type, combo, end_time, name, price_after,price_before, photo, volume, buyNum')
+	        	->where(['is_down' => 1])
+	        	->where(['cid' => $id])
+	        	->order('sort desc, update_time desc')
+	        	->select();
+
+        foreach ($list as $k => $v) {
+
+        	if ($v['combo']>0) {
+					
+				$v['price_after'] = $v['price_after'];
+				$v['end_time'] = '活动结束时间：' . date('m-d H:i', $v['end_time']);
+
+			} else {
+
+				$v['vip_price'] = sprintf("%.2f", ($v['price_after'] * $level['pick_price']));
+				$v['vip_name'] = $level['level_type'].'价';
+
+				$v['price_after'] = sprintf("%.2f", ($v['price_after'] * $pick_price['pick_price']));
+				$v['after_name'] = $pick_price['level_type'].'价';
+
+			}
+
+        	$v['photo'] = URL_PATH.$v['photo'];
+
+        }
+
 
 		$showDatas = array(
 			'status' => 1,
-			'category' => $category,
+			'childNav' => $childNav,
 			'list' => $list,
 		);
 		return json($showDatas);
@@ -171,7 +265,7 @@ class Product extends Apibase {
 
 			$pro = $this->product
 				->alias('p')
-				->field('p.pro_id, p.type, p.name, p.price_after, p.pledge_type, p.content, p.intro, p.combo, p.serve_num, wp.current_cnt')
+				->field('p.pro_id, p.type, p.name, p.price_after, p.pledge_type, p.content,p.price_before, p.intro, p.combo, p.serve_num, wp.current_cnt')
 				->leftJoin('WarehouseProduct wp', 'p.pro_id = wp.proid')
 				->where('p.pro_id=:id', ['id'=>$pro_id])
 				->find();

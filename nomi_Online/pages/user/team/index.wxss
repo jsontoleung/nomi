@@ -83,3 +83,12 @@
     text-align: center;
     margin-top: 6rpx;
 }
+.name-len-box{
+   position: relative;
+}
+.name-len{
+   position: absolute;
+   top: -4rpx;
+   left: 5rpx;
+   color: #f5a6bc;
+}

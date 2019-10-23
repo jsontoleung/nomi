@@ -18,6 +18,7 @@
                             <thead>
                                 <tr>
                                     <th>序号</th>
+                                    <th>分类</th>
                                     <th>服务封面</th>
                                     <th>服务名称</th>
                                     <th>原来价格</th>
@@ -36,6 +37,7 @@
                                 {volist name="lists" id="item" key="key"}
                                     <tr>
                                         <td>{$key}</td>
+                                        <td>{$item.cname}</td>
                                         <td>
                                             <div class="example col-xs-3 col-md-3">
                                                <p><img src="{$item.photo}"style="wixth:42px;height:38px;"></p>
@@ -72,7 +74,6 @@
                                         <td>
                                             <a href="{:url('product/lunbo', ['id'=>$item.pro_id])}" class="btn btn-success btn-xs btn-outline">轮播图</a>
                                             <a href="{:url('serve/edit', ['id'=>$item.pro_id])}" class="btn btn-warning btn-xs btn-outline">编辑</a>
-                                            <a class="btn btn-danger btn-xs btn-outline _delete" attr-id="{$item.pro_id}">删除</a>
                                         </td>
                                     </tr>
                                 {/volist}
@@ -81,6 +82,7 @@
                                 <tr>
                                     
                                     <th>序号</th>
+                                    <th>分类</th>
                                     <th>服务封面</th>
                                     <th>服务名称</th>
                                     <th>原来价格</th>
@@ -156,48 +158,7 @@
         });
 
     });
-
-    // 删除
-    $('._delete').click(function () {
-        var id = $(this).attr('attr-id');
-        swal({
-            title: "您确定要删除这条信息吗",
-            text: "删除后将无法恢复，请谨慎操作！",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "是的，我要删除！",
-            cancelButtonText: "让我再考虑一下…",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-
-             if (isConfirm) {
-
-                $.ajax({
-                    url: "{:url('product/deletes')}",
-                    type: "post",
-                    data: {id: id},
-                    dataType: "json",
-                    success:function (res) {
-                        if (res.status == 1) {
-                            swal("删除成功！", "您已经永久删除了这条信息。", "success");
-                            setTimeout(function(){
-                                location.reload()
-                            },1000)
-                        } else {
-                            swal("删除失败", "您取消了删除操作！", "error");
-                        }
-                    }
-                });
-                
-            } else {
-                swal("已取消", "您取消了删除操作！", "error");
-            }
-            
-        });
-    });
+    
 
     $(document).ready(function () {
         $('.dataTables-example').dataTable();

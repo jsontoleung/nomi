@@ -142,13 +142,11 @@
         <view wx:if="{{collected}}">已收藏</view>
         <view wx:else>收 藏</view>
     </view>
-
     <view class="btn-che" bindtap="addCar">
         <image src="/images/product/che.png"/>
         <view>购物车</view>
     </view>
-
-    <button class="bottom-click" open-type="share" data-id="{{pro.pro_id}}" data-title="{{pro.name}}" plain="true">
+    <button class="bottom-click" bindtap="showModalTip">
         <image src="/images/voice/share_after.png"/>
         <view>分享</view>
     </button>
@@ -159,6 +157,40 @@
     </view>
 
 </view>
+<!-- 底部弹出窗 -->
+<view class="modals modals-bottom-dialog" hidden="{{hideModal}}">
+  <view class="modals-cancel" bindtap="hideModal"></view>
+  <view class="bottom-dialog-body bottom-pos" animation="{{animationData}}">
+    <text class="shareFrom">分享到</text>
+    <view class="shareTipc">
+        <button open-type="share" data-id="{{pro.pro_id}}" data-title="{{pro.name}}" plain="true">
+            <image src="/images/share1.png"/>
+        </button>
+        <button catchtap="sharep">
+              <image src="/images/share2.png"/>
+        </button>
+    </view>
+    <button class="yuyue" bindtap="hideModal">取消</button>
+  </view>
+</view>
+<view class="modals-cancel" catchtap="hideModal" hidden="{{hideModal}}" catchtouchmove="return"></view>
+
+<!-- 分享好友和朋友圈弹出 -->
+<!-- <view class="shareall" hidden="{{shareallType}}" catchtap="hiddenShare">
+      <button open-type="share" data-id="{{pro.pro_id}}" data-title="{{pro.name}}" plain="true">分享朋友</button>
+      <button catchtap="sharep">分享到朋友圈</button>
+</view> -->
+<!--画布--> 
+ <canvas style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;" canvas-id="firstCanvas"></canvas>
+ <!-- 预览分享图 这里就是上图展示的效果   -->
+<!-- 刚开始是隐藏的 生成分享图之后显示, 用一个布尔变量来控制 这里的样式大家看图就写出来了 -->
+<view hidden='{{fx}}' class='preview' bindtap='cancel'>
+  <image src='{{tempFile}}' mode='widthFix'></image>
+  <view>
+  <button size='mini' bindtap='saveFriend'>去分享朋友圈</button>
+  </view>
+</view>
+
 
 
 <!-- 弹窗 -->

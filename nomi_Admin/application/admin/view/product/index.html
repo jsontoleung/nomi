@@ -18,18 +18,17 @@
                             <thead>
                                 <tr>
                                     <th>序号</th>
+                                    <th>分类</th>
                                     <th>产品封面</th>
                                     <th>产品名称</th>
                                     <th>原来价格</th>
                                     <th>实际价格</th>
-                                    <th>一级返佣</th>
-                                    <th>二级返佣</th>
+                                    <th>返佣</th>
                                     <th>商品库存</th>
                                     <th>总销量</th>
                                     <th>月销量</th>
                                     <th>套餐结束时间</th>
-                                    <th>是否升级会员</th>
-                                    <th>会员等级</th>
+                                    <th>升级会员</th>
                                     <th>排 序</th>
                                     <th>状 态</th>
                                     <th>操 作</th>
@@ -39,16 +38,19 @@
                                 {volist name="lists" id="item" key="key"}
                                     <tr>
                                         <td>{$key}</td>
+                                        <td>{$item.cname}</td>
                                         <td>
                                             <div class="example col-xs-3 col-md-3">
                                                <p><img src="{$item.photo}"style="wixth:42px;height:38px;"></p>
                                             </div>
                                         </td>
-                                        <td>{$item.name}</td>
+                                        <td>{:cutStr($item.name, 8)}</td>
                                         <td>{$item.price_before}</td>
                                         <td>{$item.price_after}</td>
-                                        <td>{$item.give_one}</td>
-                                        <td>{$item.give_two}</td>
+                                        <td>
+                                            一级({$item.give_one})<br><br>
+                                            二级({$item.give_two})
+                                        </td>
                                         <td>
                                             <a href="{:url('product/addInv', ['id'=>$item.pro_id])}" class="btn btn-danger btn-xs">添加库存</a><br>
                                             {$item.current_cnt} 库存
@@ -64,12 +66,11 @@
                                         </td>
                                         <td>
                                             {eq name="$item.is_member" value="0"}
-                                                否
+                                                否--{$item.level_type}
                                             {else}
-                                                是
+                                                是--{$item.level_type}
                                             {/eq}
                                         </td>
-                                        <td>{$item.level_type}</td>
                                         <td>{$item.sort}</td>
                                         <td>
                                             {eq name="$item.is_down" value="0"}
@@ -92,19 +93,18 @@
                             <tfoot>
                                 <tr>
                                     <th>序号</th>
+                                    <th>分类</th>
                                     <th>产品封面</th>
                                     <th>所属分类</th>
                                     <th>产品名称</th>
                                     <th>原来价格</th>
                                     <th>实际价格</th>
-                                    <th>一级返佣</th>
-                                    <th>二级返佣</th>
+                                    <th>返佣</th>
                                     <th>商品库存</th>
                                     <th>总销量</th>
                                     <th>月销量</th>
                                     <th>套餐结束时间</th>
-                                    <th>是否升级会员</th>
-                                    <th>会员等级</th>
+                                    <th>升级会员</th>
                                     <th>排 序</th>
                                     <th>状 态</th>
                                     <th>操 作</th>
@@ -149,6 +149,48 @@
     // 放大图片
     $('.example img').zoomify();
 
+    // 删除
+    $('._delete').click(function () {
+        var id = $(this).attr('attr-id');
+        swal({
+            title: "您确定要删除这条信息吗",
+            text: "删除后将无法恢复，请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的，我要删除！",
+            cancelButtonText: "让我再考虑一下…",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+
+             if (isConfirm) {
+
+                $.ajax({
+                    url: "{:url('product/del')}",
+                    type: "post",
+                    data: {id: id},
+                    dataType: "json",
+                    success:function (res) {
+                        if (res.status == 1) {
+                            swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                            setTimeout(function(){
+                                location.reload()
+                            },1000)
+                        } else {
+                            swal("删除失败", "您取消了删除操作！", "error");
+                        }
+                    }
+                });
+                
+            } else {
+                swal("已取消", "您取消了删除操作！", "error");
+            }
+            
+        });
+    });
+
     // 状态
     $('._status').click(function(){
 
@@ -171,48 +213,6 @@
             }
         });
 
-    });
-
-    // 删除
-    $('._delete').click(function () {
-        var id = $(this).attr('attr-id');
-        swal({
-            title: "您确定要删除这条信息吗",
-            text: "删除后将无法恢复，请谨慎操作！",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "是的，我要删除！",
-            cancelButtonText: "让我再考虑一下…",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-
-             if (isConfirm) {
-
-                $.ajax({
-                    url: "{:url('product/deletes')}",
-                    type: "post",
-                    data: {id: id},
-                    dataType: "json",
-                    success:function (res) {
-                        if (res.status == 1) {
-                            swal("删除成功！", "您已经永久删除了这条信息。", "success");
-                            setTimeout(function(){
-                                location.reload()
-                            },1000)
-                        } else {
-                            swal("删除失败", "您取消了删除操作！", "error");
-                        }
-                    }
-                });
-                
-            } else {
-                swal("已取消", "您取消了删除操作！", "error");
-            }
-            
-        });
     });
 
     $(document).ready(function () {

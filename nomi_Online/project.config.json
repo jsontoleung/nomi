@@ -23,9 +23,9 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.1",
+	"libVersion": "2.8.3",
 	"appid": "wx1f5fdbdc76854173",
-	"projectname": "nomiya2.0",
+	"projectname": "%E7%B3%AF%E7%B1%B3%E8%8A%BD%E7%BA%BF%E4%B8%8A",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -50,13 +50,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "pages/article/detail/index",
 					"pathName": "pages/article/detail/index",
-					"query": "id=56",
+					"query": "id=15",
 					"scene": 1007
 				},
 				{
@@ -65,6 +65,13 @@
 					"pathName": "pages/article/detail/index",
 					"query": "id=56",
 					"scene": 1007
+				},
+				{
+					"id": -1,
+					"name": "列表",
+					"pathName": "pages/product/index/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -26,10 +26,12 @@ page{
     color:#000000;
 }
 .top {
-    width:40%;
+    /* width:40%; */
     height:21%;
     margin:5% auto;
     display: block;
+    width: 300rpx;
+    height: 300rpx;
 }
 
 .bom {

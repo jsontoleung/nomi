@@ -22,6 +22,8 @@ class Comment extends Adminbase {
 	
 	public function index() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$vid = Request::param('id');
 
 		if (Cache::get('commentInfo')) {
@@ -41,6 +43,8 @@ class Comment extends Adminbase {
 	 * 下级评论	
 	 */
 	public function junior() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$comid = Request::param('id');
 		if (Cache::get('juniorInfo')) {

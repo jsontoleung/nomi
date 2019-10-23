@@ -36,7 +36,7 @@
     <block wx:else>
         <view class="btn-con" wx:for="{{junior}}" wx:key="index">
         
-            <view>{{item.nickname}}</view>
+            <view class="name-len-box"><view class="name-len">{{item.len}}</view>{{item.nickname}}</view>
             <view style="color:#666666;">{{item.level_type}}</view>
             <view style="color:#666666;">{{item.integral}}</view>
             <view style="color:#666666;">{{item.top_meney}}</view>

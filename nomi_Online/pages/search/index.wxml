@@ -31,15 +31,30 @@
 <view class="item-box">
     <view class="items">
         <block wx:if="{{result}}">
-        <navigator wx:for="{{result}}" wx:key="{{index}}" class="msg-item" url="/pages/article/detail/index?id={{item.voice_id}}">
-            <view class='msg' style="" data-index="{{index}}"  >
-                <view class='carstate'>
-                    <image class='header-img' src="{{item.cover}}"></image>
-                    <view class='user-name'>{{item.title}}</view>
-                    <!-- <view class='msg-text'>{{item.deviceId}}</view> -->
-                </view>
-            </view>
-        </navigator>
+          <view wx:for="{{result}}" wx:key="{{index}}">
+              <block wx:if="{{item.type==1}}">
+              <navigator class="msg-item" url="/pages/article/detail/index?id={{item.voice_id}}">
+                  <view class='msg' style="" data-index="{{index}}"  >
+                      <view class='carstate'>
+                          <image class='header-img' src="{{item.cover}}"></image>
+                          <view class='user-name'>{{item.title}}</view>
+                          <!-- <view class='msg-text'>{{item.deviceId}}</view> -->
+                      </view>
+                  </view>
+              </navigator>
+              </block>
+               <block wx:if="{{item.type==0}}">
+              <navigator class="msg-item" url="/pages/product/detail/index?pro_id={{item.pro_id}}">
+                  <view class='msg' style="" data-index="{{index}}"  >
+                      <view class='carstate'>
+                          <image class='header-img' src="{{item.cover}}"></image>
+                          <view class='user-name'>{{item.title}}</view>
+                          <!-- <view class='msg-text'>{{item.deviceId}}</view> -->
+                      </view>
+                  </view>
+              </navigator>
+              </block>
+          </view>
         </block>
     </view>
 </view>

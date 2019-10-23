@@ -74,9 +74,9 @@ class User extends Model {
 			$inputs['pid'] = 0;
 		} else {
 
-			$userid = $this->where(['openid' => $inputs['topOnenid']])->value('user_id');
+			$userid = $this->where(['accont' => $inputs['topOnenid']])->value('user_id');
 			if (empty($userid)) {
-				return array('status' => 0, 'msg' => '输入的openid错误或不存在');
+				return array('status' => 0, 'msg' => '输入的账户错误或不存在');
 			} else {
 				$inputs['pid'] = $userid;
 			}
@@ -93,6 +93,7 @@ class User extends Model {
 				// 处理上传图片
 				$cover = Upload::uploadOne($file, 'user', $inputs['nickname']);
 				$inputs['headimg'] = $cover;
+				$inputs['accont'] = 'nomiya'.date('His').random_string(4);
 				$inputs['register_type'] = 1;
 				$inputs['register_time'] = time();
 				if ($this->data($inputs)->save()) {

@@ -40,6 +40,8 @@ class Userlevel extends Adminbase {
 	 */
 	public function deletes () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Request::isPost()) {
 			$id = Request::post('id');
 			if(self::$_level->where(['level_id'=>$id])->delete()){
@@ -60,6 +62,8 @@ class Userlevel extends Adminbase {
 	 */
 	public function edit () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 		$list = self::$_level->where('level_id=:id', ['id'=>$id])->find();
 
@@ -75,6 +79,8 @@ class Userlevel extends Adminbase {
 	 */
 	public function add () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		return view();
 	}
 
@@ -84,6 +90,8 @@ class Userlevel extends Adminbase {
 	 * 保存添加/修改
 	 */
 	public function save () {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 			
@@ -106,6 +114,8 @@ class Userlevel extends Adminbase {
 	 * 会员特权
 	 */
 	public function privilege() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 		$list = model('UserPrivilege')
@@ -131,6 +141,8 @@ class Userlevel extends Adminbase {
 	 * 会员特权设置
 	 */
 	public function addPrivilege() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$level_id = Request::param('level_id');
 
@@ -173,6 +185,8 @@ class Userlevel extends Adminbase {
 	 */
 	public function editPrivilege() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 		$list = model('UserPrivilege')->where('id=:id', ['id' => $id])->select();
 
@@ -196,6 +210,8 @@ class Userlevel extends Adminbase {
 	 * 删除会员特权
 	 */
 	public function delege() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Request::isPost()) {
 			$id = Request::post('id');

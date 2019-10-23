@@ -40,6 +40,8 @@ class System extends Adminbase {
 	 */
 	public function setting () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Cache::get('settingInfo')) {
 			$lists = Cache::get('settingInfo');
 		} else {
@@ -79,6 +81,8 @@ class System extends Adminbase {
 	 * 配置管理
 	 */
 	public function deploy () {
+
+		if (!$this->isAccess()) return view('common/common');
 		
 		if (Request::isPost()) {
 			$inputs = Request::post();
@@ -103,6 +107,8 @@ class System extends Adminbase {
 	 * 左侧菜单排序
 	 */
 	public function sortmenu() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		if (Cache::get('sortmenu')) {
             $menu = Cache::get('sortmenu');
@@ -145,6 +151,8 @@ class System extends Adminbase {
 	 */
     public function baksql () {   
 
+    	if (!$this->isAccess()) return view('common/common');
+
         //获取操作内容：（备份/下载/还原/删除）数据库
         $type=input('type');
 
@@ -176,6 +184,48 @@ class System extends Adminbase {
                 $this->success("$info", 'system/baksql');
                 break;
     
+        }
+
+        // 日期搜索
+        $startime = Request::param('startime');
+        $endtime = Request::param('endtime');
+
+        if (isset($_GET['startime']) && $_GET['startime'] && isset($_GET['endtime']) && $_GET['endtime']) {
+            
+            // 检查时间日期的合法性
+            $startime = input('param.startime');
+            $endtime = input('param.endtime');
+            $starTimes = date('Y-m-d', strtotime($startime));
+            $endTimes = date('Y-m-d', strtotime($endtime));
+            if($startime === $starTimes){ }else{
+                echo '<script>alert("起始时间不合法！");</script>';
+                $startime = '';
+            }
+            if($endtime === $endTimes){ }else{
+                echo '<script>alert("结束时间不合法！");</script>';
+                $endtime = '';
+            }
+            $start = strtotime($startime);
+            $end = strtotime($endtime);
+            
+            if($start > $end){
+                echo '<script>alert("开始时间不能大于结束时间！");</script>';
+                $startime = '';
+                $endtime = '';
+            }
+
+            foreach ($list as $k => $v) {
+                if ( (strtotime($v['time']) > $start) && (strtotime($v['time']) < $end) ) {
+                    $list[$k] = $v;
+                } else {
+                    unset($list[$k]);
+                    // $list[$k] = array_values($v);
+                }
+            }
+            
+        } else {
+            $startime = '';
+            $endtime = '';
         }
         
         return view("baksql", [

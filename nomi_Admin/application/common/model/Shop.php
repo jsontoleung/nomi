@@ -38,11 +38,12 @@ class Shop extends Model {
 			try {
 
 				$admin = model('Admin')->where('id=:id', ['id' => $data['admin_id']])->find();
-				if (empty($admin)) {
+
+				if (empty($data['admin_id'])) {
 
 					return array('status' => 0, 'msg' => '请添加店铺后台');
 
-				} elseif ($admin['is_select'] == 1) {
+				} elseif (!empty($admin)) {
 
 					return array('status' => 0, 'msg' => '该后台已有人选了,请添加店铺后台');
 
@@ -78,6 +79,8 @@ class Shop extends Model {
 
 				$admin = model('Admin')->where('id=:id', ['id' => $data['admin_id']])->find();
 
+				$isAdmin = $this->where(['admin_id' => $data['admin_id']])->find();
+				
 				if (empty($data['admin_id'])) {
 					return array('status' => 0, 'msg' => '请添加店铺后台');
 				} else {
@@ -85,7 +88,7 @@ class Shop extends Model {
 					if (empty($admin)) {
 						$saveAdminOne = 1;
 					} else {
-						if ($admin['is_select'] == 1 && ($shop['admin_id'] != $data['admin_id'])) {
+						if (!empty($isAdmin)) {
 							return array('status' => 0, 'msg' => '该后台已有人选了,请添加店铺后台');
 						}
 						$data2['is_select'] = 0;

@@ -13,13 +13,26 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => 'bdm268446298.my3w.com',
+    'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'bdm268446298_db',
+    'database'        => 'nomi',
     // 用户名
-    'username'        => 'bdm268446298',
+    'username'        => 'root',
     // 密码
-    'password'        => 'NOmi663866',
+    'password'        => 'www.json.cn',
+    
+    // // 数据库类型
+    // 'type'            => 'mysql',
+    // // 服务器地址
+    // 'hostname'        => 'bdm268446298.my3w.com',
+    // // 数据库名
+    // 'database'        => 'bdm268446298_db',
+    // // 用户名
+    // 'username'        => 'bdm268446298',
+    // // 密码
+    // 'password'        => 'NOmi663866',
+
+    
     // 端口
     'hostport'        => '',
     // 连接dsn

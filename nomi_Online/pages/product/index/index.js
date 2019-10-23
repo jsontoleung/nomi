@@ -8,6 +8,8 @@ Page({
     data: {
         homeActive: 3,
         keys: 0,
+      background: [],
+      menu:'',
     },
 
     /**
@@ -27,7 +29,7 @@ Page({
 
         wx.request({
 
-            url: app.data.getUrl + "/product/home",
+            url: app.data.getUrl + "/product/index",
 
             method: 'post',
 
@@ -41,9 +43,21 @@ Page({
             },
 
             success: function (res) {
-
-                var category = res.data.category;
+                wx.showToast({
+                  title: "正在加载中。。。",
+                  icon: 'none',
+                  duration: 1500
+                });
+                var category = res.data.topNav;
                 var list = res.data.list;
+                var menu = res.data.childNav;
+                var background = res.data.banner;
+                
+                for(var i=0;i<list.length;i++){
+                    list[i]['price_before'] = parseFloat(list[i]['price_before']);
+                    list[i]['price_after'] = parseFloat(list[i]['price_after']);
+                    list[i]['vip_price'] = parseFloat(list[i]['vip_price']);
+                }
 
                 if (res.data.status == 1) {
 
@@ -51,7 +65,8 @@ Page({
 
                         category: category,
                         list: list,
-
+                        menu: menu,
+                        background: background
                     });
                     
                 } else {
@@ -84,8 +99,20 @@ Page({
     },
 
 
-
-
+  // 点击轮播图跳转
+  bannerHref:function(e){
+      var proid = e.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: "/pages/product/detail/index?pro_id=" + proid
+      })
+  },
+  // 点击子分类跳转
+  menuSub: function (e) {
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: "/pages/product/sub/index?id=" + id
+    })
+  },
     /**
      * 点击进入详情
      */
@@ -126,15 +153,18 @@ Page({
 
         var keys = e.currentTarget.dataset.id;
 
+        var ids = e.currentTarget.dataset.ids;
+
         wx.request({
 
-            url: app.data.getUrl + "/product/home",
+          url: app.data.getUrl + "/product/index",
 
             method: "post",
 
             data: {
-                keys: keys,
+                // keys: keys,
                 uid: wx.getStorageSync('uid'),
+                id: ids
             },
 
             header: {
@@ -142,16 +172,29 @@ Page({
             },
 
             success: function (res) {
-
+                wx.showToast({
+                  title: "正在加载中。。。",
+                  icon: 'none',
+                  duration: 1500
+                });
                 if (res.data.status == 1) {
 
                     var list = res.data.list;
+                    var menu = res.data.childNav;
+                    var background = res.data.banner;
+
+                    for (var i = 0; i < list.length; i++) {
+                      list[i]['price_before'] = parseFloat(list[i]['price_before']);
+                      list[i]['price_after'] = parseFloat(list[i]['price_after']);
+                      list[i]['vip_price'] = parseFloat(list[i]['vip_price']);
+                    }
 
                     that.setData({
 
                         keys: keys,
                         list: list,
-
+                        menu: menu,
+                        background: background
                     });
 
                 } else {

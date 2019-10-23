@@ -38,9 +38,11 @@ class Myteam extends Apibase
                 ->alias('u')
                 ->leftJoin('user_level l', ['u.level = l.level_id'])
                 ->where('pid=:id', ['id' => $this->uid])
+                ->order('u.register_time desc')
                 ->select();
             foreach ($junior as $k => $v) {
                 $v['nickname'] = preg_replace('/\[\[.*?\]\]/', '', $v['nickname']);
+                $v['nickname']=$this->cut_str($v['nickname'], 1, 0).'**'.$this->cut_str($v['nickname'], 1, -1);
             }
 
         } elseif ($keys == 1) {
@@ -58,9 +60,11 @@ class Myteam extends Apibase
                         ->alias('u')
                         ->leftJoin('user_level l', ['u.level = l.level_id'])
                         ->where('pid=:id', ['id' => $v['user_id']])
+                        ->order('u.register_time desc')
                         ->select();
                     foreach ($junior as $k => $v) {
                         $v['nickname'] = preg_replace('/\[\[.*?\]\]/', '', $v['nickname']);
+                        $v['nickname']=$this->cut_str($v['nickname'], 1, 0).'**'.$this->cut_str($v['nickname'], 1, -1);
                         $v['level_type'] = $v['level'] == 0 ? '游客' : $v['level_type'];
                     }
                 }
@@ -68,6 +72,10 @@ class Myteam extends Apibase
             }
             
 
+        }
+        $len=count($junior);
+        foreach ($junior as $key => $value) {
+            $junior[$key]['len']=$len--;
         }
         
 
@@ -80,5 +88,39 @@ class Myteam extends Apibase
 
     }
     
+    public function cut_str($string, $sublen, $start = 0, $code = 'UTF-8')
+    {
+        if($code == 'UTF-8')
+        {
+            $pa = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/";
+            preg_match_all($pa, $string, $t_string);
+            if(count($t_string[0]) - $start > $sublen) return join('', array_slice($t_string[0], $start, $sublen));
+            return join('', array_slice($t_string[0], $start, $sublen));
+        }
+        else
+        {
+            $start = $start*2;
+            $sublen = $sublen*2;
+            $strlen = strlen($string);
+            $tmpstr = '';
 
+            for($i=0; $i< $strlen; $i++)
+            {
+                if($i>=$start && $i< ($start+$sublen))
+                {
+                    if(ord(substr($string, $i, 1))>129)
+                    {
+                        $tmpstr.= substr($string, $i, 2);
+                    }
+                    else
+                    {
+                        $tmpstr.= substr($string, $i, 1);
+                    }
+                }
+                if(ord(substr($string, $i, 1))>129) $i++;
+            }
+            //if(strlen($tmpstr)< $strlen ) $tmpstr.= "...";
+            return $tmpstr;
+        }
+    }
 }

@@ -192,7 +192,17 @@ Page({
 
     },
 
-
+  /**
+  * 我的预约
+  */
+  makeAppointment: function (options) {
+    util.isLogin(wx.getStorageSync('uid'));
+    if (wx.getStorageSync('uid')) {
+      wx.navigateTo({
+        url: "/pages/user/appointment/index"
+      })
+    }
+  },
 
     /**
      * 每日打卡

@@ -1,6 +1,7 @@
 <!--pages/product/pay/notify/index.wxml-->
 <view class="page">
 
+    <block wx:if="{{type == 0}}">
     <view class="btn-top">
         <view class="top-box">
             <image src="/images/order/che.png" />
@@ -17,6 +18,15 @@
             <view class="top-box-thr">收货地址：{{order[0].province}}{{order.city}}{{order.area}}{{order.address}}</view>
         </view>
     </view>
+    </block>
+    <block wx:else>
+    <view class="qrcode-box">
+      <view class="qrcode-tip">
+        请提供该二维码给员工
+      </view>
+      <image src="{{qrcode}}"></image>
+    </view>
+    </block>
 
     <!-- 商品--start -->
     <view class="btn-box" wx:for="{{order}}" wx:key="index">
@@ -42,9 +52,9 @@
             </view>
 
         </view>
-        
+        <block wx:if="{{type == 0}}">
         <view class="box-bom" hover-class="hover-bg">退款</view>
-
+        </block>
         <view class="box-bottom">
             <text class="box-bottom-left">实付款 (含运费)</text>
             <view class="box-bottom-right">总计：<text>¥ {{item.payment_money}}</text></view>
@@ -62,11 +72,11 @@
     </view>
     <!-- 订单信息--end -->
 
-
+    <block wx:if="{{type == 0}}">
     <view class="btn-fix">
         <view hover-class="hover-btn" class="fix-one">确认收货</view>
         <view hover-class="hover-btn" class="fix-two">查看物流</view>
         <view hover-class="hover-btn" class="fix-the">延长收货</view>
     </view>
-
+    </block>
 </view>

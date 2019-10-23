@@ -24,6 +24,8 @@ class Product extends Adminbase {
 
 	public function index() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Cache::get('proInfo')) {
 			$lists = Cache::get('proInfo');
 		} else {
@@ -37,11 +39,28 @@ class Product extends Adminbase {
 	}
 
 
+	/**
+	 * 删除产品
+	 */
+	public function del() {
 
+		if (!$this->isAccess()) return view('common/common');
+
+		$id = Request::param('id');
+		if (self::$_pro->where('pro_id=:id', ['id'=>$id])->delete()) {
+			Cache::set('proInfo', null);
+			Cache::set('serveInfo', null);
+			return json(['status' => 1, 'msg' => '删除成功']);
+		}
+		return json(['status' => 0, 'msg' => '删除失败']);
+
+	}
 	/**
 	 * 状态
 	 */
 	public function proStatus() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$data = Request::param();
 		$inputs['is_down'] = $data['is_down'] == 0 ? 1 : 0;
@@ -62,6 +81,8 @@ class Product extends Adminbase {
 	 */
 	public function content() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 		$list = self::$_pro
 				->where('pro_id=:id', ['id'=>$id])
@@ -81,6 +102,8 @@ class Product extends Adminbase {
 	 */
 	public function lunbo() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$pro_id = Request::param('id');
 
 		$photo = self::$_pro->where('pro_id=:id', ['id'=>$pro_id])->value('photo_group');
@@ -88,7 +111,7 @@ class Product extends Adminbase {
 		foreach ($arrs as $k => $v) {
 			$lists[$k] = $v;
 		}
-		
+
 		if (Request::isPost()) {
 			
 			$files = Request::param(true);
@@ -113,6 +136,8 @@ class Product extends Adminbase {
 	 * 添加商品库存
 	 */
 	public function addInv() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$id = Request::param('id');
 		$current_cnt = model('WarehouseProduct')->where('proid=:id', ['id' => $id])->value('current_cnt');
@@ -150,6 +175,8 @@ class Product extends Adminbase {
 	 */
 	public function buff() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$proid = Request::param('id');
 
 		$pro_buff = self::$_pro->where('pro_id=:id', ['id'=>$proid])->value('pro_buff');
@@ -174,6 +201,8 @@ class Product extends Adminbase {
 	 * 添加产品属性
 	 */
 	public function buffadd() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$proid = Request::param('id');
 
@@ -230,6 +259,8 @@ class Product extends Adminbase {
 	 */
 	public function buffdeletes() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Request::isPost()) {
 			
 			$keys = Request::post('keys');
@@ -259,32 +290,21 @@ class Product extends Adminbase {
 
 
 
-
-	/**
-	 * 删除
-	 */
-	public function deletes() {
-
-		$id = Request::param('id');
-		if (self::$_pro->where('pro_id=:id', ['id'=>$id])->delete()) {
-			Cache::set('proInfo', null);
-			Cache::set('serveInfo', null);
-			return json(['status' => 1, 'msg' => '删除成功']);
-		}
-
-	}
-
-
-
 	/**
 	 * 添加
 	 */
 	public function add() {
 
+		if (!$this->isAccess()) return view('common/common');
+
+		//所属分类
+		$category = Categorys::categoryLists();
+
 		// 会员等级
 		$level = Categorys::categoryLevel();
 
 		return view('add', [
+			'category' => $category,
 			'level' => $level,
 		]);
 	}
@@ -296,17 +316,23 @@ class Product extends Adminbase {
 	 */
 	public function edit() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$id = Request::param('id');
 		$list = self::$_pro->where('pro_id=:id', ['id' => $id])->find();
 		if ($list['end_time'] > 0) {
 			$list['end_time'] = date('Y-m-d H:i', $list['end_time']);
 		}
 
+		//所属分类
+		$category = Categorys::categoryLists($list['cid']);
+
 		// 会员等级
 		$level = Categorys::categoryLevel($list['level']);
 
 		return view('edit', [
 			'list' => $list,
+			'category' => $category,
 			'level' => $level,
 		]);
 	}
@@ -318,11 +344,13 @@ class Product extends Adminbase {
 	 */
 	public function save() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		if (Request::isPost()) {
 			
 			$data = Request::post();
 			$photo = Request::file('photo');
-			
+
 			$save = self::$_pro->proSave($data, $photo);
 			if ($save) {
 				Cache::set('proInfo', null);
@@ -341,6 +369,8 @@ class Product extends Adminbase {
 	 * 产品评论列表
 	 */
 	public function commentInfo() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$proid = Request::param('id');
 
@@ -362,6 +392,8 @@ class Product extends Adminbase {
 	 * 删除产品评论
 	 */
 	public function comDeletes() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$comid = Request::param('id');
 		$oneuid = self::$_procom->where('comment_id=:id', ['id'=>$comid])->value('uid');
@@ -385,6 +417,8 @@ class Product extends Adminbase {
 	 */
 	public function commenTwo() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$uid = Request::param('uid');
 		$pro_id = Request::param('pro_id');
 		$lists = self::$_procom->commenTwoInfo($uid, $pro_id);
@@ -400,6 +434,9 @@ class Product extends Adminbase {
 	 * 删除下级评论
 	 */
 	public function juniorDeletes() {
+
+		if (!$this->isAccess()) return view('common/common');
+		
 		$comid = Request::param('id');
 		if (self::$_procom->where('comment_id=:id', ['id'=>$comid])->delete()) {
 			return json(['status' => 1, 'msg' => '删除成功']);

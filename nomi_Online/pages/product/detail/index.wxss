@@ -5,6 +5,9 @@
     padding-bottom: 60px;
     position: absolute;
 }
+button::after{
+   content: none;
+}
 
 swiper {
     width:100%;
@@ -438,9 +441,14 @@ swiper swiper-item image {
     height:100%;
     float:left;
     margin-left: 8rpx;
-    margin-top: 1.5%;
+    /* margin-top: 1.5%; */
+    margin-top: 13rpx;
     border: none !important;
     outline: none !important;
+    background-color:#fff !important;
+}
+.bottom-click::after{
+    content:none;
 }
 .bottom-click image {
     width:50rpx;
@@ -452,9 +460,6 @@ swiper swiper-item image {
     text-align: center;
     line-height: 34rpx;
 }
-
-
-
 
 /* 弹窗 */
 .btn-popup {
@@ -530,4 +535,164 @@ swiper swiper-item image {
     height:100%;
     opacity: 0.9;
     
+}
+/*将canvas移到看不到的地方生成*/
+canvas{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999rpx;
+  bottom: 0;
+  margin: auto;
+}
+.preview{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background-color:rgba(0,0,0,0.8);
+  z-index: 2;
+  text-align: center;
+  display:flex; 
+  flex-flow:column;
+}
+ 
+.preview image{
+  width: 80%;
+  height: 80%;
+  margin: 10%;
+  margin-bottom: 5%;
+}
+ 
+.preview button{
+  margin:0 20rpx;
+  border-radius:50px;
+  background-color:#ee2a65;
+  width:60%;
+  padding: 10rpx 0;
+  color: rgba(255,255,255,.8)
+}
+/* 分享朋友和朋友圈弹出 */
+.shareall{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background-color:rgba(0,0,0,0.8);
+  z-index: 2;
+  text-align: center;
+  display:flex; 
+  flex-flow:column;
+  justify-content:center;
+}
+.shareall button{
+   width: 60%;
+   margin-bottom: 10rpx;
+   background: #ee2a65;
+   color: rgba(255,255,255,.8)
+}
+/* 底部弹出窗 */
+.modals{
+    width: 100%;
+    height: 500rpx;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,0,0);
+    transform: translate3d(-50%,0,0);
+    overflow: hidden;
+    background-color: #fff;
+    border-top: #eceded;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    z-index: 9999;
+}
+.modals-cancel {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,0,0);
+    transform: translate3d(-50%,0,0);
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top: #eceded;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    z-index: 9998;
+}
+ 
+.bottom-dialog-body {
+  position: absolute;
+  z-index: 10001;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 500rpx;
+  background-color: #fff;
+}
+ 
+/*动画前初始位置*/
+ 
+.bottom-pos {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+}
+ 
+.yuyue {
+  width: 100%;
+  height: 100rpx;
+  z-index: 9999;
+  position: fixed;
+  bottom: 0;
+  border-radius: 0;
+  border: 0;
+  color: rgb(57 116 177);
+  font-size: 40rpx;
+  line-height: 100rpx;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+
+}
+.shareFrom{
+    width: 100%;
+    display: block;
+    padding: 20rpx;
+    border-bottom: 1px solid #ccc;
+
+}
+.shareTipc{
+   display: flex;
+  justify-content: center; 
+  /* align-items:center; */
+}
+.shareTipc button{
+    border: none;
+    margin-top: 80rpx;
+    background: #fff;
+    outline:none;
+    /* margin-left: 0;
+    margin-right: 0; */
+    position:initial;
+}
+.shareTipc{
+    /* height: 100%; */
+}
+.shareTipc image{
+    width: 150rpx;
+    height: 150rpx;
+}
+ 
+.yuyue-to {
+  width: 100%;
+  height: 100rpx;
+  position: fixed;
+  bottom: 0;
+  border-radius: 0;
+  border: 0;
+  color: rgb(57 116 177);
+  font-size: 40rpx;
+  line-height: 100rpx;
+ background-color: #fff;
 }

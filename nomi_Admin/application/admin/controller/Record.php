@@ -24,6 +24,8 @@ class Record extends Adminbase {
 	// 会员消费记录
 	public function memberinfo () {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$channel_id = Request::param('channel_id') ? Request::param('channel_id') : '';
 
 		$lists = self::$_record->memberList();
@@ -37,6 +39,8 @@ class Record extends Adminbase {
 	// 企业体系
 	public function entSystem($id) {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$list = self::$_record->entSystem($id);
 
 		return view('entsystem', ['list' => $list]);
@@ -48,6 +52,8 @@ class Record extends Adminbase {
 
 	// 登陆记录
 	public function loginInfo() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$lists = self::$_record->loginInfo();
 
@@ -61,6 +67,8 @@ class Record extends Adminbase {
 	// 商品购买记录
 	public function productInfo() {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$channel_id = Request::param('channel_id') ? Request::param('channel_id') : '';
 
 		$lists = self::$_record->productList();
@@ -73,6 +81,8 @@ class Record extends Adminbase {
 	// 企业体系
 	public function proRetail($id) {
 
+		if (!$this->isAccess()) return view('common/common');
+
 		$list = model('OrderRetail')->where(['order_id'=>$id])->find();
 
 		return view('prosystem', ['list' => $list]);
@@ -83,6 +93,8 @@ class Record extends Adminbase {
 
 	// 导出商品EXCEL表
 	public function excelOut() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$channel_id = Request::param('channel_id') ? Request::param('channel_id') : '';
 
@@ -132,6 +144,8 @@ class Record extends Adminbase {
 
 	// 导出会员EXCEL表
 	public function memberOut() {
+
+		if (!$this->isAccess()) return view('common/common');
 
 		$channel_id = Request::param('channel_id') ? Request::param('channel_id') : '';
 

@@ -128,7 +128,8 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: normal !important;
-    -webkit-line-clamp: 2;
+    /* -webkit-line-clamp: 2; */
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 .btn-box .box-mid .box-mid-right .box-mid-right-top .box-mid-right-top-right {
@@ -279,4 +280,15 @@
     background-color:#f5a6bc;
     border:0;
     color:#fff;
+}
+.qrcode-box{
+   text-align: center;
+}
+.qrcode-box image{
+   width: 400rpx;
+   height: 400rpx;
+}
+.qrcode-box .qrcode-tip{
+    margin: 30rpx 0;
+
 }

@@ -8,6 +8,83 @@ function p($arr) {
 	echo '<pre>'. print_r($arr, true). '</pre>';
 }
 
+/**
+ * 发送HTTP请求方法
+ * @param  string $url    请求URL
+ * @param  array  $params 请求参数
+ * @param  string $method 请求方法GET/POST
+ * @return array  $data   响应数据
+ */
+function httpCurl($url, $params, $method = 'POST', $header = array(), $multi = false){
+    date_default_timezone_set('PRC');
+    $opts = array(
+        CURLOPT_TIMEOUT        => 30,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_HTTPHEADER     => $header,
+        CURLOPT_COOKIESESSION  => true,
+        CURLOPT_FOLLOWLOCATION => 1,
+        CURLOPT_COOKIE         =>session_name().'='.session_id(),
+    );
+    /* 根据请求类型设置特定参数 */
+    switch(strtoupper($method)){
+        case 'GET':
+            // $opts[CURLOPT_URL] = $url . '?' . http_build_query($params);
+            // 链接后拼接参数  &  非？
+            $opts[CURLOPT_URL] = $url . '?' . http_build_query($params);
+            break;
+        case 'POST':
+            //判断是否传输文件
+            $params = $multi ? $params : http_build_query($params);
+            $opts[CURLOPT_URL] = $url;
+            $opts[CURLOPT_POST] = 1;
+            $opts[CURLOPT_POSTFIELDS] = $params;
+            break;
+        default:
+            throw new Exception('不支持的请求方式！');
+    }
+    /* 初始化并执行curl请求 */
+    $ch = curl_init();
+    curl_setopt_array($ch, $opts);
+    $data  = curl_exec($ch);
+    $error = curl_error($ch);
+    curl_close($ch);
+    if($error) throw new Exception('请求发生错误：' . $error);
+    return  $data;
+}
+
+// https_request请求接口返回数据
+function https_request($url, $data = null,$time_out=60,$out_level="s",$headers=array())
+{
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_NOSIGNAL, 1);
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    if (!empty($data)){
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    }
+    if($out_level=="s")
+    {
+        //超时以秒设置
+        curl_setopt($curl, CURLOPT_TIMEOUT,$time_out);//设置超时时间
+    }elseif ($out_level=="ms") 
+    {
+        curl_setopt($curl, CURLOPT_TIMEOUT_MS,$time_out);  //超时毫秒，curl 7.16.2中被加入。从PHP 5.2.3起可使用 
+    }
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    if($headers)
+    {
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);//如果有header头 就发送header头信息
+    }
+    $output = curl_exec($curl);
+    curl_close($curl);
+    return $output;
+}
+
+
 
 // ------------------------------------------逻辑--start----------------------------------------------------
 
@@ -220,6 +297,116 @@ function remote_file_exists($url) {
     curl_close($curl);
     return $found;
 }
+
+
+/**
+ * 获取图片的Base64编码
+ * @date 2017-02-20 19:41:22
+ *
+ * @param $url 传入图片地址
+ * @param $type 返回类型
+ *
+ * @return string
+ */
+function curl_url($url,$type=0,$timeout=30){  
+      
+    $msg = ['code'=>2100,'status'=>'error','msg'=>'未知错误！'];  
+    $imgs= ['image/jpeg'=>'jpeg',  
+               'image/jpg'=>'jpg',  
+               'image/gif'=>'gif',  
+               'image/png'=>'png',  
+               'text/html'=>'html',  
+               'text/plain'=>'txt',  
+               'image/pjpeg'=>'jpg',  
+               'image/x-png'=>'png',  
+               'image/x-icon'=>'ico'  
+         ];  
+    if(!stristr($url,'http')){  
+        $msg['code']= 2101;  
+        $msg['msg'] = 'url地址不正确!';    
+        return $msg;  
+    }     
+    $dir= pathinfo($url);  
+    //var_dump($dir);  
+    $host = $dir['dirname'];  
+    $refer= $host.'/';  
+    $ch = curl_init($url);  
+    curl_setopt ($ch, CURLOPT_REFERER, $refer); //伪造来源地址  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//返回变量内容还是直接输出字符串,0输出,1返回内容  
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);//在启用CURLOPT_RETURNTRANSFER的时候，返回原生的（Raw）输出  
+    curl_setopt($ch, CURLOPT_HEADER, 0); //是否输出HEADER头信息 0否1是  
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout); //超时时间  
+    $data = curl_exec($ch);  
+    //$httpCode = curl_getinfo($ch,CURLINFO_HTTP_CODE);   
+    //$httpContentType = curl_getinfo($ch,CURLINFO_CONTENT_TYPE);  
+    $info = curl_getinfo($ch);  
+    curl_close($ch);  
+    $httpCode = intval($info['http_code']);  
+    $httpContentType = $info['content_type'];  
+    $httpSizeDownload= intval($info['size_download']);  
+      
+    if($httpCode!='200'){  
+        $msg['code']= 2102;  
+        $msg['msg'] = 'url返回内容不正确！';  
+        return $msg;  
+    }  
+    if($type>0 && !isset($imgs[$httpContentType])){  
+        $msg['code']= 2103;  
+        $msg['msg'] = 'url资源类型未知！';  
+        return $msg;  
+    }  
+    if($httpSizeDownload<1){  
+        $msg['code']= 2104;  
+        $msg['msg'] = '内容大小不正确！';  
+        return $msg;  
+    }  
+    $msg['code']  = 200;  
+    $msg['status']='success';  
+     $msg['msg']   = '资源获取成功';  
+    if($type==0 or $httpContentType=='text/html') $msg['data'] = $data;  
+    $base_64 = base64_encode($data);  
+    if($type==1) $msg['data'] = $base_64;  
+    elseif($type==2) $msg['data'] = "data:{$httpContentType};base64,{$base_64}";  
+    elseif($type==3) $msg['data'] = "<img src='data:{$httpContentType};base64,{$base_64}' />";  
+    else $msg['msg'] = '未知返回需求！';     
+    unset($info,$data,$base_64);  
+    return $msg;  
+  
+}
+
+//本地转base64
+function base64EncodeImage ($image_file) {
+    
+    if(file_exists($image_file) || is_file($image_file)){
+
+        $base64_image = '';
+
+        $image_info = getimagesize($image_file);
+
+        $image_data = fread(fopen($image_file, 'r'), filesize($image_file));
+
+        $base64_image = 'data:' . $image_info['mime'] . ';base64,' . chunk_split(base64_encode($image_data));
+
+        return $base64_image;
+
+    }
+
+    else{
+
+        return false;
+
+    }
+    
+}
+
+//网络转base64
+function imgtobase64($img='', $imgHtmlCode=true)
+{
+    $imageInfo = getimagesize($img);
+    $base64 = "" . chunk_split(base64_encode(file_get_contents($img)));
+    return 'data:' . $imageInfo['mime'] . ';base64,' . chunk_split(base64_encode(file_get_contents($img)));;
+}
+
 
 // -----------------------------------------视图设置---end------------------------------------------------------
 

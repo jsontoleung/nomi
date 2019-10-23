@@ -12,7 +12,7 @@
 // [ 应用入口文件 ]
 namespace think;
 
-define('ADMIN_PATH', 'http://www.nomi.cn/index.php/admin/');
+define('ADMIN_PATH', 'https://www.nomiyy.com/index.php/admin/');
 define('APP_PATH', __DIR__ . '/application/');
 define('URL_PATH', "https://".$_SERVER['HTTP_HOST']);
 defined('ROOT_PATH') or define('ROOT_PATH', dirname(realpath(APP_PATH)) . '/');

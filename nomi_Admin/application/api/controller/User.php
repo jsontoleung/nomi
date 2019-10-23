@@ -121,7 +121,7 @@ class User extends Apibase
             '2' => '我的收藏',
             '3' => '我的关注'
         );
-
+        
         $lists = array();
         if (empty($keys) || $keys == 0) {
             
@@ -133,14 +133,15 @@ class User extends Apibase
             // 我的购买
             $lists = model('OrderMaster')
             ->alias('om')
-            ->field('pro.pro_id, pro.name, pro.photo, pro.price_after, om.product_cnt, om.payment_money, om.pay_time')
+            ->field('pro.pro_id, pro.name, pro.photo, pro.price_after, om.product_cnt, om.payment_money, om.pay_time, om.order_sn,om.type')
             ->leftJoin('product pro', ['pro.pro_id = om.proid'])
             ->where(['om.order_status' => 1])
+            ->where(['om.pay_status' => 1])
             ->where('om.uid=:id', ['id' => $this->uid])
             ->order('om.pay_time desc')
             ->select();
             foreach ($lists as $k => $v) {
-                $lists[$k]['pay_time'] = date('m-d H:i', time($v['pay_time']));
+                $lists[$k]['pay_time'] = date('m-d H:i', $v['pay_time']);
                 if (substr($v['photo'], 0, 4) !== 'http') {
                     $lists[$k]['photo'] = URL_PATH . $v['photo'];
                 }
@@ -151,6 +152,7 @@ class User extends Apibase
 
             // 我的收藏
             $collect = model('collect')->where('uid=:id', ['id' => $this->uid])->select();
+
             if (!empty($collect)) {
                 
                 foreach ($collect as $k => $v) {
@@ -161,27 +163,66 @@ class User extends Apibase
                             ->field('v.voice_id, v.title, v.cover, v.create_time, v.play_num')
                             ->alias('v')
                             ->leftJoin('collect co', 'v.voice_id = co.voiceid')
-                            ->where('v.voice_id=:id', ['id' => $v['voiceid']])
                             ->order('co.create_time desc')
                             ->find();
-                        foreach ($lists as $kk => $vv) {
-                            if (substr($vv['cover'], 0, 4) !== 'http') {
-                                $lists[$kk]['cover'] = URL_PATH . $vv['cover'];
-                            }
-                            $lists[$kk]['create_time'] = date('m-d H:i', time($vv['create_time']));
-                            $lists[$kk]['play_num'] = $vv['play_num'] > 9999 ? '9999+' : $vv['play_num'];
-                            $lists[$kk]['like_num'] = model('like')->where(['voiceid' => $vv['voice_id']])->count();
-                        }
 
+                        if (substr($lists[$k]['cover'], 0, 4) !== 'http') {
+                             $lists[$k]['cover'] = URL_PATH .  $lists[$k]['cover'];
+                        }
+                         $lists[$k]['create_time'] = date('m-d H:i',  $lists[$k]['create_time']);
+                         $lists[$k]['play_num'] =  $lists[$k]['play_num'] > 9999 ? '9999+' :  $lists[$k]['play_num'];
+                         $lists[$k]['like_num'] = model('like')->where(['voiceid' =>  $lists[$k]['voice_id']])->count();
+                         $lists[$k]['type'] = 1;
+
+                    }else{
+
+                        $lists[$k] = model('product')
+                                ->field('v.pro_id, v.name, v.photo, v.create_time')
+                                ->alias('v')
+                                ->leftJoin('collect co', 'v.pro_id = co.proid')
+                                ->order('co.create_time desc')
+                                ->find();
+
+                        if (substr($lists[$k]['photo'], 0, 4) !== 'http') {
+                            $lists[$k]['cover'] = URL_PATH . $lists[$k]['photo'];
+                        }
+                        $lists[$k]['title'] = $lists[$k]['name'];
+                        
+                        $lists[$k]['create_time'] = date('m-d H:i', $lists[$k]['create_time']);
+                        $lists[$k]['type'] = 0;
                     }
+
 
                 }
 
             }
 
+            // $collect2 = model('collect')->where('uid=:id', ['id' => $this->uid])->where('proid','>',0)->select();
+            // if (!empty($collect2)) {
+                
+            //     foreach ($collect2 as $k => $v) {
+                    
+            //         $lists2[$k] = model('product')
+            //                 ->field('v.pro_id, v.name, v.photo, v.create_time')
+            //                 ->alias('v')
+            //                 ->leftJoin('collect co', 'v.pro_id = co.proid')
+            //                 ->where('v.pro_id=:id', ['id' => $v['proid']])
+            //                 ->order('co.create_time desc')
+            //                 ->find();
+            //         if (substr($lists2[$k]['photo'], 0, 4) !== 'http') {
+            //             $lists2[$k]['photo'] = URL_PATH . $lists2[$k]['photo'];
+            //         }
+            //         $lists2[$k]['create_time'] = date('m-d H:i', $lists2[$k]['create_time']);
+            //         $lists2[$k]['type'] = 0;
+
+            //     }
+
+            // }
+
         } else {
 
             $lists = array();
+            // $lists2 = array();
 
         }
 

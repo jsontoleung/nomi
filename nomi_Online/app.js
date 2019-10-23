@@ -1,6 +1,7 @@
 //app.js
 App({
     data: {
+        //getUrl: "http://www.nomitest.com/index.php/api",//本地
         getUrl: "https://www.nomiyy.com/index.php/api",
         //   getUrl: "http://www.nomi.cn/index.php/api/",
         userId: null, 
@@ -109,6 +110,14 @@ App({
         var user = that.globalData.userInfo;
 
         var topuid = '';
+        var channel_id='';
+
+        // 是否渠道进来
+        var channel_id = wx.getStorageSync('channel_ids');
+        if (channel_id) {
+          var channel_id = channel_id;
+        }
+      console.log(channel_id+'sd')
 
         // 文章分享
         var artuid = wx.getStorageSync('artuid');
@@ -147,6 +156,7 @@ App({
         if (product) {
             var topuid = product;
         }
+      console.log(topuid+'dddd')
 
         wx.request({
 
@@ -167,11 +177,13 @@ App({
                 
                 topuid: topuid,
 
+                channel_id: channel_id
             },
             header: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             success: function (res) {
+              console.log(res)
                 var status = res.data.status;
 
                 var users = res.data.user;

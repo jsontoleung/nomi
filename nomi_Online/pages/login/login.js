@@ -21,6 +21,13 @@ Page({
             icon: 'loading'			//图标样式，none为无图标
         });
 
+        // 是否渠道进来
+        var channel_ids = options.channel_id;
+        if (channel_ids) {
+          wx.setStorageSync('channel_ids', channel_ids);
+        }
+      console.log(channel_ids+'aaa')
+
         // 文章分享
         var artuid = options.artuid;
         var artid = options.artid;
@@ -90,7 +97,7 @@ Page({
                     
                     if (shareid) {
                         wx.redirectTo({
-                            url: "/pages/index/index"
+                            url: "/pages/product/index/index"
                         })
                     }
 
@@ -102,7 +109,7 @@ Page({
 
                     if (home) {
                         wx.redirectTo({
-                            url: '/pages/index/index'
+                            url: '/pages/product/index/index'
                         })
                     }
 
@@ -113,7 +120,7 @@ Page({
                     }
                    
                     wx.redirectTo({
-                        url: "/pages/index/index"
+                        url: "/pages/product/index/index"
                     })
 
                 });
@@ -169,7 +176,7 @@ Page({
                 }
                 if (shareid) {
                     wx.redirectTo({
-                        url: "/pages/index/index"
+                        url: "/pages/product/index/index"
                     })
                 }
                 if (myself) {
@@ -180,7 +187,7 @@ Page({
 
                 if (home) {
                     wx.redirectTo({
-                        url: '/pages/index/index'
+                        url: '/pages/product/index/index'
                     })
                 }
 
@@ -191,7 +198,7 @@ Page({
                 }
 
                 wx.redirectTo({
-                    url: "/pages/index/index"
+                    url: "/pages/product/index/index"
                 })
 
             });

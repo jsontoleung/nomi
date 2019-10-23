@@ -56,7 +56,7 @@ class Article extends Apibase
                 if ($refresh == 1) {
 
                     $lists = model('voice')
-                        ->field('v.voice_id, v.title, v.cover_detail, v.play_num')
+                        ->field('v.voice_id, v.title, v.cover_detail, v.content, v.play_num, v.info')
                         ->alias('v')
                         ->orderRand()
                         ->limit(3)
@@ -65,7 +65,7 @@ class Article extends Apibase
                 } else {
 
                     $lists = model('voice')
-                        ->field('v.voice_id, v.title, v.cover_detail, v.play_num')
+                        ->field('v.voice_id, v.title, v.cover_detail, v.content, v.play_num, v.info')
                         ->alias('v')
                         ->order('v.play_num desc')
                         ->limit(3)

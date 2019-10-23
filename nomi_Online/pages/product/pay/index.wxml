@@ -90,62 +90,83 @@
 
     <!-- 服务--start -->
     <block wx:else>
-        <view class="btn-box">
-
+         <view class="btn-box pro-box">
             <!-- 商品--start -->
             <view class="box-product">
-            
                 <image src="{{proInfo.photo}}" />
-                
-                <view class="pro-name">{{proInfo.name}}</view>
-
-                <view class="pro-num">
-                    <view class="pro-num-one">¥{{proInfo.price_after}}</view>
-                </view>
-
-                <view class="pro-bottom-box">
-                    <view class="pro-bottom" wx:for="{{proInfo.pledge_type}}" wx:key="index">
-                        <image src="/images/product/gou.png" />
-                        <text>{{item}}</text>
+                <view class="pro-position">
+                    <view class="pro-name">{{proInfo.name}}</view>
+                    <view class="pro-num">
+                        <view class="pro-num-one">¥{{proInfo.price_after}}</view>
                     </view>
                 </view>
-
             </view>
             <!-- 商品--end -->
-
             <view class="btn-param">
-
                 <view class="param-num">
-
-                    <view class="param-num-name">服务次数</view>
-                    <view class="param-num-right">
-                        {{proInfo.serve_num}} 次
+                    <view class="param-num-name phone">服务次数</view>
+                    <view class="param-num-right serves">
+                         <text>{{proInfo.serve_num}}</text> 次
                     </view>
-
                 </view>
-            
-                <view class="param-three">
-                    <text class="param-three-one">订单备注</text>
-                    <input class="param-three-two" placeholder="选填，请先和商家协商一致"></input>
+                <view class="param-num">
+                    <view class="param-num-name phone">联系名称</view>
+                    <view class="param-num-right">
+                        <input value="{{name}}" placeholder="请填写" bindinput='nameInput'></input>
+                    </view>
                 </view>
-
-                <view class="param-four">
-                    <text class="param-four-one">共{{buy_num}}次</text>
-                    <text class="param-four-two">小计：</text>
-                    <text class="param-four-three">¥{{count}}</text>
+                <view class="param-num">
+                    <view class="param-num-name phone">联系电话</view>
+                    <view class="param-num-right">
+                        <input value="{{phone}}" placeholder="请填写" bindinput='phoneInput' ></input>
+                    </view>
                 </view>
-            
+                 <view class="param-num dian-shop">
+                    <view class="param-num-name phone">线下门店</view>
+                    <view class="param-num-name phone picker stroe_box">{{array[index]}}</view>
+                    <view class="param-num-right">
+                        <image src="/images/order/left_icon.png" class="left-icon"></image>
+                        <picker bindchange="bindPickerChange" class="picker-time" value="{{index}}" range="{{array}}">
+                          <view class="picker">
+                             选择门店
+                          </view>
+                        </picker>
+                    </view>
+                </view>
+                 <view class="param-num dian-shop">
+                    <view class="param-num-name phone">到店日期</view>
+                    <view class="param-num-name phone picker">{{date}}</view>
+                    <view class="param-num-right">
+                        <image src="/images/order/left_icon.png" class="left-icon"></image>
+                        <picker mode="date" value="{{date}}" class="picker-time" start="{{thisday}}" end="{{nextday}}" bindchange="bindDateChange">
+                            <view class="picker">
+                                选择日期
+                            </view>
+                          </picker>
+                    </view>
+                </view>
+                <view class="param-num dian-shop" hidden="{{timeShow}}">
+                    <view class="param-num-name phone">到店时间</view>
+                    <view class="param-num-name phone picker">{{apptime}}</view>
+                    <view class="param-num-right" bindtap="showCostDetailFun" data-date="{{date}}">
+                        <image src="/images/order/left_icon.png" class="left-icon"></image>
+                        <view class="picker-time">
+                            <view class="picker">
+                                选择时间
+                            </view>
+                        </view>
+                    </view>
+                </view>
             </view>
-
         </view>
     </block>
     <!-- 服务--end -->
 
     <view class="btn-bottom">
-
+        <view class="bottom-buy blackpage" hover-class="hover-btn" hidden="true" catchtap="onBlackPage"><view>返回</view></view>
         <view wx:if="{{proInfo.type == 0}}" class="bottom-buy" hover-class="hover-btn" catchtap="onBuyTap" data-count="{{count}}" data-buynum="{{buy_num}}"><view>确认购买</view></view>
 
-        <view wx:else class="bottom-buy" hover-class="hover-btn" catchtap="onServeTap" data-count="{{count}}" data-buynum="{{buy_num}}"><view>确认购买</view></view>
+        <view wx:else class="bottom-buy" hover-class="hover-btn" catchtap="onServeTap" data-count="{{count}}" data-buynum="{{proInfo.serve_num}}" data-dian="{{array[index]}}" data-date="{{date}}" data-name="{{name}}" data-phone="{{phone}}" data-time="{{apptime}}"><view>确认购买</view></view>
 
         <view class="bottom-count">
             <text class="bottom-count-one">总计：</text>
@@ -154,4 +175,23 @@
 
     </view>
 
+</view>
+
+
+<view hidden="{{timeDetail}}" catchtouchmove='{{false}}' class="mCostDetail">
+    <view bindtap="closeFun" class='mCostDetail__bg'></view>
+    <view class="mCostDetail__box" animation="{{animationData}}">
+        <scroll-view scroll-y="{{true}}" style='height: 100%;'>
+            <view style="width:100%;color:#76aef8;font-size:32rpx;margin-top:2%;margin-left:36%;">请选择预约时间</view>
+            <view class='time'>
+                <view wx:for="{{ timeArr }}" wx:for-item="timeItem" wx:for-index="timeIndex" data-Tindex="{{ timeIndex }}" data-time="{{ timeItem.time}}" bindtap='selectTime' class='listItem {{ currentTime==timeIndex? "current":"" }}' wx:key=''>
+                    <text>{{ timeItem.time }}</text>
+                </view>
+            </view>
+            <view class='operate'>
+                <button class='del' bindtap="hideCostDetailFun">取消</button>
+                <button class='save' bindtap="onPreservation" data-value="{{valueTime}}">保存</button>
+            </view>
+        </scroll-view>
+    </view>
 </view>

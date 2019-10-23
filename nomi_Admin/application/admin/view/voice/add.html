@@ -208,23 +208,13 @@ $("#uploadSubmit").click(function(){
 var icon = "<i class='fa fa-times-circle'></i> ";
 $("#signupForm").validate({
     rules: {
-        cid: "required",
-        anchor_id: "required",
         title: "required",
-        star: "required",
-        publish_num: "required",
-        play_num: "required",
-        recommend: "required",
+        info: "required",
         content: "required",
     },
     messages: {
-        cid: icon + "请选择分类",
-        anchor_id: icon + "请选择主播",
         title: icon + "请选择音频标题",
-        star: icon + "请选择星星数量",
-        publish_num: icon + "请选择已发布数量",
-        play_num: icon + "请选择播放量",
-        recommend: icon + "请选择收否推荐",
+        info: icon + "请输入简介",
         content: icon + "请选择音频详细内容",
     }
 });

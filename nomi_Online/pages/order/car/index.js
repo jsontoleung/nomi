@@ -1,5 +1,6 @@
 // page/component/new-pages/cart/cart.js
 // 默认请求第一页
+var util = require('../../../utils/util.js');
 var app = getApp();
 var numbers = 1;
 var bool = true;

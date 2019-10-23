@@ -1,0 +1,62 @@
+<view class="page">
+
+    <view class="search">
+        <!-- 栏目--start -->
+        <block wx:for="{{category}}" wx:key="index">
+        <view class="btn-column">
+        <view class="{{keys == index ? 'column-hover' : ''}}" data-id="{{index}}" bindtap='toCategory'>
+            {{item}}
+        </view>
+        </view>
+        </block>
+        <!-- 栏目--end -->
+    </view>
+
+
+    <view class="btn-con" wx:for="{{list}}" wx:key="index" bindtap="onClick" data-id="{{item.pro_id}}" data-type="{{item.type}}">
+    
+        <image class="con-cover" src="{{item.photo}}"></image>
+
+        <view class="con-title">{{item.name}}</view>
+
+        <block wx:if="{{item.combo > 0}}">
+            <view class="con-total">月销量 {{item.buyNum}}</view>
+
+            <view class="con-total">总销量 {{item.volume}}</view>
+
+            <view class="bom-six">{{item.end_time}} </view>
+            
+            <view class="con-bom">
+                <text class="bom-one">原价：</text>
+                <text class="bom-two">¥{{item.price_before}}</text>
+                <!-- <text class="bom-thr">总销量 {{item.volume}}</text> -->
+                <text class="bom-fiv">{{item.price_after}}</text>
+                <text class="bom-for">¥</text>
+            </view>
+        </block>
+
+        <block wx:else>
+            <view class="vip-total">月销量 {{item.buyNum}}</view>
+
+            <view class="vip-total">总销量 {{item.volume}}</view>
+
+            <view class="con-bom">
+                <text class="vip-one">原价 {{item.price_before}}</text>
+                <view class="vip-fiv">
+                    <text class="fiv-two">{{item.vip_name}}：</text>
+                    <text class="fiv-one">¥{{item.vip_price}}</text>
+                </view>
+                <text class="vip-two">{{item.price_after}}</text>
+                <text class="vip-thr">¥</text>
+                <text class="vip-for">{{item.after_name}}：</text>
+                
+            </view>
+        </block>
+
+    </view>
+
+            
+
+
+</view>
+<include src="../../public/foot.wxml"/>

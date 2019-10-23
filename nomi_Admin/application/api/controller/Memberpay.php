@@ -3,7 +3,6 @@ namespace app\api\controller;
 use app\common\config\MemberAllot;
 use think\exception\HttpResponseException;
 use think\facade\Request;
-use think\facade\Cache;
 use think\Response;
 use lib\WeixinPay;
 use Log;
@@ -120,8 +119,6 @@ class Memberpay {
         	->find();
 
         MemberAllot::moneyReturn($memberpay, $total_fee, $userLevel, $secondUser, $oneUser, $dataUser);
-
-        Cache::set('userLevel', null);
 
         echo '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
 		exit();	

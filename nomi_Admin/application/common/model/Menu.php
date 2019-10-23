@@ -185,7 +185,7 @@ class Menu extends Common {
 				$authMenu = array();
 			}
 		}
-
+		
 		// 处理菜单树
 		$menuLists = array();
 		foreach($authMenu as $keyTop => $valTop){
@@ -213,7 +213,7 @@ class Menu extends Common {
 			}
 
 		}
-		
+
 		if (empty($menuLists)) {
 			return false;
 		}
@@ -221,7 +221,7 @@ class Menu extends Common {
 			$tmp[$k] = $v['sort'];
 		}
 		array_multisort($tmp, SORT_ASC, $menuLists);
-		
+
 		return $menuLists;
 	}
 	

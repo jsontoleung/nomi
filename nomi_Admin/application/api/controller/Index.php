@@ -76,8 +76,9 @@ class Index extends Apibase
             }
 
             // 广告图
-            $adver = model('setting')->where(['name' => 'ADVER_PHOTO'])->value('values');
-            $adver = URL_PATH.$adver;
+            // $adver = model('setting')->where(['name' => 'ADVER_PHOTO'])->value('values');
+            // $adver = URL_PATH.$adver;
+            $adver = '';
 
             Cache::set('homeIndex', $lists, 3600);
             Cache::set('homeAdver', $adver, 3600);
